@@ -41,6 +41,11 @@ IGNORED_DIRS = {
     "venv",
 }
 
+IGNORED_FILES = {
+    "package-lock.json",
+    "yarn.lock",
+}
+
 # Patrones prohibidos que soplan la clasificación a los modelos LLM o escáneres
 FORBIDDEN_PATTERNS = [
     (re.compile(r"(?i)\bvulnerab\w*"), "Palabra clave 'vulnerab*'"),
@@ -84,6 +89,8 @@ def lint_target_tree(target_dir: Path) -> Tuple[int, List[str]]:
 
     for p in sorted(target_dir.rglob("*")):
         if any(ign in p.parts for ign in IGNORED_DIRS):
+            continue
+        if p.name in IGNORED_FILES:
             continue
 
         # Validar nombres de directorios y archivos

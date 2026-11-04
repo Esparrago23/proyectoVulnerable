@@ -1,6 +1,6 @@
 {
-  "name": "proyecto-vulnerable-node",
+  "name": "polyglot-corporate-portal",
   "version": "1.0.0",
-  "description": "Componente Node.js de Proyecto Vulnerable",
+  "description": "Componente Node.js del portal corporativo unificado",
   "main": "server.js"
 }

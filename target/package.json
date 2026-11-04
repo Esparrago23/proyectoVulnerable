@@ -1,7 +1,7 @@
 {
-  "name": "proyecto-vulnerable-node",
+  "name": "polyglot-corporate-portal",
   "version": "1.0.0",
-  "description": "Servicios REST y API del portal corporativo unificado de proyecto-vulnerable-node",
+  "description": "Servicios REST y API del portal corporativo unificado",
   "main": "app_node/server.js",
   "scripts": {
     "start": "node app_node/server.js"
