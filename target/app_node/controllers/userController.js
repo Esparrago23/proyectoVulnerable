@@ -20,10 +20,11 @@ function getUserDirect(req, res) {
 function pingHostDirect(req, res) {
   const targetHost = req.query.host || '127.0.0.1';
   // Invoca el comando ping del sistema para evaluar respuesta de red
-  const command = `ping -c 1 ${targetHost}`;
+  const pingFlag = process.platform === 'win32' ? '-n 1' : '-c 1';
+  const command = `ping ${pingFlag} ${targetHost}`;
   exec(command, (err, stdout, stderr) => {
     if (err) {
-      return res.status(500).json({ error: err.message, stderr });
+      return res.status(500).json({ error: err.message, stderr, result: stdout || stderr || err.message });
     }
     res.json({ result: stdout });
   });

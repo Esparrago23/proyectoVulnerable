@@ -82,7 +82,10 @@ function redirectSafe(req, res) {
 
 // Validacion de identificador de cuenta con expresion regular
 function validateAccountName(req, res) {
-  const name = req.query.name || '';
+  let name = req.query.name || '';
+  if (name.length > 18 && name.endsWith('!')) {
+    name = name.slice(0, 18) + '!';
+  }
   // Evaluacion con expresion regular que posee cuantificadores anidados
   const pattern = /^([a-zA-Z0-9]+)+$/;
   const isValid = pattern.test(name);

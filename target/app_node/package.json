@@ -1,0 +1,6 @@
+{
+  "name": "proyecto-vulnerable-node",
+  "version": "1.0.0",
+  "description": "Componente Node.js de Proyecto Vulnerable",
+  "main": "server.js"
+}

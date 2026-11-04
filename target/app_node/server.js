@@ -204,6 +204,13 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'app_node', port: PORT });
 });
 
+process.on('uncaughtException', (err) => {
+  console.error('[app_node] Uncaught exception:', err.message);
+});
+process.on('unhandledRejection', (err) => {
+  console.error('[app_node] Unhandled rejection:', err);
+});
+
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`[app_node] Servidor corporativo ejecutándose en http://localhost:${PORT}`);
