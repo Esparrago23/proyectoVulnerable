@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal Privado - Acreditación Documental</title>
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <style>
+    body { font-family: sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); width: 380px; }
+    h2 { margin-top: 0; color: #1e293b; font-size: 1.35rem; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; background: #7c3aed; color: #fff; margin-bottom: 0.75rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; margin-bottom: 0.35rem; font-size: 0.875rem; color: #475569; font-weight: 500; }
+    input[type="file"] { width: 100%; box-sizing: border-box; padding: 0.5rem; border: 2px dashed #cbd5e1; border-radius: 6px; background: #f8fafc; font-size: 0.85rem; }
+    button { width: 100%; padding: 0.65rem; background: #2563eb; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    .error { color: #dc2626; font-size: 0.85rem; margin-bottom: 1rem; }
+    .doc-info { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 10px; font-size: 0.8rem; color: #1e40af; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">BARRERA 4 DE 4: ACREDITACIÓN DOCUMENTAL</span>
+    <h2>Certificado Corporativo</h2>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    <div class="doc-info">
+      Para completar la autorización a la red privada, adjunte su certificado digital emitido (.cer, .pem, .pdf o .txt con firma ORCA-CERT-2026).
+    </div>
+    <form method="POST" action="/verify-doc" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <div class="form-group">
+        <label for="accreditation_doc">Archivo de Certificado / Documento</label>
+        <input type="file" id="accreditation_doc" name="accreditation_doc" accept=".pdf,.cer,.pem,.txt,.json" required>
+      </div>
+      <button type="submit" id="verify-doc-btn">Adjuntar y Finalizar Acceso</button>
+    </form>
+  </div>
+</body>
+</html>

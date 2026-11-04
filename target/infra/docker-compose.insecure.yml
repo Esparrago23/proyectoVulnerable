@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app_backend:
+    image: python:latest
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/app
+    ports:
+      - "0.0.0.0:6379:6379"
+      - "0.0.0.0:5001:5001"
+    environment:
+      - NODE_ENV=development

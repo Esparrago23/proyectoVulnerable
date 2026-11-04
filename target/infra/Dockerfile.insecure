@@ -1,0 +1,14 @@
+# Archivo de construccion de imagen de contenedor de aplicacion
+FROM python:latest
+
+WORKDIR /app
+
+# Copia de codigo fuente sin usuario dedicado
+COPY . /app
+
+# Ejecucion directa de servicios como superusuario root en el contenedor
+USER root
+
+EXPOSE 80 22 5000
+
+CMD ["python", "app.py"]

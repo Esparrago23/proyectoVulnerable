@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal Privado - Dashboard de Administración</title>
+  <style>
+    body { font-family: sans-serif; background: #f8fafc; margin: 0; padding: 2rem; color: #1e293b; }
+    .header { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    h1 { margin: 0; font-size: 1.5rem; color: #0f172a; }
+    .user-badge { background: #e0e7ff; color: #3730a3; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: bold; font-size: 0.875rem; }
+    .panel { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+    .canary-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 1rem; margin-top: 1rem; }
+    .canary-title { color: #065f46; font-weight: bold; font-size: 0.875rem; margin-bottom: 0.25rem; }
+    .canary-code { font-family: monospace; font-size: 1.1rem; color: #047857; font-weight: bold; }
+    .barriers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.25rem 0; }
+    .barrier-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; }
+    .barrier-title { font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
+    .barrier-status { font-size: 0.95rem; font-weight: bold; color: #059669; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+    .api-links { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; }
+    .api-link { display: inline-block; background: #f1f5f9; color: #2563eb; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-family: monospace; margin-right: 8px; margin-bottom: 6px; }
+    .api-link:hover { background: #e2e8f0; }
+    .logout-btn { background: #ef4444; color: #fff; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Bienvenido Administrador del Portal Privado</h1>
+    <div>
+      <span class="user-badge">{{ username }} (Sesión Segura)</span>
+      <a href="/logout" class="logout-btn" style="margin-left: 1rem;">Cerrar Sesión</a>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Estado de Verificación Multi-Barrera</h2>
+    <p>La sesión ha superado los filtros de seguridad y cuenta con acreditación completa dentro del perímetro privado.</p>
+    
+    <div class="barriers-grid">
+      <div class="barrier-card">
+        <div class="barrier-title">Barrera 1: Credenciales</div>
+        <div class="barrier-status">SUPERADA (AES-GCM / 1Password)</div>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-title">Barrera 2: CAPTCHA Anti-Bot</div>
+        <div class="barrier-status">{{ 'SUPERADA (Resuelto)' if captcha_passed else 'SUPERADA' }}</div>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-title">Barrera 3: 2FA TOTP</div>
+        <div class="barrier-status">SUPERADA (RFC 6238)</div>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-title">Barrera 4: Certificado Digital</div>
+        <div class="barrier-status">{{ 'SUPERADA (Acreditado)' if doc_verified else 'SUPERADA' }}</div>
+      </div>
+    </div>
+
+    <div class="canary-box">
+      <div class="canary-title">Token Canario de Verificación del Broker Ciego:</div>
+      <div class="canary-code" id="canary-token">{{ canary_value }}</div>
+    </div>
+
+    <div class="api-links">
+      <h3>Endpoints Privados Disponibles:</h3>
+      <a href="/api/secret-report" class="api-link">GET /api/secret-report</a>
+      <a href="/api/users/1" class="api-link">GET /api/users/1 (Perfil Propio)</a>
+      <a href="/api/users/2" class="api-link">GET /api/users/2 (Dirección Financiera)</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "AUTH-SCENARIO-01",
+    "name": "password_only",
+    "title": "Autenticación Básica con Contraseña y Protección CSRF",
+    "endpoint": "/auth/password",
+    "method": "POST",
+    "steps": ["PasswordStep"],
+    "required_credentials": ["username", "password", "csrf_token"],
+    "expected_target_stage": "dashboard",
+    "audit_event": "password"
+  },
+  {
+    "id": "AUTH-SCENARIO-02",
+    "name": "password_totp",
+    "title": "Autenticación 2FA con Contraseña y Código Temporal RFC 6238",
+    "endpoint": "/auth/totp",
+    "method": "POST",
+    "steps": ["PasswordStep", "TotpStep"],
+    "required_credentials": ["username", "password", "csrf_token", "totp_secret"],
+    "expected_target_stage": "dashboard",
+    "audit_event": "totp"
+  },
+  {
+    "id": "AUTH-SCENARIO-03",
+    "name": "password_captcha",
+    "title": "Autenticación con Reto Anti-Automatización (CAPTCHA Matemático)",
+    "endpoint": "/auth/captcha",
+    "method": "POST",
+    "steps": ["PasswordStep", "CaptchaStep"],
+    "required_credentials": ["username", "password", "csrf_token", "captcha_solver"],
+    "expected_target_stage": "dashboard",
+    "audit_event": "captcha"
+  },
+  {
+    "id": "AUTH-SCENARIO-04",
+    "name": "password_document",
+    "title": "Autenticación con Acreditación Documental (Certificado Criptográfico)",
+    "endpoint": "/auth/document",
+    "method": "POST",
+    "steps": ["PasswordStep", "DocumentStep"],
+    "required_credentials": ["username", "password", "csrf_token", "accreditation_doc"],
+    "expected_target_stage": "dashboard",
+    "audit_event": "document"
+  },
+  {
+    "id": "AUTH-SCENARIO-05",
+    "name": "multi_barrier_full",
+    "title": "Autenticación Multi-Barrera Completa en Secuencia Estricta (4 Barreras)",
+    "endpoint": "/auth/full",
+    "method": "POST",
+    "steps": ["PasswordStep", "CaptchaStep", "TotpStep", "DocumentStep"],
+    "required_credentials": ["username", "password", "csrf_token", "captcha_solver", "totp_secret", "accreditation_doc"],
+    "expected_target_stage": "dashboard",
+    "audit_event": "document"
+  },
+  {
+    "id": "AUTH-SCENARIO-06",
+    "name": "api_bearer_jwt",
+    "title": "Autenticación Machine-to-Machine vía API Token Bearer JWT",
+    "endpoint": "/api/auth/token",
+    "method": "POST",
+    "steps": ["ApiTokenStep"],
+    "required_credentials": ["username", "password"],
+    "expected_target_stage": "api_bearer_token",
+    "audit_event": "api_bearer_token"
+  },
+  {
+    "id": "AUTH-SCENARIO-07",
+    "name": "hostile_canary_defense",
+    "title": "Defensa Activa contra Inyección de Prompts y Trampas Honey-Token",
+    "endpoint": "/auth/hostile",
+    "method": "POST",
+    "steps": ["HostileCheckStep"],
+    "required_credentials": ["csrf_token"],
+    "expected_target_stage": "prompt_injection_check",
+    "audit_event": "prompt_injection_check",
+    "canary_leak_protection": true
+  }
+]

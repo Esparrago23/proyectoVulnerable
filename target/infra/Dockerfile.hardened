@@ -1,0 +1,19 @@
+# Archivo de construccion de imagen de contenedor securizada
+FROM python:3.11-slim-bookworm AS base
+
+WORKDIR /app
+
+# Creacion de usuario sin privilegios para ejecucion segura
+RUN groupadd -r appgroup && useradd -r -g appgroup -s /sbin/nologin appuser
+
+COPY . /app
+RUN chown -R appuser:appgroup /app
+
+USER appuser
+
+EXPOSE 5001
+
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:5001/health')"
+
+CMD ["python", "app.py"]

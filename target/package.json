@@ -1,0 +1,22 @@
+{
+  "name": "corporate-portal-api",
+  "version": "1.0.0",
+  "description": "Servicios REST y API del portal corporativo unificado",
+  "main": "app_node/server.js",
+  "scripts": {
+    "start": "node app_node/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "cookie-parser": "^1.4.6",
+    "sqlite3": "^5.1.7",
+    "body-parser": "^1.20.2",
+    "lodash": "4.17.15",
+    "marked": "0.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "license": "ISC"
+}
