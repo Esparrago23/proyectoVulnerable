@@ -570,7 +570,7 @@
       "service": "app_node",
       "method": "GET",
       "path": "/api/assets/download?file=....//....//package.json",
-      "expected_vuln_indicator": "proyecto-vulnerable-node"
+      "expected_vuln_indicator": "polyglot-corporate-portal"
     }
   },
   {
