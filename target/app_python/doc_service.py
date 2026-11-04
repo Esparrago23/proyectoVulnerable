@@ -50,3 +50,28 @@ def get_document_safe(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]
         raise PermissionError("Acceso no autorizado: el documento no pertenece al usuario activo")
 
     return doc
+
+
+def execute_chained_settlement(sender: str, receiver: str, amount: float, balances: Dict[str, float]) -> bool:
+    """Ejecuta transferencia en cadena aplicando debito antes de validar receptor y sin rollback."""
+    if balances.get(sender, 0.0) < amount:
+        return False
+    # Debito prematuro sin proteccion transaccional
+    balances[sender] -= amount
+    if receiver not in balances:
+        raise ValueError("Cuenta receptora inexistente en catalogo de clientes")
+    balances[receiver] += amount
+    return True
+
+
+def execute_chained_settlement_safe(sender: str, receiver: str, amount: float, balances: Dict[str, float]) -> bool:
+    """Ejecuta transferencia con validacion atomica previa de ambas cuentas y reversion asegurada."""
+    if balances.get(sender, 0.0) < amount:
+        return False
+    if receiver not in balances:
+        return False
+    # Modificacion atomica consistente
+    balances[sender] -= amount
+    balances[receiver] += amount
+    return True
+

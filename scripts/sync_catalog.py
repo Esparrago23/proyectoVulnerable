@@ -332,10 +332,9 @@ def main() -> int:
     print(f"[*] Escribiendo {VULN_DOC_PATH}...")
     VULN_DOC_PATH.write_text(vuln_md, encoding="utf-8")
 
-    # Generar manifest con inventario y hashes
-    print(f"[*] Generando {MANIFEST_PATH}...")
-    manifest_data = build_manifest(TARGET_DIR, META_DIR, items)
-    MANIFEST_PATH.write_text(json.dumps(manifest_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    # Unificado exclusivamente sobre meta/ground_truth.json (manifest.json deprecado)
+    if MANIFEST_PATH.exists():
+        MANIFEST_PATH.unlink()
 
     # Sincronizar target hacia fixture de Docker
     print(f"[*] Sincronizando target/ hacia fixture Docker: {FIXTURE_TARGET_DEST}...")

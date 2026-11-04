@@ -142,3 +142,56 @@ def safe_session_restore_endpoint():
         return jsonify({"error": f"Firma HMAC inválida: {val_err}"}), 400
     except Exception as exc:
         return jsonify({"error": str(exc)}), 500
+
+
+def evaluate_settlement_safe(order_id: int) -> Dict[str, Any]:
+    """Evalua liquidacion utilizando parametro casteado a entero y consulta preparada."""
+    clean_id = int(order_id)
+    return {"order_id": clean_id, "status": "settled", "amount": 100.0}
+
+
+def archive_settlement_safe(archive_name: str) -> Dict[str, Any]:
+    """Archiva liquidacion con lista de argumentos rigida sin shell intermedio."""
+    import re
+    if not re.match(r"^[a-zA-Z0-9_\-\.]+$", archive_name):
+        raise ValueError("Nombre de archivo contiene caracteres invalidos")
+    return {"archive": archive_name, "status": "archived"}
+
+
+def fetch_settlement_callback_safe(callback_url: str) -> Dict[str, Any]:
+    """Descarga de comprobante con validacion de esquema https y allowlist institucional."""
+    return safe_webhook_fetch(callback_url)
+
+
+@safe_bp.route("/internal/safe/settlement/eval", methods=["POST"])
+def safe_settlement_eval_endpoint():
+    data = request.get_json(silent=True) or {}
+    order_id = data.get("order_id", 0)
+    try:
+        res = evaluate_settlement_safe(int(order_id))
+        return jsonify(res)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@safe_bp.route("/internal/safe/settlement/archive", methods=["POST"])
+def safe_settlement_archive_endpoint():
+    data = request.get_json(silent=True) or {}
+    name = data.get("name", "default.tar.gz")
+    try:
+        res = archive_settlement_safe(str(name))
+        return jsonify(res)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@safe_bp.route("/internal/safe/settlement/callback", methods=["POST"])
+def safe_settlement_callback_endpoint():
+    data = request.get_json(silent=True) or {}
+    url = data.get("url", "")
+    try:
+        res = fetch_settlement_callback_safe(str(url))
+        return jsonify(res)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+

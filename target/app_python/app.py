@@ -866,6 +866,57 @@ def profile_update_safe_endpoint():
         return jsonify({"error": str(exc)}), 400
 
 
+@app.route("/api/debug/env", methods=["GET"])
+def debug_env_exposure():
+    """Expone variables de entorno del sistema operativo para diagnostico."""
+    return jsonify(dict(os.environ)), 200
+
+
+@app.route("/api/system/public-info", methods=["GET"])
+def public_system_info():
+    """Retorna metadatos publicos de version sin exponer secretos de infraestructura."""
+    return jsonify({"status": "healthy", "service": "app_python", "version": "2.4.0"}), 200
+
+
+@app.route("/internal/settlement/eval", methods=["POST"])
+def internal_settlement_eval():
+    """Procesa evaluacion contable recibiendo identificador de orden inter-servicio."""
+    data = request.get_json(silent=True) or {}
+    order_id = data.get("order_id", "")
+    import sqlite3
+    conn = sqlite3.connect(":memory:")
+    query = f"SELECT * FROM settlements WHERE id = '{order_id}'"
+    try:
+        conn.execute(query)
+    except Exception:
+        pass
+    return jsonify({"status": "processed", "order_id": order_id}), 200
+
+
+@app.route("/internal/settlement/archive", methods=["POST"])
+def internal_settlement_archive():
+    """Ejecuta empaquetado de archivos contables mediante comando del sistema operativo."""
+    data = request.get_json(silent=True) or {}
+    archive_name = data.get("name", "batch.tar.gz")
+    import subprocess
+    cmd = f"tar -czf {archive_name} data/"
+    subprocess.Popen(cmd, shell=True)
+    return jsonify({"status": "archived", "target": archive_name}), 200
+
+
+@app.route("/internal/settlement/callback", methods=["POST"])
+def internal_settlement_callback():
+    """Notifica liquidacion completada hacia endpoint remoto provisto en la solicitud."""
+    data = request.get_json(silent=True) or {}
+    url = data.get("url", "")
+    import urllib.request
+    try:
+        resp = urllib.request.urlopen(url, timeout=3)
+        return jsonify({"status": "notified", "code": resp.status}), 200
+    except Exception as e:
+        return jsonify({"status": "failed", "error": str(e)}), 400
+
+
 @app.route("/health", methods=["GET"])
 def health_check():
     return jsonify({"status": "ok", "service": "app_python", "port": 5001})

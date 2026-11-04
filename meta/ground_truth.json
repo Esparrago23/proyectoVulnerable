@@ -424,6 +424,66 @@
     }
   },
   {
+    "id": "PV-N3-010",
+    "file": "app_python/app.py",
+    "line_start": 882,
+    "line_end": 895,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021 - Injection",
+    "kind": "vuln",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Cross-Service Taint: Inyeccion SQL en liquidacion interna despachada desde Node a Python",
+    "description": "Input recibido en Node despachado a Python /internal/settlement/eval concatenado directamente en SQL.",
+    "expected_static_detectors": [
+      "semgrep",
+      "bandit"
+    ],
+    "expected_agent_detectors": [
+      "specialist_injection",
+      "specialists_ensemble"
+    ],
+    "anchor": "query = f\"SELECT * FROM settlements WHERE id = '{order_id}'\"",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/internal/settlement/eval",
+      "expected_vuln_indicator": "processed"
+    }
+  },
+  {
+    "id": "PV-N3-011",
+    "file": "app_python/app.py",
+    "line_start": 897,
+    "line_end": 906,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021 - Injection",
+    "kind": "vuln",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Cross-Service Taint: Command Injection en ejecucion de archivo comprimido inter-servicio",
+    "description": "Parametro de archivo recibido inter-servicio ejecutado mediante shell=True en subproceso del sistema.",
+    "expected_static_detectors": [
+      "semgrep",
+      "bandit"
+    ],
+    "expected_agent_detectors": [
+      "specialist_injection",
+      "specialists_ensemble"
+    ],
+    "anchor": "subprocess.Popen(cmd, shell=True)",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/internal/settlement/archive",
+      "expected_vuln_indicator": "archived"
+    }
+  },
+  {
     "id": "PV-N4-005",
     "file": "app_node/services/billingService.js",
     "line_start": 28,
@@ -573,6 +633,35 @@
       "path": "/api/upload/file",
       "body": "{\"filename\": \"test.txt\", \"content\": \"sample content\"}",
       "expected_vuln_indicator": "saved"
+    }
+  },
+  {
+    "id": "PV-N2-022",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 30,
+    "line_end": 39,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021 - Broken Access Control",
+    "kind": "vuln",
+    "difficulty_level": 2,
+    "hops": 2,
+    "split": "dev",
+    "language": "javascript",
+    "title": "Modificacion de estado de orden sin verificacion de pertenencia de usuario (IDOR)",
+    "description": "El controlador actualiza el estado de pedidos basandose unicamente en el ID recibido sin validar propietario.",
+    "expected_static_detectors": [
+      "njsscan"
+    ],
+    "expected_agent_detectors": [
+      "specialist_authz_idor",
+      "specialists_ensemble"
+    ],
+    "anchor": "orderStore[orderId].status = newStatus;",
+    "dynamic_probe": {
+      "service": "app_node",
+      "method": "POST",
+      "path": "/api/orders/102/status",
+      "expected_vuln_indicator": "completed"
     }
   },
   {
@@ -797,6 +886,87 @@
     }
   },
   {
+    "id": "PV-N4-009",
+    "file": "app_python/tasks/coupon_service.py",
+    "line_start": 65,
+    "line_end": 70,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021 - Insecure Design",
+    "kind": "vuln",
+    "difficulty_level": 4,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Falla de Logica de Negocio: Arbitraje de redondeo en conversion de saldo de billetera",
+    "description": "Truncamiento de decimales intermedios en conversiones bidireccionales que permite acumulacion de centavos.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [
+      "specialist_business_logic",
+      "specialists_ensemble"
+    ],
+    "anchor": "step1 = int(amount * rate_a * 100) / 100.0",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/api/wallet/convert",
+      "expected_vuln_indicator": "arbitrage"
+    }
+  },
+  {
+    "id": "PV-N4-010",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 57,
+    "line_end": 71,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021 - Insecure Design",
+    "kind": "vuln",
+    "difficulty_level": 4,
+    "hops": 4,
+    "split": "dev",
+    "language": "javascript",
+    "title": "Falla de Logica de Negocio: Condicion de carrera TOCTOU en aplicacion concurrente de cupon",
+    "description": "Comprobacion de limite de uso separada temporalmente del incremento permitiendo multiples canjes simultaneos.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [
+      "specialist_business_logic",
+      "specialists_ensemble"
+    ],
+    "anchor": "if (coupon.used >= coupon.limit) {",
+    "dynamic_probe": {
+      "service": "app_node",
+      "method": "POST",
+      "path": "/api/orders/coupon/race",
+      "expected_vuln_indicator": "discountApplied"
+    }
+  },
+  {
+    "id": "PV-N4-011",
+    "file": "app_python/doc_service.py",
+    "line_start": 55,
+    "line_end": 65,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021 - Insecure Design",
+    "kind": "vuln",
+    "difficulty_level": 4,
+    "hops": 4,
+    "split": "dev",
+    "language": "python",
+    "title": "Falla de Logica de Negocio: Sobregiro en transferencias encadenadas por debito previo a validacion",
+    "description": "Debito aplicado antes de verificar la cuenta destino, fallando en revertir el saldo ante excepciones.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [
+      "specialist_business_logic",
+      "specialists_ensemble"
+    ],
+    "anchor": "balances[sender] -= amount",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/api/wallet/chain-settle",
+      "expected_vuln_indicator": "overdraw"
+    }
+  },
+  {
     "id": "PV-N1-004",
     "file": "app_python/config.py",
     "line_start": 3,
@@ -946,6 +1116,36 @@
       "method": "GET",
       "path": "/api/token/csrf",
       "expected_vuln_indicator": "csrf_"
+    }
+  },
+  {
+    "id": "PV-N1-014",
+    "file": "app_python/crypto_util.py",
+    "line_start": 47,
+    "line_end": 50,
+    "cwe": "CWE-328",
+    "owasp": "A02:2021 - Cryptographic Failures",
+    "kind": "vuln",
+    "difficulty_level": 1,
+    "hops": 1,
+    "split": "dev",
+    "language": "python",
+    "title": "Uso de algoritmo de hash debil MD5 para verificacion de integridad",
+    "description": "Generacion de hashes MD5 susceptibles a colisiones criptograficas para verificacion de paquetes.",
+    "expected_static_detectors": [
+      "semgrep",
+      "bandit"
+    ],
+    "expected_agent_detectors": [
+      "specialist_auth_secrets",
+      "specialists_ensemble"
+    ],
+    "anchor": "hashlib.md5(data.encode(\"utf-8\")).hexdigest()",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/api/crypto/checksum",
+      "expected_vuln_indicator": "md5"
     }
   },
   {
@@ -1249,6 +1449,35 @@
     }
   },
   {
+    "id": "PV-N3-012",
+    "file": "app_python/app.py",
+    "line_start": 908,
+    "line_end": 919,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021 - Server-Side Request Forgery",
+    "kind": "vuln",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Cross-Service Taint: SSRF en descarga de comprobante remoto originado en cliente Node",
+    "description": "URL proporcionada en solicitud inter-servicio conectada directamente con urllib sin validacion de IP privada.",
+    "expected_static_detectors": [
+      "bandit"
+    ],
+    "expected_agent_detectors": [
+      "specialist_ssrf",
+      "specialists_ensemble"
+    ],
+    "anchor": "resp = urllib.request.urlopen(url, timeout=3)",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/internal/settlement/callback",
+      "expected_vuln_indicator": "notified"
+    }
+  },
+  {
     "id": "PV-N4-003",
     "file": "app_python/tasks/worker.py",
     "line_start": 29,
@@ -1417,6 +1646,36 @@
       "method": "STATIC",
       "path": "infra/docker-compose.insecure.yml",
       "expected_vuln_indicator": "privileged: true"
+    }
+  },
+  {
+    "id": "PV-N1-015",
+    "file": "app_python/app.py",
+    "line_start": 870,
+    "line_end": 874,
+    "cwe": "CWE-200",
+    "owasp": "A05:2021 - Security Misconfiguration",
+    "kind": "vuln",
+    "difficulty_level": 1,
+    "hops": 1,
+    "split": "dev",
+    "language": "python",
+    "title": "Exposicion de variables de entorno del sistema en endpoint de depuracion",
+    "description": "El endpoint /api/debug/env retorna todas las variables de entorno incluyendo claves secretas.",
+    "expected_static_detectors": [
+      "semgrep",
+      "bandit"
+    ],
+    "expected_agent_detectors": [
+      "controls_auditor",
+      "specialists_ensemble"
+    ],
+    "anchor": "return jsonify(dict(os.environ)), 200",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "GET",
+      "path": "/api/debug/env",
+      "expected_vuln_indicator": "PATH"
     }
   },
   {
@@ -2755,6 +3014,276 @@
       "method": "GET",
       "path": "/api/safe/reports",
       "expected_vuln_indicator": "Access-Control-Allow-Origin"
+    }
+  },
+  {
+    "id": "PV-TRAP-050",
+    "file": "app_python/crypto_util.py",
+    "line_start": 52,
+    "line_end": 55,
+    "cwe": "CWE-328",
+    "owasp": "A02:2021 - Cryptographic Failures",
+    "kind": "trap",
+    "difficulty_level": 1,
+    "hops": 1,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Clave de cache no criptografica calculada con funcion segura SHA-256",
+    "description": "Generacion de clave de cache indexada usando algoritmo seguro sin uso criptografico de hash roto.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "hashlib.sha256(data.encode(\"utf-8\")).hexdigest()",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "GET",
+      "path": "/api/cache/key",
+      "expected_vuln_indicator": "cache"
+    }
+  },
+  {
+    "id": "PV-TRAP-051",
+    "file": "app_python/app.py",
+    "line_start": 876,
+    "line_end": 880,
+    "cwe": "CWE-200",
+    "owasp": "A05:2021 - Security Misconfiguration",
+    "kind": "trap",
+    "difficulty_level": 1,
+    "hops": 1,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Endpoint de estado que retorna unicamente version publica sin secretos",
+    "description": "El endpoint /api/system/public-info responde exclusivamente version semantica publica aprobada.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "\"version\": \"2.4.0\"",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "GET",
+      "path": "/api/system/public-info",
+      "expected_vuln_indicator": "2.4.0"
+    }
+  },
+  {
+    "id": "PV-TRAP-052",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 41,
+    "line_end": 55,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021 - Broken Access Control",
+    "kind": "trap",
+    "difficulty_level": 2,
+    "hops": 2,
+    "split": "dev",
+    "language": "javascript",
+    "title": "Trampa FP: Modificacion de orden con validacion estricta de sesion y propietario",
+    "description": "Verificacion previa de req.session.userId contra el propietario registrado de la orden antes de mutar.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "if (order.ownerId !== currentUser) {",
+    "dynamic_probe": {
+      "service": "app_node",
+      "method": "POST",
+      "path": "/api/safe/orders/101/status",
+      "expected_vuln_indicator": "success"
+    }
+  },
+  {
+    "id": "PV-TRAP-053",
+    "file": "app_python/safe_handlers.py",
+    "line_start": 147,
+    "line_end": 151,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021 - Injection",
+    "kind": "trap",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Cross-Service evaluacion de liquidacion con casteo estricto a entero en Python",
+    "description": "El parametro recibido inter-servicio se convierte estrictamente con int() antes de cualquier operacion.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "clean_id = int(order_id)",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/internal/safe/settlement/eval",
+      "expected_vuln_indicator": "settled"
+    }
+  },
+  {
+    "id": "PV-TRAP-054",
+    "file": "app_python/safe_handlers.py",
+    "line_start": 153,
+    "line_end": 159,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021 - Injection",
+    "kind": "trap",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Cross-Service archivo contable con validacion regex de caracteres alfanumericos",
+    "description": "Validacion regex previa con rechazo de cualquier metacaracter antes de empaquetar.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "if not re.match(r\"^[a-zA-Z0-9_\\-\\.]+$\", archive_name):",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/internal/safe/settlement/archive",
+      "expected_vuln_indicator": "archived"
+    }
+  },
+  {
+    "id": "PV-TRAP-055",
+    "file": "app_python/safe_handlers.py",
+    "line_start": 161,
+    "line_end": 164,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021 - Server-Side Request Forgery",
+    "kind": "trap",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Cross-Service callback con validacion de allowlist y resolucion de IP privada",
+    "description": "Invocacion delegada hacia safe_webhook_fetch con filtrado exhaustivo de RFC 1918 y dominios autorizados.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "return safe_webhook_fetch(callback_url)",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/internal/safe/settlement/callback",
+      "expected_vuln_indicator": "URL rechazada"
+    }
+  },
+  {
+    "id": "PV-TRAP-056",
+    "file": "app_node/services/internalServiceClient.js",
+    "line_start": 24,
+    "line_end": 49,
+    "cwe": "CWE-345",
+    "owasp": "A07:2021 - Identification and Authentication Failures",
+    "kind": "trap",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "javascript",
+    "title": "Trampa FP: Comunicacion inter-servicio protegida con firma HMAC y verificacion de vigencia temporal",
+    "description": "Firma SHA-256 de carga util con marca temporal que neutraliza peticiones manipuladas o retransmitidas.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "crypto.createHmac('sha256', internalSecret || 'default_sec')",
+    "dynamic_probe": {
+      "service": "app_node",
+      "method": "GET",
+      "path": "/api/tasks/webhook?action=audit_sync",
+      "expected_vuln_indicator": "status"
+    }
+  },
+  {
+    "id": "PV-TRAP-057",
+    "file": "app_python/jwt_service.py",
+    "line_start": 24,
+    "line_end": 34,
+    "cwe": "CWE-347",
+    "owasp": "A07:2021 - Identification and Authentication Failures",
+    "kind": "trap",
+    "difficulty_level": 3,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Verificacion de JWT fijando algoritmo asimetrico RS256 y trust store local",
+    "description": "El analizador de tokens rechaza cabeceras simetricas o nulas y exige firma asimetrica contra emisor confiable.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [],
+    "anchor": "algorithms=[\"RS256\"]",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/api/safe/jwt/decode",
+      "expected_vuln_indicator": "claims"
+    }
+  },
+  {
+    "id": "PV-TRAP-058",
+    "file": "app_python/tasks/coupon_service.py",
+    "line_start": 72,
+    "line_end": 80,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021 - Insecure Design",
+    "kind": "trap",
+    "difficulty_level": 4,
+    "hops": 3,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Conversion de divisas con precision decimal exacta y redondeo bancario",
+    "description": "Uso del modulo Decimal con ROUND_HALF_EVEN que neutraliza cualquier arbitraje de fracciones monetarias.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [
+      "specialist_business_logic"
+    ],
+    "anchor": "d_amount = Decimal(str(amount))",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/api/safe/wallet/convert",
+      "expected_vuln_indicator": "exact"
+    }
+  },
+  {
+    "id": "PV-TRAP-059",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 73,
+    "line_end": 93,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021 - Insecure Design",
+    "kind": "trap",
+    "difficulty_level": 4,
+    "hops": 4,
+    "split": "dev",
+    "language": "javascript",
+    "title": "Trampa FP: Aplicacion de cupon protegida con bloqueo mutex atomico contra carreras",
+    "description": "El cerrojo isCouponLocked serializa las solicitudes concurrentes impidiendo canjes duplicados.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [
+      "specialist_business_logic"
+    ],
+    "anchor": "isCouponLocked = true;",
+    "dynamic_probe": {
+      "service": "app_node",
+      "method": "POST",
+      "path": "/api/safe/orders/coupon/atomic",
+      "expected_vuln_indicator": "Operacion en curso"
+    }
+  },
+  {
+    "id": "PV-TRAP-060",
+    "file": "app_python/doc_service.py",
+    "line_start": 67,
+    "line_end": 76,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021 - Insecure Design",
+    "kind": "trap",
+    "difficulty_level": 4,
+    "hops": 4,
+    "split": "dev",
+    "language": "python",
+    "title": "Trampa FP: Transferencia encadenada con verificacion atomica previa de ambas cuentas",
+    "description": "Validacion previa de precondiciones en emisor y receptor antes de mutar los saldos en el libro contable.",
+    "expected_static_detectors": [],
+    "expected_agent_detectors": [
+      "specialist_business_logic"
+    ],
+    "anchor": "if receiver not in balances:",
+    "dynamic_probe": {
+      "service": "app_python",
+      "method": "POST",
+      "path": "/api/safe/wallet/chain-settle",
+      "expected_vuln_indicator": "settled"
     }
   }
 ]

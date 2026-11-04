@@ -60,3 +60,21 @@ def apply_coupon_discount_safe(user_id: str, coupon_code: str, total_amount: flo
 
         REDEEMED_COUPONS.add(redemption_key)
         return True, final_amount, f"Descuento de {int(rate * 100)}% aplicado con exito"
+
+
+def convert_balance_arbitrage(amount: float, rate_a: float, rate_b: float) -> float:
+    """Calcula conversion de saldo truncando decimales sin proteccion de redondeo simetrico."""
+    step1 = int(amount * rate_a * 100) / 100.0
+    step2 = int(step1 * rate_b * 100) / 100.0
+    return float(step2)
+
+
+def convert_balance_safe(amount: float, rate_a: float, rate_b: float) -> float:
+    """Calcula conversion de saldo empleando precision decimal exacta y redondeo bancario."""
+    from decimal import Decimal, ROUND_HALF_EVEN
+    d_amount = Decimal(str(amount))
+    d_rate_a = Decimal(str(rate_a))
+    d_rate_b = Decimal(str(rate_b))
+    result = (d_amount * d_rate_a * d_rate_b).quantize(Decimal("0.01"), rounding=ROUND_HALF_EVEN)
+    return float(result)
+

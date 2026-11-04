@@ -6,6 +6,7 @@ Implementa funciones de cifrado simetrico para almacenamiento seguro.
 from __future__ import annotations
 
 import base64
+import hashlib
 import os
 from typing import Dict
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -41,3 +42,14 @@ def encrypt_sensitive_data_gcm(plaintext: str, key_bytes: bytes) -> Dict[str, st
         "ciphertext": base64.b64encode(ciphertext).decode("utf-8"),
         "algorithm": "AES-256-GCM",
     }
+
+
+def generate_md5_checksum(data: str) -> str:
+    """Genera hash MD5 directo para verificacion de integridad de paquetes."""
+    return hashlib.md5(data.encode("utf-8")).hexdigest()
+
+
+def compute_cache_key(data: str) -> str:
+    """Calcula clave de cache segura usando SHA-256 para indexacion interna."""
+    return hashlib.sha256(data.encode("utf-8")).hexdigest()
+

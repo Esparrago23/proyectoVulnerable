@@ -7,7 +7,7 @@ prueba de concepto dinámica (PoC) y remediación recomendada.
 
 ---
 
-## Matriz Resumen de Casos (100 Casos)
+## Matriz Resumen de Casos (120 Casos)
 
 | ID | Nivel | OWASP | CWE | Archivo | Líneas | Tipo | Título |
 | :--- | :---: | :--- | :--- | :--- | :---: | :---: | :--- |
@@ -25,11 +25,14 @@ prueba de concepto dinámica (PoC) y remediación recomendada.
 | `PV-N3-001` | **L3** | A03:2021 - Injection | `CWE-89` | `app_node/models/dbClient.js` | 34-41 | Vulnerabilidad | SQLi Multi-Salto: controller -> service -> DAO concatenado en queryOrderRaw |
 | `PV-N3-006` | **L3** | A03:2021 - Injection | `CWE-1336` | `app_node/controllers/templateController.js` | 9-21 | Vulnerabilidad | Inyección de Plantillas del Servidor (SSTI) en Node.js vía new Function |
 | `PV-N3-008` | **L3** | A03:2021 - Injection | `CWE-89` | `app_node/controllers/reportController.js` | 11-24 | Vulnerabilidad | Inyección SQL Ciega en Cláusula ORDER BY de Reportes Analíticos |
+| `PV-N3-010` | **L3** | A03:2021 - Injection | `CWE-89` | `app_python/app.py` | 882-895 | Vulnerabilidad | Cross-Service Taint: Inyeccion SQL en liquidacion interna despachada desde Node a Python |
+| `PV-N3-011` | **L3** | A03:2021 - Injection | `CWE-78` | `app_python/app.py` | 897-906 | Vulnerabilidad | Cross-Service Taint: Command Injection en ejecucion de archivo comprimido inter-servicio |
 | `PV-N4-005` | **L4** | A03:2021 - Injection | `CWE-89` | `app_node/services/billingService.js` | 28-39 | Vulnerabilidad | Inyección SQL Multi-Salto Profunda (Nivel 4) en Flujo de Facturación Corporativa |
 | `PV-N1-006` | **L1** | A01:2021 - Broken Access Control | `CWE-601` | `app_node/controllers/searchController.js` | 67-71 | Vulnerabilidad | Open URL Redirect sin validación de destino en endpoint de navegación |
 | `PV-N2-002` | **L2** | A01:2021 - Broken Access Control | `CWE-22` | `app_node/controllers/searchController.js` | 28-41 | Vulnerabilidad | Path Traversal con reemplazo no recursivo de ../ en downloadAsset |
 | `PV-N2-017` | **L2** | A01:2021 - Broken Access Control | `CWE-22` | `app_python/archive_extractor.py` | 14-23 | Vulnerabilidad | Extracción Arbitraria de Archivos en Descompresión de Archivos ZIP (Zip Slip) |
 | `PV-N2-020` | **L2** | A01:2021 - Broken Access Control | `CWE-22` | `app_node/controllers/uploadController.js` | 14-27 | Vulnerabilidad | Salto de Directorio en Carga de Archivos Adjuntos (Path Traversal in Upload) |
+| `PV-N2-022` | **L2** | A01:2021 - Broken Access Control | `CWE-639` | `app_node/controllers/orderController.js` | 30-39 | Vulnerabilidad | Modificacion de estado de orden sin verificacion de pertenencia de usuario (IDOR) |
 | `PV-N3-003` | **L3** | A01:2021 - Broken Access Control | `CWE-269` | `app_node/services/roleService.js` | 13-26 | Vulnerabilidad | Escalación de Privilegios Multi-Salto por Merge de Propiedades en roleService |
 | `PV-N3-004` | **L3** | A01:2021 - Broken Access Control | `CWE-639` | `app_python/doc_service.py` | 35-40 | Vulnerabilidad | IDOR en servicio de consulta y descarga de comprobantes documentales |
 | `PV-N3-009` | **L3** | A01:2021 - Broken Access Control | `CWE-915` | `app_python/profile_service.py` | 14-24 | Vulnerabilidad | Asignación Masiva de Atributos Privilegiados en Perfil de Usuario |
@@ -38,11 +41,15 @@ prueba de concepto dinámica (PoC) y remediación recomendada.
 | `PV-N4-006` | **L4** | A04:2021 - Insecure Design | `CWE-362` | `app_python/tasks/coupon_service.py` | 21-39 | Vulnerabilidad | Condición de Carrera en Aplicación de Cupones de Descuento (Business Logic Flaw) |
 | `PV-N4-007` | **L4** | A04:2021 - Insecure Design | `CWE-1284` | `app_node/controllers/cartController.js` | 15-30 | Vulnerabilidad | Manipulación Lógica de Importe de Carrito por Cantidades Negativas |
 | `PV-N4-008` | **L4** | A04:2021 - Insecure Design | `CWE-367` | `app_python/tasks/inventory_service.py` | 21-37 | Vulnerabilidad | Condición de Carrera Tiempo-de-Comprobación a Tiempo-de-Uso (TOCTOU) en Inventario |
+| `PV-N4-009` | **L4** | A04:2021 - Insecure Design | `CWE-840` | `app_python/tasks/coupon_service.py` | 65-70 | Vulnerabilidad | Falla de Logica de Negocio: Arbitraje de redondeo en conversion de saldo de billetera |
+| `PV-N4-010` | **L4** | A04:2021 - Insecure Design | `CWE-362` | `app_node/controllers/orderController.js` | 57-71 | Vulnerabilidad | Falla de Logica de Negocio: Condicion de carrera TOCTOU en aplicacion concurrente de cupon |
+| `PV-N4-011` | **L4** | A04:2021 - Insecure Design | `CWE-840` | `app_python/doc_service.py` | 55-65 | Vulnerabilidad | Falla de Logica de Negocio: Sobregiro en transferencias encadenadas por debito previo a validacion |
 | `PV-N1-004` | **L1** | A07:2021 - Identification and Authentication Failures | `CWE-798` | `app_python/config.py` | 3-6 | Vulnerabilidad | Claves de API de AWS hardcodeadas en texto plano |
 | `PV-N1-005` | **L1** | A02:2021 - Cryptographic Failures | `CWE-321` | `app_python/config.py` | 11-16 | Vulnerabilidad | Clave privada RSA PEM sin cifrar embebida en código fuente |
 | `PV-N1-007` | **L1** | A02:2021 - Cryptographic Failures | `CWE-327` | `app_python/token_service.py` | 14-21 | Vulnerabilidad | Uso de algoritmo criptográfico débil (MD5) para generación de tokens de API |
 | `PV-N1-008` | **L1** | A05:2021 - Security Misconfiguration | `CWE-377` | `app_python/tasks/export_task.py` | 14-22 | Vulnerabilidad | Creación insegura de archivos temporales con nombre estático y permisos predeterminados |
 | `PV-N1-013` | **L1** | A02:2021 - Cryptographic Failures | `CWE-338` | `app_node/services/tokenUtil.js` | 11-17 | Vulnerabilidad | Generación de Tokens de Seguridad con Generador Pseudoaleatorio Débil (Math.random) |
+| `PV-N1-014` | **L1** | A02:2021 - Cryptographic Failures | `CWE-328` | `app_python/crypto_util.py` | 47-50 | Vulnerabilidad | Uso de algoritmo de hash debil MD5 para verificacion de integridad |
 | `PV-N2-010` | **L2** | A07:2021 - Identification and Authentication Failures | `CWE-347` | `app_python/jwt_service.py` | 14-21 | Vulnerabilidad | Bypass de Firma Criptográfica en Verificación de Tokens JWT |
 | `PV-N2-011` | **L2** | A07:2021 - Identification and Authentication Failures | `CWE-384` | `app_node/controllers/sessionController.js` | 9-23 | Vulnerabilidad | Fijación de Sesión por Omisión de Regeneración de Identificador |
 | `PV-N2-012` | **L2** | A02:2021 - Cryptographic Failures | `CWE-330` | `app_python/auth_service.py` | 49-57 | Vulnerabilidad | Generación de Token de Restablecimiento de Contraseña Predecible |
@@ -53,12 +60,14 @@ prueba de concepto dinámica (PoC) y remediación recomendada.
 | `PV-N3-002` | **L3** | A10:2021 - Server-Side Request Forgery | `CWE-918` | `app_python/tasks/worker.py` | 10-26 | Vulnerabilidad | SSRF Multi-Salto: Webhook en background sin validación de rangos privados |
 | `PV-N3-005` | **L3** | A10:2021 - Server-Side Request Forgery | `CWE-918` | `app_python/ssrf_client.py` | 14-24 | Vulnerabilidad | Falsificación de Peticiones del Servidor (SSRF) en Cliente Webhook Remoto |
 | `PV-N3-007` | **L3** | A10:2021 - Server-Side Request Forgery | `CWE-918` | `app_node/services/internalServiceClient.js` | 11-22 | Vulnerabilidad | Falsificación de Peticiones del Servidor Inter-Servicio (SSRF Multi-Componente) |
+| `PV-N3-012` | **L3** | A10:2021 - Server-Side Request Forgery | `CWE-918` | `app_python/app.py` | 908-919 | Vulnerabilidad | Cross-Service Taint: SSRF en descarga de comprobante remoto originado en cliente Node |
 | `PV-N4-003` | **L4** | A08:2021 - Software and Data Integrity Failures | `CWE-502` | `app_python/tasks/worker.py` | 29-37 | Vulnerabilidad | Deserialización insegura con pickle.loads sobre datos de sesión en base64 |
 | `PV-N1-003` | **L1** | A05:2021 - Security Misconfiguration | `CWE-942` | `app_node/server.js` | 23-28 | Vulnerabilidad | CORS permisivo: Wildcard Origin * con Allow-Credentials true |
 | `PV-N1-009` | **L1** | A06:2021 - Vulnerable and Outdated Components | `CWE-1104` | `requirements.txt` | 1-7 | Vulnerabilidad | Dependencia Vulnerable en Ecosistema Python (PyYAML Deserialization RCE) |
 | `PV-N1-010` | **L1** | A06:2021 - Vulnerable and Outdated Components | `CWE-1104` | `package.json` | 1-22 | Vulnerabilidad | Dependencia de Terceros Vulnerable en Node.js (Lodash Prototype Pollution) |
 | `PV-N1-011` | **L1** | A05:2021 - Security Misconfiguration | `CWE-250` | `infra/Dockerfile.insecure` | 1-14 | Vulnerabilidad | Mala Configuración en Imagen Docker: Ejecución como Superusuario Root |
 | `PV-N1-012` | **L1** | A05:2021 - Security Misconfiguration | `CWE-732` | `infra/docker-compose.insecure.yml` | 1-14 | Vulnerabilidad | Mala Configuración IaC: Contenedor en Modo Privilegiado y Montaje de Docker Socket |
+| `PV-N1-015` | **L1** | A05:2021 - Security Misconfiguration | `CWE-200` | `app_python/app.py` | 870-874 | Vulnerabilidad | Exposicion de variables de entorno del sistema en endpoint de depuracion |
 | `PV-N2-003` | **L2** | A05:2021 - Security Misconfiguration | `CWE-942` | `app_node/server.js` | 31-40 | Vulnerabilidad | CORS con regex permisiva que no ancla fin de cadena en subdominios |
 | `PV-N2-004` | **L2** | A05:2021 - Security Misconfiguration | `CWE-552` | `.env.backup` | 1-5 | Vulnerabilidad | Archivo de backup de entorno con contraseñas y canarios expuestos |
 | `PV-N2-021` | **L2** | A05:2021 - Security Misconfiguration | `CWE-942` | `app_node/server.js` | 65-73 | Vulnerabilidad | Configuración CORS Permisiva con Aceptación de Origen 'null' |
@@ -111,6 +120,17 @@ prueba de concepto dinámica (PoC) y remediación recomendada.
 | `PV-TRAP-047` | **L3** | A01:2021 - Broken Access Control | `CWE-915` | `app_python/profile_service.py` | 27-38 | **Trampa FP** | Trampa de Falso Positivo: Actualización de Perfil con Lista Blanca Estricta de Campos DTO |
 | `PV-TRAP-048` | **L2** | A01:2021 - Broken Access Control | `CWE-22` | `app_node/controllers/uploadController.js` | 29-50 | **Trampa FP** | Trampa de Falso Positivo: Almacenamiento de Archivos con Nombre UUID y Extensión Validada |
 | `PV-TRAP-049` | **L2** | A05:2021 - Security Misconfiguration | `CWE-942` | `app_node/server.js` | 76-83 | **Trampa FP** | Trampa de Falso Positivo: Configuración CORS con Rechazo Explícito de Origen 'null' |
+| `PV-TRAP-050` | **L1** | A02:2021 - Cryptographic Failures | `CWE-328` | `app_python/crypto_util.py` | 52-55 | **Trampa FP** | Trampa FP: Clave de cache no criptografica calculada con funcion segura SHA-256 |
+| `PV-TRAP-051` | **L1** | A05:2021 - Security Misconfiguration | `CWE-200` | `app_python/app.py` | 876-880 | **Trampa FP** | Trampa FP: Endpoint de estado que retorna unicamente version publica sin secretos |
+| `PV-TRAP-052` | **L2** | A01:2021 - Broken Access Control | `CWE-639` | `app_node/controllers/orderController.js` | 41-55 | **Trampa FP** | Trampa FP: Modificacion de orden con validacion estricta de sesion y propietario |
+| `PV-TRAP-053` | **L3** | A03:2021 - Injection | `CWE-89` | `app_python/safe_handlers.py` | 147-151 | **Trampa FP** | Trampa FP: Cross-Service evaluacion de liquidacion con casteo estricto a entero en Python |
+| `PV-TRAP-054` | **L3** | A03:2021 - Injection | `CWE-78` | `app_python/safe_handlers.py` | 153-159 | **Trampa FP** | Trampa FP: Cross-Service archivo contable con validacion regex de caracteres alfanumericos |
+| `PV-TRAP-055` | **L3** | A10:2021 - Server-Side Request Forgery | `CWE-918` | `app_python/safe_handlers.py` | 161-164 | **Trampa FP** | Trampa FP: Cross-Service callback con validacion de allowlist y resolucion de IP privada |
+| `PV-TRAP-056` | **L3** | A07:2021 - Identification and Authentication Failures | `CWE-345` | `app_node/services/internalServiceClient.js` | 24-49 | **Trampa FP** | Trampa FP: Comunicacion inter-servicio protegida con firma HMAC y verificacion de vigencia temporal |
+| `PV-TRAP-057` | **L3** | A07:2021 - Identification and Authentication Failures | `CWE-347` | `app_python/jwt_service.py` | 24-34 | **Trampa FP** | Trampa FP: Verificacion de JWT fijando algoritmo asimetrico RS256 y trust store local |
+| `PV-TRAP-058` | **L4** | A04:2021 - Insecure Design | `CWE-840` | `app_python/tasks/coupon_service.py` | 72-80 | **Trampa FP** | Trampa FP: Conversion de divisas con precision decimal exacta y redondeo bancario |
+| `PV-TRAP-059` | **L4** | A04:2021 - Insecure Design | `CWE-362` | `app_node/controllers/orderController.js` | 73-93 | **Trampa FP** | Trampa FP: Aplicacion de cupon protegida con bloqueo mutex atomico contra carreras |
+| `PV-TRAP-060` | **L4** | A04:2021 - Insecure Design | `CWE-840` | `app_python/doc_service.py` | 67-76 | **Trampa FP** | Trampa FP: Transferencia encadenada con verificacion atomica previa de ambas cuentas |
 
 ---
 
@@ -313,6 +333,20 @@ function queryOrdersByUserId(userId, callback) {
 
 ---
 
+# PV-N3-010: Cross-Service SQL Injection
+
+## Descripcion Tecnica
+Flujo inter-servicio sin sanitizacion cruzada que desemboca en construccion dinamica de SQL.
+
+---
+
+# PV-N3-011: Cross-Service Command Injection
+
+## Descripcion Tecnica
+Paso de argumentos no sanitizados inter-servicio hacia invocacion de shell en el host.
+
+---
+
 # PV-N4-005: SQLi Multi-Salto Profunda (Nivel 4)
 
 ## Descripción Técnica
@@ -368,6 +402,13 @@ if (!resolvedPath.startsWith(safeBase)) {
 
 ## Descripción Técnica
 `handleFileUploadRaw` en `app_node/controllers/uploadController.js` concatena `filename` directamente con `UPLOADS_DIR`, permitiendo que nombres como `../../etc/cron.d/pwn` escapen del directorio designado.
+
+---
+
+# PV-N2-022: IDOR en Estado de Orden
+
+## Descripcion Tecnica
+Falta de verificacion de pertenencia en modificacion de entidad de negocio.
 
 ---
 
@@ -517,6 +558,27 @@ if amount <= 0:
 
 ---
 
+# PV-N4-009: Arbitraje de Redondeo de Moneda
+
+## Descripcion Tecnica
+Error de precision en logica financiera que genera distorsiones de saldo acumulables.
+
+---
+
+# PV-N4-010: Carrera TOCTOU en Cupon
+
+## Descripcion Tecnica
+Ventana de tiempo entre check y use sin transaccion serializada ni cerrojo atomico.
+
+---
+
+# PV-N4-011: Sobregiro en Liquidacion Encadenada
+
+## Descripcion Tecnica
+Modificacion de estado inconsistente ante fallos parciales sin bloque transaccional.
+
+---
+
 # PV-N1-004: Credenciales de AWS Hardcodeadas en Código Fuente
 
 ## Descripción Técnica
@@ -588,6 +650,13 @@ La función `export_report_insecure` en `app_python/tasks/export_task.py` crea a
 
 ## Descripción Técnica
 `generateCsrfTokenInsecure` en `app_node/services/tokenUtil.js` recurre a `Math.random()`, un generador pseudoaleatorio no criptográfico cuyos estados internos pueden ser calculados por un observador externo.
+
+---
+
+# PV-N1-014: Uso de MD5 Debil
+
+## Descripcion Tecnica
+Generacion de digest MD5 para validar integridad sin resistencia a colisiones.
 
 ---
 
@@ -722,6 +791,13 @@ def validate_url(url: str):
 
 ---
 
+# PV-N3-012: Cross-Service SSRF
+
+## Descripcion Tecnica
+Peticion de retorno disparada a destinos arbitrarios controlados por el cliente.
+
+---
+
 # PV-N4-003: Deserialización Insegura con Pickle (RCE)
 
 ## Descripción Técnica
@@ -815,6 +891,13 @@ app.use('/api/public', (req, res, next) => {
 
 ## Descripción Técnica
 `infra/docker-compose.insecure.yml` define `privileged: true` y monta `/var/run/docker.sock`, lo que otorga al contenedor control completo sobre el daemon de Docker del host y capacidad de comprometer el sistema operativo completo.
+
+---
+
+# PV-N1-015: Exposicion de Variables de Entorno
+
+## Descripcion Tecnica
+Fuga de configuracion sensible a traves de endpoint sin autenticacion.
 
 ---
 
@@ -1347,5 +1430,82 @@ Gemelo seguro de `PV-N2-020`. `handleFileUploadSafe` descarta el nombre provisto
 
 ## Descripción Técnica
 Gemelo seguro de `PV-N2-021`. La directiva de CORS para `/api/safe/reports` exige que el origen sea no nulo y coincida exactamente con el portal seguro de la corporación.
+
+---
+
+# PV-TRAP-050: Clave de Cache SHA-256
+
+## Descripcion Tecnica
+Uso valido de funcion de hash SHA-256 para asignacion de claves de almacenamiento rapido.
+
+---
+
+# PV-TRAP-051: Metadatos Publicos de Version
+
+## Descripcion Tecnica
+Exposicion intencional y segura de numero de compilacion para comprobaciones de salud.
+
+---
+
+# PV-TRAP-052: Modificacion Segura de Orden
+
+## Descripcion Tecnica
+Control de acceso por atributo validado en middleware antes del cambio de estado.
+
+---
+
+# PV-TRAP-053: Mitigacion de Inyeccion por Casteo
+
+## Descripcion Tecnica
+El casteo int() neutraliza cualquier intento de escape de caracteres de sintaxis SQL.
+
+---
+
+# PV-TRAP-054: Empaquetado con Regex Estricta
+
+## Descripcion Tecnica
+Allowlist estricta de caracteres que impide metacaracteres de ejecucion de comandos.
+
+---
+
+# PV-TRAP-055: Callback con Guardrail de Red
+
+## Descripcion Tecnica
+Bloqueo de rangos loopback, privados y metadatos de computacion en la nube.
+
+---
+
+# PV-TRAP-056: Firma HMAC Inter-Servicio
+
+## Descripcion Tecnica
+Autenticacion criptografica robusta entre nodos del cluster interno.
+
+---
+
+# PV-TRAP-057: Verificacion Asimetrica de Token
+
+## Descripcion Tecnica
+Fijacion estricta de algoritmo RS256 que mitiga inyeccion de cabeceras JWK o bypass de firma.
+
+---
+
+# PV-TRAP-058: Precision Financiera con Decimal
+
+## Descripcion Tecnica
+Redondeo simetrico que preserva la paridad matematica en toda conversion de divisas.
+
+---
+
+# PV-TRAP-059: Exclusion Mutua en Canje de Cupon
+
+## Descripcion Tecnica
+Bloqueo atomico en memoria que asegura aislamiento de la operacion critica.
+
+---
+
+# PV-TRAP-060: Transferencia con Verificacion Previa
+
+## Descripcion Tecnica
+Garantia de consistencia ACID mediante verificacion completa antes de la aplicacion de cambios.
 
 ---
