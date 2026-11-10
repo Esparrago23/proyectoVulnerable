@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <title>Portal Privado - Dashboard de Administración</title>
   <style>
-    body { font-family: sans-serif; background: #f8fafc; margin: 0; padding: 2rem; color: #1e293b; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f8fafc; margin: 0; padding: 2rem; color: #1e293b; }
     .header { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
     h1 { margin: 0; font-size: 1.5rem; color: #0f172a; }
-    .user-badge { background: #e0e7ff; color: #3730a3; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: bold; font-size: 0.875rem; }
+    .user-badge { background: #e0e7ff; color: #3730a3; padding: 0.35rem 0.85rem; border-radius: 9999px; font-weight: bold; font-size: 0.875rem; }
+    .method-badge { background: #dcfce7; color: #15803d; padding: 0.35rem 0.85rem; border-radius: 9999px; font-weight: bold; font-size: 0.875rem; margin-left: 0.5rem; }
     .panel { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
     .canary-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 1rem; margin-top: 1rem; }
     .canary-title { color: #065f46; font-weight: bold; font-size: 0.875rem; margin-bottom: 0.25rem; }
@@ -16,6 +17,16 @@
     .barrier-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; }
     .barrier-title { font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
     .barrier-status { font-size: 0.95rem; font-weight: bold; color: #059669; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+    .creds-section { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 1rem; margin: 1.25rem 0; }
+    .creds-title { font-weight: bold; font-size: 0.95rem; color: #166534; margin-bottom: 0.5rem; }
+    .creds-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .btn-cred { display: inline-block; padding: 0.45rem 0.85rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; text-decoration: none; color: #fff; }
+    .btn-cred-cert { background: #0284c7; }
+    .btn-cred-cert:hover { background: #0369a1; }
+    .btn-cred-key { background: #4f46e5; }
+    .btn-cred-key:hover { background: #4338ca; }
+    .btn-cred-zip { background: #059669; }
+    .btn-cred-zip:hover { background: #047857; }
     .api-links { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; }
     .api-link { display: inline-block; background: #f1f5f9; color: #2563eb; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-family: monospace; margin-right: 8px; margin-bottom: 6px; }
     .api-link:hover { background: #e2e8f0; }
@@ -24,21 +35,34 @@
 </head>
 <body>
   <div class="header">
-    <h1>Bienvenido Administrador del Portal Privado</h1>
+    <h1>Portal Privado - Sesión Activa</h1>
     <div>
-      <span class="user-badge">{{ username }} (Sesión Segura)</span>
+      <span class="user-badge">{{ username }}</span>
+      <span class="method-badge">Acceso: {{ auth_method|upper if auth_method else 'SESIÓN SEGURA' }}</span>
       <a href="/logout" class="logout-btn" style="margin-left: 1rem;">Cerrar Sesión</a>
     </div>
   </div>
 
   <div class="panel">
-    <h2>Estado de Verificación Multi-Barrera</h2>
+    <h2>Estado de Acreditación del Usuario</h2>
     <p>La sesión ha superado los filtros de seguridad y cuenta con acreditación completa dentro del perímetro privado.</p>
     
+    {% if has_creds %}
+    <div class="creds-section">
+      <div class="creds-title">Archivos de Autenticación Criptográfica para Pruebas Locales:</div>
+      <div>Tienes a tu disposición los archivos generados para pruebas con software local (curl, openssl, python, etc.):</div>
+      <div class="creds-buttons">
+        <a href="/download/cert/{{ username }}" class="btn-cred btn-cred-cert" id="dash-download-cert">📄 Descargar {{ username }}.cert</a>
+        <a href="/download/key/{{ username }}" class="btn-cred btn-cred-key" id="dash-download-key">🔑 Descargar {{ username }}.key</a>
+        <a href="/download/bundle/{{ username }}" class="btn-cred btn-cred-zip" id="dash-download-bundle">📦 Descargar Paquete (.zip)</a>
+      </div>
+    </div>
+    {% endif %}
+
     <div class="barriers-grid">
       <div class="barrier-card">
         <div class="barrier-title">Barrera 1: Credenciales</div>
-        <div class="barrier-status">SUPERADA (AES-GCM / 1Password)</div>
+        <div class="barrier-status">SUPERADA ({{ 'Certificado Digital' if auth_method == 'certificate' else ('Clave Privada' if auth_method == 'key' else 'Contraseña') }})</div>
       </div>
       <div class="barrier-card">
         <div class="barrier-title">Barrera 2: CAPTCHA Anti-Bot</div>

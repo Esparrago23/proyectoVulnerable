@@ -5,39 +5,50 @@
   <title>Portal Privado - Iniciar Sesión</title>
   <meta name="csrf-token" content="{{ csrf_token }}">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-    .container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 680px; }
-    .card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-    h2 { margin-top: 0; color: #1e293b; font-size: 1.25rem; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1.5rem 0; box-sizing: border-box; }
+    .card { background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); width: 380px; max-width: 90%; }
+    h2 { margin-top: 0; color: #0f172a; font-size: 1.45rem; margin-bottom: 0.5rem; }
+    p.subtitle { color: #64748b; font-size: 0.875rem; margin-top: 0; margin-bottom: 1.25rem; }
+    .tabs { display: flex; border-bottom: 2px solid #e2e8f0; margin-bottom: 1.25rem; }
+    .tab-btn { flex: 1; padding: 0.6rem; background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px; font-weight: 600; font-size: 0.85rem; color: #64748b; cursor: pointer; text-align: center; }
+    .tab-btn.active { color: #2563eb; border-bottom-color: #2563eb; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
     .form-group { margin-bottom: 1rem; }
-    label { display: block; margin-bottom: 0.25rem; font-size: 0.875rem; color: #475569; font-weight: 500; }
-    input[type="text"], input[type="password"] { width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95rem; }
-    input[type="text"]:focus, input[type="password"]:focus { outline: none; border-color: #2563eb; ring: 2px rgba(37,99,235,0.2); }
-    button { width: 100%; padding: 0.65rem; background: #2563eb; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
-    button:hover { background: #1d4ed8; }
-    .error { color: #dc2626; font-size: 0.85rem; margin-bottom: 1rem; background: #fee2e2; border: 1px solid #fca5a5; padding: 8px 12px; border-radius: 4px; }
-    .ref-card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-    .ref-title { font-size: 0.95rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .ref-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .ref-table th { background: #f8fafc; color: #475569; text-align: left; padding: 8px 10px; border-bottom: 2px solid #e2e8f0; font-weight: 600; }
-    .ref-table td { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; color: #334155; }
-    .ref-table tr:hover { background: #f8fafc; }
-    .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
-    .badge-simple { background: #e0f2fe; color: #0369a1; }
-    .badge-totp { background: #dcfce7; color: #15803d; }
-    .badge-doc { background: #fef3c7; color: #b45309; }
-    .badge-admin { background: #ede9fe; color: #6d28d9; }
-    .code-val { font-family: monospace; background: #f1f5f9; padding: 2px 5px; border-radius: 3px; font-size: 0.8rem; }
+    label { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; color: #334155; font-weight: 600; }
+    input[type="text"], input[type="password"] { width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
+    input[type="file"] { width: 100%; box-sizing: border-box; padding: 0.5rem; border: 2px dashed #cbd5e1; border-radius: 6px; background: #f8fafc; font-size: 0.85rem; }
+    button.submit-btn { width: 100%; padding: 0.7rem; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
+    button.submit-btn:hover { background: #1d4ed8; }
+    .btn-secondary { background: #0284c7; }
+    .btn-secondary:hover { background: #0369a1; }
+    .error { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; }
+    .links { text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: #64748b; }
+    .links a { color: #2563eb; text-decoration: none; font-weight: 600; }
+    .links a:hover { text-decoration: underline; }
+    .cert-info { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 0.65rem; font-size: 0.8rem; color: #1e40af; margin-bottom: 1rem; }
+    details { margin-top: 0.65rem; font-size: 0.8rem; }
+    summary { color: #475569; cursor: pointer; font-weight: 600; }
+    textarea { width: 100%; height: 75px; box-sizing: border-box; font-family: monospace; font-size: 0.75rem; padding: 0.5rem; margin-top: 0.3rem; border: 1px solid #cbd5e1; border-radius: 4px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <h2>Acceso al Portal Privado</h2>
-      {% if error %}
-        <div class="error">{{ error }}</div>
-      {% endif %}
-      <form method="POST" action="/login">
+  <div class="card">
+    <h2>Acceso al Portal Privado</h2>
+    <p class="subtitle">Selecciona el método de autenticación corporativo.</p>
+
+    {% if error %}
+      <div class="error" id="error-message">{{ error }}</div>
+    {% endif %}
+
+    <div class="tabs">
+      <button type="button" class="tab-btn active" id="tab-password-btn" onclick="switchTab('password')">Contraseña</button>
+      <button type="button" class="tab-btn" id="tab-cert-btn" onclick="switchTab('cert')">Certificado / Llave</button>
+    </div>
+
+    <!-- PESTAÑA 1: Autenticación tradicional por usuario y contraseña -->
+    <div id="tab-password" class="tab-content active">
+      <form method="POST" action="/login" id="login-password-form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <div class="form-group">
           <label for="username">Usuario</label>
@@ -47,49 +58,41 @@
           <label for="password">Contraseña</label>
           <input type="password" id="password" name="password" required autocomplete="current-password">
         </div>
-        <button type="submit" id="login-btn">Continuar</button>
+        <button type="submit" id="login-btn" class="submit-btn">Continuar</button>
       </form>
     </div>
 
-    <div class="ref-card">
-      <div class="ref-title">Referencia Rápida de Cuentas por Capacidad</div>
-      <table class="ref-table">
-        <thead>
-          <tr>
-            <th>Usuario</th>
-            <th>Contraseña</th>
-            <th>Capacidad / Rol</th>
-            <th>Flujo Requerido</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="code-val">operador_simple</span></td>
-            <td><span class="code-val">SimplePass2026!</span></td>
-            <td><span class="badge badge-simple">Simple (1 Barrera)</span></td>
-            <td>Directo a /dashboard</td>
-          </tr>
-          <tr>
-            <td><span class="code-val">analista_2fa</span></td>
-            <td><span class="code-val">MfaPass2026!</span></td>
-            <td><span class="badge badge-totp">2FA TOTP (2 Barreras)</span></td>
-            <td>/mfa (Semilla RFC 6238)</td>
-          </tr>
-          <tr>
-            <td><span class="code-val">auditor_doc</span></td>
-            <td><span class="code-val">DocPass2026!</span></td>
-            <td><span class="badge badge-doc">Acreditación (2 Barreras)</span></td>
-            <td>/verify-doc (Certificado ORCA)</td>
-          </tr>
-          <tr>
-            <td><span class="code-val">admin</span></td>
-            <td><span class="code-val">SuperSecretPassword2026!</span></td>
-            <td><span class="badge badge-admin">Completo (Multi-Barrera)</span></td>
-            <td>Password + CAPTCHA + TOTP + Doc</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- PESTAÑA 2: Autenticación por archivo de Certificado (.cert) o Clave (.key) -->
+    <div id="tab-cert" class="tab-content">
+      <div class="cert-info">
+        Adjunta tu archivo de certificado digital (.cert) o clave privada (.key) generado durante el registro.
+      </div>
+      <form method="POST" action="/login" enctype="multipart/form-data" id="login-cert-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div class="form-group">
+          <label for="cert_file">Archivo .cert o .key</label>
+          <input type="file" id="cert_file" name="cert_file" accept=".cert,.cer,.crt,.pem,.key">
+        </div>
+        <details>
+          <summary>O pegar contenido en texto PEM</summary>
+          <textarea id="cert_text" name="cert_text" placeholder="-----BEGIN CERTIFICATE----- ... ó -----BEGIN PRIVATE KEY----- ..."></textarea>
+        </details>
+        <button type="submit" id="cert-login-btn" class="submit-btn btn-secondary" style="margin-top: 1rem;">Iniciar Sesión con Certificado</button>
+      </form>
+    </div>
+
+    <div class="links">
+      ¿No tienes cuenta? <a href="/register" id="link-register">Regístrate y obtén tus archivos .key y .cert</a>
     </div>
   </div>
+
+  <script>
+    function switchTab(tab) {
+      document.getElementById('tab-password').classList.toggle('active', tab === 'password');
+      document.getElementById('tab-cert').classList.toggle('active', tab === 'cert');
+      document.getElementById('tab-password-btn').classList.toggle('active', tab === 'password');
+      document.getElementById('tab-cert-btn').classList.toggle('active', tab === 'cert');
+    }
+  </script>
 </body>
 </html>
