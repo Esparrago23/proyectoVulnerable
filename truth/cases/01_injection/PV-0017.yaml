@@ -1,0 +1,55 @@
+id: PV-0017
+kind: vuln
+status: verified
+title: Inyección SQL Multi-Salto Profunda (Nivel 4) en Flujo de Facturación Corporativa
+description: Flujo inter-archivo de 4 saltos (Controlador -> Pipeline -> Adaptador
+  -> Repositorio) con interpolación de variables en consulta SQLite.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-89
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 4
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: missing_control
+  file: app_node/services/billingService.js
+  anchor:
+    pattern: SELECT * FROM orders WHERE user_id = '${billingAccount}'
+    symbol: ''
+  lines:
+  - 33
+  - 33
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/billing/charge
+    body:
+      account: admin' OR '1'='1
+      ref: item
+      amount: 100
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0017.py
+  expected_evidence: recorded
+split: test
+provenance:
+  legacy_id: PV-N4-005

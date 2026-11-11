@@ -1,0 +1,54 @@
+id: PV-0086
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Generación Criptográfica Segura de Tokens de Recuperación'
+description: Uso del módulo secrets para emitir tokens CSPRNG de 256 bits inmunes
+  a adivinación temporal.
+taxonomy:
+  owasp_2021: A02:2021
+  owasp_2025: A04:2025
+  cwe_primary: CWE-330
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_python/auth_service.py
+  anchor:
+    pattern: 'with open(REGISTRY_FILE, "w", encoding="utf-8") as f:'
+    symbol: ''
+  lines:
+  - 57
+  - 57
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/auth/reset-token
+    body:
+      username: admin
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0086.py
+  expected_evidence: reset_token
+split: dev
+provenance:
+  legacy_id: PV-TRAP-026
+twin: PV-0042

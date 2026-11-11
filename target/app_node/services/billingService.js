@@ -14,9 +14,9 @@ class PaymentGatewayAdapter {
     this.repo = repo;
   }
 
-  processDirectCharge(billingAccount, invoiceRef, amount) {
+  processCharge(billingAccount, invoiceRef, amount) {
     // Reenvio hacia repositorio de persistencia (Salto 3)
-    return this.repo.recordDirectTransaction(billingAccount, invoiceRef, amount);
+    return this.repo.recordTransaction(billingAccount, invoiceRef, amount);
   }
 
   processSecureCharge(billingAccount, invoiceRef, amount) {
@@ -27,7 +27,7 @@ class PaymentGatewayAdapter {
 
 // Repositorio de base de datos de facturacion (Salto 4)
 class BillingRepository {
-  recordDirectTransaction(billingAccount, invoiceRef, amount) {
+  recordTransaction(billingAccount, invoiceRef, amount) {
     return new Promise((resolve, reject) => {
       // Inyeccion directa en sentencia SQL concatenando identificador de cuenta
       const sql = `SELECT * FROM orders WHERE user_id = '${billingAccount}' AND item = '${invoiceRef}'`;
@@ -55,15 +55,15 @@ const defaultAdapter = new PaymentGatewayAdapter(defaultRepo);
 
 function executeBillingPipeline(account, ref, amount) {
   // Salto 1: Entrada desde controlador
-  return defaultAdapter.processDirectCharge(account, ref, amount);
+  return defaultAdapter.processCharge(account, ref, amount);
 }
 
-function executeBillingPipelineSafe(account, ref, amount) {
+function executeBillingPipelineCatalog(account, ref, amount) {
   // Salto 1: Entrada segura desde controlador
   return defaultAdapter.processSecureCharge(account, ref, amount);
 }
 
 module.exports = {
   executeBillingPipeline,
-  executeBillingPipelineSafe,
+  executeBillingPipelineCatalog,
 };

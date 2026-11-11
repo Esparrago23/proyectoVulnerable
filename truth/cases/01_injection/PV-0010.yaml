@@ -1,0 +1,51 @@
+id: PV-0010
+kind: vuln
+status: verified
+title: Inyección de Expresiones de Código en Filtrado de Colecciones (NoSQL Injection)
+description: Construcción dinámica de funciones de filtro JavaScript a partir de parámetros
+  no saneados del usuario.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-943
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: missing_control
+  file: app_node/controllers/catalogController.js
+  anchor:
+    pattern: new Function('item'
+    symbol: ''
+  lines:
+  - 21
+  - 21
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/catalog/catalog/search?filter=true
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0010.py
+  expected_evidence: Servidor Rack 1U
+split: dev
+provenance:
+  legacy_id: PV-N2-016

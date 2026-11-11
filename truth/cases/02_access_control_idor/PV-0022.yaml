@@ -1,0 +1,54 @@
+id: PV-0022
+kind: vuln
+status: verified
+title: Modificacion de estado de orden sin verificacion de pertenencia de usuario
+  (IDOR)
+description: El controlador actualiza el estado de pedidos basandose unicamente en
+  el ID recibido sin validar propietario.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-639
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: missing_control
+  file: app_node/controllers/orderController.js
+  anchor:
+    pattern: orderStore[orderId].status = newStatus;
+    symbol: ''
+  lines:
+  - 37
+  - 37
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/orders/102/status
+    body:
+      status: completed
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0022.py
+  expected_evidence: completed
+split: dev
+provenance:
+  legacy_id: PV-N2-022

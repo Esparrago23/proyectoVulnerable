@@ -1,0 +1,61 @@
+id: PV-0069
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Actualización de Perfil con Lista Blanca Estricta
+  de Campos (DTO)'
+description: Servicio de perfil que filtra propiedades entrantes contra ALLOWED_MUTABLE_KEYS
+  impidiendo escalación de privilegios.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-915
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: sink
+  file: app_node/services/roleService.js
+  anchor:
+    pattern: ALLOWED_MUTABLE_KEYS = ['display_name', 'bio', 'theme']
+    symbol: ''
+  lines:
+  - 37
+  - 37
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/catalog/users/profile
+    body:
+      userId: 1
+      role: admin
+      display_name: Alice
+    legitimate_body:
+      userId: 1
+      display_name: Alice
+    legitimate_evidence: '"role":"user"'
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0069.py
+  expected_evidence: '"role":"admin"'
+split: dev
+provenance:
+  legacy_id: PV-TRAP-009
+twin: PV-0023

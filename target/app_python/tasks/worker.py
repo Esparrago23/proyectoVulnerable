@@ -70,7 +70,7 @@ def process_wallet_transfer(source_user: str, target_user: str, amount: float) -
     }
 
 
-def process_wallet_transfer_safe(source_user: str, target_user: str, amount: float) -> Dict[str, Any]:
+def process_wallet_transfer_catalog(source_user: str, target_user: str, amount: float) -> Dict[str, Any]:
     """Procesa una transferencia con validacion estricta de monto estrictamente positivo."""
     if amount <= 0:
         raise ValueError("El monto de transferencia debe ser estrictamente positivo")

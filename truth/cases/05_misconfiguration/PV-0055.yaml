@@ -1,0 +1,51 @@
+id: PV-0055
+kind: vuln
+status: verified
+title: 'Mala Configuración en Imagen Docker: Ejecución como Superusuario Root'
+description: Construcción de contenedor ejecutando el proceso bajo privilegios de
+  root y exponiendo puertos innecesarios.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-250
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: infra/Dockerfile.archive
+  anchor:
+    pattern: USER root
+    symbol: ''
+  lines:
+  - 10
+  - 10
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: infra/Dockerfile.insecure
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0055.py
+  expected_evidence: USER root
+split: dev
+provenance:
+  legacy_id: PV-N1-011

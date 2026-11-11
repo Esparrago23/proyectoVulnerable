@@ -1,0 +1,52 @@
+id: PV-0073
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: CORS con Lista Blanca de Orígenes Exacta y Anclada'
+description: Middleware de CORS que valida estrictamente la cabecera Origin contra
+  una lista fija de cadenas exactas.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-942
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_node/server.js
+  anchor:
+    pattern: ALLOWED_EXACT_ORIGINS = ['http://partner.corp.internal'
+    symbol: ''
+  lines:
+  - 58
+  - 58
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/safe/partner
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0073.py
+  expected_evidence: ok
+split: dev
+provenance:
+  legacy_id: PV-TRAP-013
+twin: PV-0058

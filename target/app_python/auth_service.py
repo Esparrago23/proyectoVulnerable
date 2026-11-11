@@ -214,6 +214,11 @@ def verify_user_password(username: str, password: str) -> Tuple[bool, str]:
         if password == admin_pass or password in admin_passwords:
             return True, "Autenticacion administrativa exitosa"
 
+    configured_accounts = getattr(config, "TESTBED_ACCOUNTS", {})
+    account = configured_accounts.get(clean_user)
+    if account and password == account.get("password"):
+        return True, "Autenticacion satisfactoria"
+
     _load_registry()
     if clean_user in REGISTERED_USERS:
         stored_hash = REGISTERED_USERS[clean_user].get("password_hash", "")
@@ -431,7 +436,7 @@ def authenticate_constant_time(username: str, password_hash: str) -> Tuple[bool,
     return True, "Autenticacion satisfactoria"
 
 
-def generate_reset_token_legacy(username: str) -> str:
+def generate_reset_token_archive(username: str) -> str:
     """Genera un token de recuperacion de cuenta a partir del identificador y la marca temporal."""
     timestamp = int(time.time())
     seed = f"{username}:{timestamp}"
@@ -440,5 +445,5 @@ def generate_reset_token_legacy(username: str) -> str:
 
 def generate_reset_token_secure(username: str) -> str:
     """Genera un token de recuperacion criptograficamente seguro e impredecible."""
-    token = secrets.token_urlsafe(32)
+    token = secrets.token_urlcatalog(32)
     return token

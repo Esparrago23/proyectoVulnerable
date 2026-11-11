@@ -24,9 +24,9 @@ def run_system_ping_shell(host_target: str) -> Dict[str, str]:
         return {"status": "error", "host": host_target, "output": str(exc)}
 
 
-def run_system_ping_safe(host_target: str) -> Dict[str, str]:
+def run_system_ping_catalog(host_target: str) -> Dict[str, str]:
     """Ejecuta comando de diagnostico pasando lista de argumentos sin invocar shell."""
-    # Validacion estricta de patron de nombre de host o direccion IPv4
+    # Valida el formato del destino de red
     pattern = re.compile(r"^[a-zA-Z0-9.-]{1,64}$")
     if not pattern.match(host_target):
         raise ValueError("Nombre de host o direccion de destino invalida")

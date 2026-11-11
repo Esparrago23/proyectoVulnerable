@@ -17,37 +17,36 @@ proyectoVulnerable/
 │   ├── package.json            # Dependencias Node.js
 │   ├── requirements.txt        # Dependencias Python
 │   └── README.md               # Documentación neutral de la aplicación corporativa
-├── meta/                       # METADATOS: Ground truth y evaluación (aislado de escaneo)
-│   ├── cases/                  # 22 Fichas modulares en Markdown con YAML frontmatter
-│   ├── auth/                   # Escenarios de autenticación y modos de inicio de sesión
-│   ├── pentest/                # Escenarios de verificación dinámica y pentesting
-│   ├── ground_truth.json       # Ground truth compilado para el motor de matching
-│   ├── VULNERABILITIES.md      # Catálogo técnico de referencia
-│   ├── CHANGELOG.md            # Registro de versiones y adiciones
-│   └── manifest.json           # Hashes SHA-256 para validación de sincronización
+├── truth/                      # Ground truth fuera del árbol analizable
+│   ├── cases/                  # Un YAML por caso, con IDs opacos
+│   ├── schema/                 # JSON Schema y reglas de matching
+│   ├── generated/              # Salidas reproducibles, no editadas a mano
+│   └── scripts/                # Validación, construcción y escaneo anti-fugas
 └── scripts/
-    ├── sync_catalog.py         # Compilador de ground truth y sincronizador de fixtures
-    └── lint_hints.py           # Linter anti-fugas (asegura 0 pistas en target/)
+    └── export_target.py        # Exportación saneada para herramientas
 ```
 
 ---
 
 ## 2. Comandos de Gestión
 
-### Validar Neutralidad del Código (Linter Anti-Fugas)
+### Validar el ground truth y la neutralidad
 ```bash
-python scripts/lint_hints.py
+python truth/scripts/validate.py
+python truth/scripts/leak_scan.py target/
 ```
 
-### Compilar Catálogo y Sincronizar Fixtures
+### Regenerar las salidas
 ```bash
-python scripts/sync_catalog.py
+python truth/scripts/build.py
 ```
 
-Para verificar sin escribir cambios:
+### Entregar código a un analizador
 ```bash
-python scripts/sync_catalog.py --check
+python scripts/export_target.py
 ```
+
+La exportación no incluye `.git`, `meta/`, `truth/` ni documentación de casos.
 
 ---
 

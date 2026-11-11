@@ -1,0 +1,53 @@
+id: PV-0094
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Docker Compose con Sistema de Archivos de Solo Lectura
+  y Reducción de Capacidades'
+description: Composición de servicios endurecida con read_only=true, cap_drop=ALL
+  y puertos vinculados a 127.0.0.1.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-732
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: infra/docker-compose.hardened.yml
+  anchor:
+    pattern: 'cap_drop:'
+    symbol: ''
+  lines:
+  - 8
+  - 8
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: infra/docker-compose.hardened.yml
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0094.py
+  expected_evidence: 'cap_drop:'
+split: dev
+provenance:
+  legacy_id: PV-TRAP-034
+twin: PV-0056

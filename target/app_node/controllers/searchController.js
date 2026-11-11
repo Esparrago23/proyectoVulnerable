@@ -48,13 +48,13 @@ function escapeHtml(str) {
 }
 
 // Busqueda segura de productos con escape contextual de caracteres especiales
-function searchProductsSafe(req, res) {
+function searchProductsCatalog(req, res) {
   const query = req.query.q || '';
-  const safeQuery = escapeHtml(query);
+  const catalogQuery = escapeHtml(query);
 
   const responseHtml = `<html>
     <body>
-      <h1>Resultados para: ${safeQuery}</h1>
+      <h1>Resultados para: ${catalogQuery}</h1>
       <p>No se encontraron productos coincidentes.</p>
     </body>
   </html>`;
@@ -71,7 +71,7 @@ function redirectExternal(req, res) {
 }
 
 // Redireccion segura restringida a rutas relativas del portal
-function redirectSafe(req, res) {
+function redirectCatalog(req, res) {
   const targetUrl = req.query.url || '/';
   // Valida que la ruta sea relativa y no comience con doble barra ni esquema externo
   if (targetUrl.startsWith('/') && !targetUrl.startsWith('//') && !targetUrl.includes('://')) {
@@ -92,8 +92,8 @@ function validateAccountName(req, res) {
   res.json({ name, valid: isValid });
 }
 
-// Validacion segura con patron lineal y limite estricto de longitud
-function validateAccountNameSafe(req, res) {
+// Valida el nombre de cuenta
+function validateAccountNameCatalog(req, res) {
   const name = String(req.query.name || '');
   if (name.length > 32) {
     return res.status(400).json({ error: 'Longitud maxima de 32 caracteres superada' });
@@ -112,7 +112,7 @@ function setCustomHeader(req, res) {
 }
 
 // Asignacion segura de cabecera con eliminacion de retornos de carro y saltos de linea
-function setCustomHeaderSafe(req, res) {
+function setCustomHeaderCatalog(req, res) {
   const rawTag = req.query.tag || 'default';
   const cleanTag = String(rawTag).replace(/[\r\n]/g, '');
   res.setHeader('X-Custom-Tracking', cleanTag);
@@ -121,12 +121,12 @@ function setCustomHeaderSafe(req, res) {
 
 module.exports = {
   searchProducts,
-  searchProductsSafe,
+  searchProductsCatalog,
   downloadAsset,
   redirectExternal,
-  redirectSafe,
+  redirectCatalog,
   validateAccountName,
-  validateAccountNameSafe,
+  validateAccountNameCatalog,
   setCustomHeader,
-  setCustomHeaderSafe,
+  setCustomHeaderCatalog,
 };

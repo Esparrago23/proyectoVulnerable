@@ -1,0 +1,54 @@
+id: PV-0084
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Validación Criptográfica Estricta de JWT con RS256'
+description: Decodificación y verificación de tokens fijando algoritmo asimétrico
+  RS256 y validando emisor y expiración.
+taxonomy:
+  owasp_2021: A07:2021
+  owasp_2025: A07:2025
+  cwe_primary: CWE-347
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_python/jwt_service.py
+  anchor:
+    pattern: algorithms=["RS256"]
+    symbol: ''
+  lines:
+  - 30
+  - 30
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/jwt/decode
+    body:
+      token: invalid.jwt.token
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0084.py
+  expected_evidence: error
+split: dev
+provenance:
+  legacy_id: PV-TRAP-024
+twin: PV-0040

@@ -1,0 +1,54 @@
+id: PV-0079
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Consulta Documental con Verificación Estricta de
+  Propiedad (Tenancy)'
+description: Acceso a certificados y documentos corporativos validando que el llamante
+  sea el propietario legítimo.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-639
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_python/doc_service.py
+  anchor:
+    pattern: 'def get_document_catalog(doc_id: int, caller_user: str) -> Optional[Dict[str,
+      Any]]:'
+    symbol: ''
+  lines:
+  - 42
+  - 42
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: GET
+    path: /api/safe/documents/103?user=alice
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0079.py
+  expected_evidence: 'Acceso no autorizado: el documento no pertenece al usuario activo'
+split: dev
+provenance:
+  legacy_id: PV-TRAP-019
+twin: PV-0024

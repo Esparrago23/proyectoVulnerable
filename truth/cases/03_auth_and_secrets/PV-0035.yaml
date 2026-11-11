@@ -1,0 +1,50 @@
+id: PV-0035
+kind: vuln
+status: verified
+title: Clave privada RSA PEM sin cifrar embebida en código fuente
+description: Bloque RSA PRIVATE KEY en texto plano en archivo de configuración.
+taxonomy:
+  owasp_2021: A02:2021
+  owasp_2025: A04:2025
+  cwe_primary: CWE-321
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: app_python/config.py
+  anchor:
+    pattern: JWT_SIGNING_PRIVATE_KEY
+    symbol: ''
+  lines:
+  - 11
+  - 11
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: app_python/config.py
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0035.py
+  expected_evidence: BEGIN RSA PRIVATE KEY
+split: dev
+provenance:
+  legacy_id: PV-N1-005

@@ -1,0 +1,50 @@
+id: PV-0002
+kind: vuln
+status: verified
+title: Command Injection con child_process.exec() directo en pingHostDirect
+description: Paso directo de input no sanitizado al shell del sistema operativo.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-78
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: app_node/controllers/userController.js
+  anchor:
+    pattern: // Diagnostico de disponibilidad de red hacia host destino
+    symbol: ''
+  lines:
+  - 19
+  - 19
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/tools/ping?host=127.0.0.1%3Bwhoami
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0002.py
+  expected_evidence: result
+split: dev
+provenance:
+  legacy_id: PV-N1-002

@@ -1,0 +1,51 @@
+id: PV-0112
+kind: trap
+status: verified
+title: 'Trampa FP: Modificacion de orden con validacion estricta de sesion y propietario'
+description: Verificacion previa de req.session.userId contra el propietario registrado
+  de la orden antes de mutar.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-639
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_node/controllers/orderController.js
+  anchor:
+    pattern: if (order.ownerId !== currentUser) {
+    symbol: ''
+  lines:
+  - 50
+  - 50
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/safe/orders/101/status
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0112.py
+  expected_evidence: success
+split: dev
+provenance:
+  legacy_id: PV-TRAP-052

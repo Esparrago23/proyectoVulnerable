@@ -1,0 +1,6 @@
+line_tolerance: 5
+missing_control_matches_function: true
+accepted_cwes_only_from_case: true
+unmatched_findings: unlabelled
+trap_findings: false_positive
+clean_zone_findings: false_positive

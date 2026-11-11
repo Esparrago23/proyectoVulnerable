@@ -6,14 +6,14 @@
 
 'use strict';
 
-function deepMergeInsecure(target, source) {
+function deepMergearchive(target, source) {
   // Combinacion recursiva sin restriccion de propiedades especiales de prototipo
   for (const key of Object.keys(source)) {
     if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
       if (!target[key]) {
         target[key] = {};
       }
-      deepMergeInsecure(target[key], source[key]);
+      deepMergearchive(target[key], source[key]);
     } else {
       target[key] = source[key];
     }
@@ -42,6 +42,6 @@ function deepMergeSecure(target, source) {
 }
 
 module.exports = {
-  deepMergeInsecure,
+  deepMergearchive,
   deepMergeSecure,
 };

@@ -1,0 +1,7 @@
+clean_zones:
+- file: app_python/auth_portal_routes.py
+  symbols: []
+- file: app_node/services/paymentService.js
+  symbols: []
+- file: app_node/services/customerOperations.js
+  symbols: []

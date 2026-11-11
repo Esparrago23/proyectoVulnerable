@@ -1,0 +1,55 @@
+id: PV-0085
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Regeneración Estricta de Identificador de Sesión'
+description: Emisión de un identificador de sesión totalmente nuevo mediante regenerate()
+  al autenticar credenciales.
+taxonomy:
+  owasp_2021: A07:2021
+  owasp_2025: A07:2025
+  cwe_primary: CWE-384
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_node/controllers/sessionController.js
+  anchor:
+    pattern: // Regeneracion estricta del identificador de sesion ante cambio de privilegio
+    symbol: ''
+  lines:
+  - 33
+  - 33
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/safe/session/login
+    body:
+      username: alice
+      password: secretPassword123
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0085.py
+  expected_evidence: authenticated
+split: dev
+provenance:
+  legacy_id: PV-TRAP-025
+twin: PV-0041

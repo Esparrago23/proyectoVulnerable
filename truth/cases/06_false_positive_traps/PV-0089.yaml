@@ -1,0 +1,53 @@
+id: PV-0089
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Carga Segura de YAML con yaml.safe_load'
+description: Uso de yaml.safe_load restringido a tipos escalares y estructuras básicas
+  de datos.
+taxonomy:
+  owasp_2021: A08:2021
+  owasp_2025: A08:2025
+  cwe_primary: CWE-502
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_python/yaml_parser.py
+  anchor:
+    pattern: 'def parse_config_yaml_catalog(yaml_text: str) -> Any:'
+    symbol: ''
+  lines:
+  - 22
+  - 22
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/config/yaml
+    body: 'app_name: CorporatePortal\nversion: 2.0'
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0089.py
+  expected_evidence: parsed
+split: dev
+provenance:
+  legacy_id: PV-TRAP-029
+twin: PV-0046

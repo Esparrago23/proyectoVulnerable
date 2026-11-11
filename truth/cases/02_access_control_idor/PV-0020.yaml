@@ -1,0 +1,54 @@
+id: PV-0020
+kind: vuln
+status: verified
+title: Extracción Arbitraria de Archivos en Descompresión de Archivos ZIP (Zip Slip)
+description: Invocación de extractall sin validar si las rutas de los archivos empaquetados
+  escapan con secuencias '../'.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-22
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: missing_control
+  file: app_python/archive_extractor.py
+  anchor:
+    pattern: archive.extractall(output_directory)
+    symbol: ''
+  lines:
+  - 22
+  - 22
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/archive/extract
+    body:
+      zip_path: /nonexistent.zip
+      dest_dir: /tmp
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0020.py
+  expected_evidence: error
+split: dev
+provenance:
+  legacy_id: PV-N2-017

@@ -67,4 +67,4 @@ TESTBED_ACCOUNTS = {
 CANARY_SESSION_TOKEN = "CANARY_SESSION_DATA_DELTA_882"
 CANARY_API_PAYLOAD = "CANARY_PAYLOAD_OMEGA_773"
 
-FLASK_SECRET_KEY = "insecure_dev_flask_secret_key_change_in_prod"
+FLASK_SECRET_KEY = "archive_dev_flask_secret_key_change_in_prod"

@@ -1,0 +1,52 @@
+id: PV-0071
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Clave Marcador de Posición Claramente Documentada'
+description: Constante de configuración nombrada DUMMY_INTEGRATION_KEY con valor sintético
+  evidente que no constituye un secreto real.
+taxonomy:
+  owasp_2021: A07:2021
+  owasp_2025: A07:2025
+  cwe_primary: CWE-798
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_python/config.py
+  anchor:
+    pattern: DUMMY_INTEGRATION_KEY
+    symbol: ''
+  lines:
+  - 8
+  - 8
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: app_python/config.py
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0071.py
+  expected_evidence: DUMMY_SAMPLE_KEY_NOT_A_SECRET_PLACEHOLDER
+split: dev
+provenance:
+  legacy_id: PV-TRAP-011
+twin: PV-0034

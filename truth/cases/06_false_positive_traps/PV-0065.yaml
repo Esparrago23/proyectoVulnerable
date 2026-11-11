@@ -1,0 +1,52 @@
+id: PV-0065
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Ejecución con execFile y Validación Regex IPv4 Estricta'
+description: Invoca ping usando execFile con array de argumentos y validación regex
+  IPv4 estricta sin invocar shell.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-78
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_node/catalog/resourceController.js
+  anchor:
+    pattern: 'return res.status(403).json({ error: ''Acceso denegado: factura no pertenece
+      a este tenant'' });'
+    symbol: ''
+  lines:
+  - 53
+  - 53
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/safe/ping?host=127.0.0.1%3Bwhoami
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0065.py
+  expected_evidence: Dirección IPv4 inválida
+split: dev
+provenance:
+  legacy_id: PV-TRAP-005

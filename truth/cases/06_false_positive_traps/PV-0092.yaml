@@ -1,0 +1,52 @@
+id: PV-0092
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Declaración de Módulo Express con Versión Parcheada'
+description: Uso de express 4.18.2 sin dependencias vulnerables transitivas en el
+  archivo de manifiesto.
+taxonomy:
+  owasp_2021: A06:2021
+  owasp_2025: A03:2025
+  cwe_primary: CWE-1104
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: package.json
+  anchor:
+    pattern: '"express": "^4.18.2"'
+    symbol: ''
+  lines:
+  - 10
+  - 10
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: package.json
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0092.py
+  expected_evidence: express
+split: dev
+provenance:
+  legacy_id: PV-TRAP-032
+twin: PV-0054

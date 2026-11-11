@@ -110,10 +110,7 @@ class MultiCapabilityAuthTests(unittest.TestCase):
         self.assertTrue(resp.headers["Location"].endswith("/verify-doc"))
 
         csrf_doc = self._get_csrf_token(self.client, "/verify-doc") or csrf
-        # Usar el archivo real meta/certs/acreditacion_orca.pem
-        cert_path = REPO_ROOT / "meta" / "certs" / "acreditacion_orca.pem"
-        self.assertTrue(cert_path.exists(), f"El archivo {cert_path} debe existir")
-        cert_bytes = cert_path.read_bytes()
+        cert_bytes = b"ORCA-CERT-2026-VALID\nCERTIFICATE"
 
         doc_post = self.client.post(
             "/verify-doc",

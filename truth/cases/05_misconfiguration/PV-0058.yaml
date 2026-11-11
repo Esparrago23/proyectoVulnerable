@@ -1,0 +1,51 @@
+id: PV-0058
+kind: vuln
+status: verified
+title: CORS con regex permisiva que no ancla fin de cadena en subdominios
+description: Expresión regular que valida el inicio del origen pero permite subdominios
+  de atacantes.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-942
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: app_node/server.js
+  anchor:
+    pattern: app.use(bodyParser.json());
+    symbol: ''
+  lines:
+  - 29
+  - 29
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/internal/status
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0058.py
+  expected_evidence: 'Access-Control-Allow-Origin: http://corp.internal.evil.com'
+split: test
+provenance:
+  legacy_id: PV-N2-003
