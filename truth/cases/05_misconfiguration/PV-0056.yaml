@@ -1,0 +1,52 @@
+id: PV-0056
+kind: vuln
+status: verified
+title: 'Mala Configuración IaC: Contenedor en Modo Privilegiado y Montaje de Docker
+  Socket'
+description: Configuración docker-compose otorgando privileged=true y acceso directo
+  al socket del daemon Docker del anfitrión.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-732
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: infra/docker-compose.archive.yml
+  anchor:
+    pattern: 'privileged: true'
+    symbol: ''
+  lines:
+  - 6
+  - 6
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: infra/docker-compose.insecure.yml
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0056.py
+  expected_evidence: 'privileged: true'
+split: dev
+provenance:
+  legacy_id: PV-N1-012

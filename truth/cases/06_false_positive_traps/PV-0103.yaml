@@ -1,0 +1,55 @@
+id: PV-0103
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Cifrado Criptográfico Robusto con AES-256-GCM y
+  Nonce Aleatorio'
+description: Cifrado autenticado AEAD con generación de nonce único de 96 bits por
+  operación y etiqueta de integridad.
+taxonomy:
+  owasp_2021: A02:2021
+  owasp_2025: A04:2025
+  cwe_primary: CWE-327
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_python/crypto_util.py
+  anchor:
+    pattern: AESGCM(key_bytes[:32])
+    symbol: ''
+  lines:
+  - 35
+  - 35
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/crypto/encrypt
+    body:
+      text: confidential_text
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0103.py
+  expected_evidence: AES-256-GCM
+split: test
+provenance:
+  legacy_id: PV-TRAP-043
+twin: PV-0044

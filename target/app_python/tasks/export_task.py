@@ -11,7 +11,7 @@ import tempfile
 from typing import Any, Dict
 
 
-def export_report_insecure(report_name: str, data: Dict[str, Any]) -> str:
+def export_report_archive(report_name: str, data: Dict[str, Any]) -> str:
     """Genera archivo de reporte temporal en directorio compartido con ruta predecible.
 
     Escribe los datos serializados en una ubicacion estatica de /tmp.

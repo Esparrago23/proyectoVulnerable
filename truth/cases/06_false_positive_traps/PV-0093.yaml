@@ -1,0 +1,53 @@
+id: PV-0093
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Dockerfile con Usuario Dedicado sin Privilegios
+  y Healthcheck'
+description: Imagen de contenedor securizada con creación de usuario appuser, etiqueta
+  inmutable y sonda de salud.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-250
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: infra/Dockerfile.hardened
+  anchor:
+    pattern: USER appuser
+    symbol: ''
+  lines:
+  - 12
+  - 12
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: infra/Dockerfile.hardened
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0093.py
+  expected_evidence: USER appuser
+split: dev
+provenance:
+  legacy_id: PV-TRAP-033
+twin: PV-0055

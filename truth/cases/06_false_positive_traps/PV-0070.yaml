@@ -1,0 +1,62 @@
+id: PV-0070
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Transferencia de Fondos con Precondición de Monto
+  Estrictamente Positivo'
+description: Función de transferencia que valida que el monto sea estrictamente superior
+  a cero (amount > 0).
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-862
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: sink
+  file: app_python/tasks/worker.py
+  anchor:
+    pattern: 'if amount <= 0:'
+    symbol: ''
+  lines:
+  - 75
+  - 75
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/catalog/wallet/transfer
+    body:
+      source: alice
+      target: bob
+      amount: -50.0
+    legitimate_body:
+      source: alice
+      target: bob
+      amount: 50.0
+    legitimate_evidence: transfer_completed
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0070.py
+  expected_evidence: amount must be positive
+split: dev
+provenance:
+  legacy_id: PV-TRAP-010
+twin: PV-0027

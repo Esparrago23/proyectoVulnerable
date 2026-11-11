@@ -1,0 +1,52 @@
+id: PV-0116
+kind: trap
+status: verified
+title: 'Trampa FP: Comunicacion inter-servicio protegida con firma HMAC y verificacion
+  de vigencia temporal'
+description: Firma SHA-256 de carga util con marca temporal que neutraliza peticiones
+  manipuladas o retransmitidas.
+taxonomy:
+  owasp_2021: A07:2021
+  owasp_2025: A07:2025
+  cwe_primary: CWE-345
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_node/services/internalServiceClient.js
+  anchor:
+    pattern: crypto.createHmac('sha256', internalSecret || 'default_sec')
+    symbol: ''
+  lines:
+  - 32
+  - 32
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/tasks/webhook?action=audit_sync
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0116.py
+  expected_evidence: status
+split: dev
+provenance:
+  legacy_id: PV-TRAP-056

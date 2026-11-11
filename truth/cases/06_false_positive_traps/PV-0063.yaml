@@ -1,0 +1,52 @@
+id: PV-0063
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: SSRF Mitigado con Allowlist de Dominio e IP Privada
+  Bloqueada'
+description: Valida esquema HTTPS, lista blanca de dominios y resolución DNS bloqueando
+  IPs privadas (RFC 1918) y loopback.
+taxonomy:
+  owasp_2021: A10:2021
+  owasp_2025: A10:2025
+  cwe_primary: CWE-918
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: sink
+  file: app_python/auth_routes.py
+  anchor:
+    pattern: ALLOWED_PARTNER_DOMAINS = {"api.github.com", "httpbin.org"}
+    symbol: ''
+  lines:
+  - 24
+  - 24
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/webhook
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0063.py
+  expected_evidence: URL rechazada
+split: dev
+provenance:
+  legacy_id: PV-TRAP-003

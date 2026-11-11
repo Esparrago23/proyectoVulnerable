@@ -1,0 +1,52 @@
+id: PV-0114
+kind: trap
+status: verified
+title: 'Trampa FP: Cross-Service archivo contable con validacion regex de caracteres
+  alfanumericos'
+description: Validacion regex previa con rechazo de cualquier metacaracter antes de
+  empaquetar.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-78
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_python/auth_routes.py
+  anchor:
+    pattern: 'if not re.match(r"^[a-zA-Z0-9_\-\.]+$", archive_name):'
+    symbol: ''
+  lines:
+  - 156
+  - 156
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /internal/safe/settlement/archive
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0114.py
+  expected_evidence: archived
+split: dev
+provenance:
+  legacy_id: PV-TRAP-054

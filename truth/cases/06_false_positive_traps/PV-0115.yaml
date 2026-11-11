@@ -1,0 +1,53 @@
+id: PV-0115
+kind: trap
+status: verified
+title: 'Trampa FP: Cross-Service callback con validacion de allowlist y resolucion
+  de IP privada'
+description: Invocacion delegada hacia safe_webhook_fetch con filtrado exhaustivo
+  de RFC 1918 y dominios autorizados.
+taxonomy:
+  owasp_2021: A10:2021
+  owasp_2025: A10:2025
+  cwe_primary: CWE-918
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_python/auth_routes.py
+  anchor:
+    pattern: 'def fetch_settlement_callback_catalog(callback_url: str) -> Dict[str,
+      Any]:'
+    symbol: ''
+  lines:
+  - 161
+  - 161
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /internal/safe/settlement/callback
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0115.py
+  expected_evidence: URL rechazada
+split: dev
+provenance:
+  legacy_id: PV-TRAP-055

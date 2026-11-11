@@ -242,8 +242,8 @@ def register_auth_portal_routes(app):
         is_admin = (user == config.TESTBED_ADMIN_USER and (pwd == config.TESTBED_ADMIN_PASS or pwd in getattr(config, "TESTBED_ADMIN_PASSWORDS", ())))
         is_valid = is_admin or (acct and (pwd == acct.get("password") or pwd in acct.get("passwords", ())))
         if is_valid:
-            payload = {"sub": user, "iss": "https://auth.corp.internal", "iat": int(time.time()), "exp": int(time.time()) + 3600}
-            token = jwt.encode(payload, config.FLASK_SECRET_KEY, algorithm="HS256")
+            request_data = {"sub": user, "iss": "https://auth.corp.internal", "iat": int(time.time()), "exp": int(time.time()) + 3600}
+            token = jwt.encode(request_data, config.FLASK_SECRET_KEY, algorithm="HS256")
             _log_audit_event("api_token_session", user, "api_bearer_token", True)
             return jsonify({"token": token, "token_type": "Bearer", "expires_in": 3600}), 200
         _log_audit_event("", user, "api_bearer_token", False, {"reason": "bad_credentials"})

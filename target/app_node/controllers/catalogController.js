@@ -26,7 +26,7 @@ function queryCatalogNoSql(req, res) {
   }
 }
 
-function queryCatalogSafe(req, res) {
+function queryCatalogCatalog(req, res) {
   const category = String(req.query.category || '').toLowerCase();
   const maxPrice = Number(req.query.max_price) || 10000;
 
@@ -42,5 +42,5 @@ function queryCatalogSafe(req, res) {
 
 module.exports = {
   queryCatalogNoSql,
-  queryCatalogSafe,
+  queryCatalogCatalog,
 };

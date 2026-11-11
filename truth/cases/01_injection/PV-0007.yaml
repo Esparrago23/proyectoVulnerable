@@ -1,0 +1,51 @@
+id: PV-0007
+kind: vuln
+status: verified
+title: Regular Expression Denial of Service (ReDoS) por cuantificadores anidados
+description: Validación de identificadores de cuenta mediante expresión regular con
+  complejidad temporal exponencial O(2^n).
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-1333
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: app_node/controllers/searchController.js
+  anchor:
+    pattern: /^([a-zA-Z0-9]+)+$/
+    symbol: ''
+  lines:
+  - 90
+  - 90
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/validate/account?name=aaaaaaaaaaaaaaaaaaaaaaaaaaaa!
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0007.py
+  expected_evidence: valid
+split: test
+provenance:
+  legacy_id: PV-N2-008

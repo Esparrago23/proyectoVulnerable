@@ -1,0 +1,51 @@
+id: PV-0171
+kind: trap
+status: verified
+title: Business endpoint validation at /api/catalog/service-info
+description: Legitimate business behavior rejects the attack and accepts a valid request.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-20
+  cwe_accepted:
+  - CWE-400
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: missing_control
+  file: app_node/server.js
+  anchor:
+    pattern: app.get('/api/catalog/service-info', (req, res) => {
+    symbol: ''
+  lines:
+  - 373
+  - 373
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/catalog/service-info
+    body: null
+    legitimate_body: {}
+    legitimate_evidence: service
+    legitimate_path: /api/catalog/service-info
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0171.py
+  expected_evidence: internal
+split: test

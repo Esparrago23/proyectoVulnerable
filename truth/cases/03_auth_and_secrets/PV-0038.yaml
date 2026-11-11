@@ -1,0 +1,51 @@
+id: PV-0038
+kind: vuln
+status: verified
+title: Generación de Tokens de Seguridad con Generador Pseudoaleatorio Débil (Math.random)
+description: Uso de Math.random() para emitir tokens anti-CSRF predecibles mediante
+  ataques de inferencia matemática.
+taxonomy:
+  owasp_2021: A02:2021
+  owasp_2025: A04:2025
+  cwe_primary: CWE-338
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: app_node/services/tokenUtil.js
+  anchor:
+    pattern: Math.random().toString(36)
+    symbol: ''
+  lines:
+  - 13
+  - 13
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/token/csrf
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0038.py
+  expected_evidence: csrf_
+split: test
+provenance:
+  legacy_id: PV-N1-013

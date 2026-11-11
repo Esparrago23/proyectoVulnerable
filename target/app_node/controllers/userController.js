@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const dbClient = require('../models/dbClient');
 
 // Consulta de usuario por identificador unico en ruta GET
-function getUserDirect(req, res) {
+function getUserById(req, res) {
   const userId = req.query.id;
   // Ejecuta la consulta SQL con el parametro recibido
   const sql = "SELECT * FROM users WHERE id = " + userId;
@@ -17,7 +17,7 @@ function getUserDirect(req, res) {
 }
 
 // Diagnostico de disponibilidad de red hacia host destino
-function pingHostDirect(req, res) {
+function pingHost(req, res) {
   const targetHost = req.query.host || '127.0.0.1';
   // Invoca el comando ping del sistema para evaluar respuesta de red
   const pingFlag = process.platform === 'win32' ? '-n 1' : '-c 1';
@@ -42,8 +42,20 @@ function updateUserProfile(req, res) {
   });
 }
 
+function updateUserProfileCatalog(req, res) {
+  const RoleService = require('../services/roleService');
+  const userId = req.body.userId || req.query.id;
+  const profileUpdates = req.body || {};
+
+  RoleService.processProfileUpdateCatalog(userId, profileUpdates, (err, result) => {
+    if (err) return res.status(400).json({ error: err.message });
+    res.json({ success: true, user: result });
+  });
+}
+
 module.exports = {
-  getUserDirect,
-  pingHostDirect,
+  getUserById,
+  pingHost,
   updateUserProfile,
+  updateUserProfileCatalog,
 };

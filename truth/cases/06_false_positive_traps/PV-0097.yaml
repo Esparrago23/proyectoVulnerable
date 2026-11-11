@@ -1,0 +1,55 @@
+id: PV-0097
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Mensajes de Notificación con Plantilla Precompilada
+  y Escape'
+description: Generación de notificaciones formateadas mediante plantillas estáticas
+  y saneamiento contextual de variables.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-1336
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_node/controllers/templateController.js
+  anchor:
+    pattern: Su solicitud ha sido procesada con exito
+    symbol: ''
+  lines:
+  - 30
+  - 30
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/safe/template/render
+    body:
+      username: admin
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0097.py
+  expected_evidence: Su solicitud ha sido procesada con exito
+split: dev
+provenance:
+  legacy_id: PV-TRAP-037
+twin: PV-0013

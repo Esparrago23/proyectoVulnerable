@@ -1,0 +1,51 @@
+id: PV-0064
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Facturación con Validación Estricta de Tenant ID'
+description: Endpoint de facturación que parece IDOR pero valida estrictamente invoice.tenant_id
+  !== req.headers['x-tenant-id'].
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-639
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_node/catalog/resourceController.js
+  anchor:
+    pattern: if (!ALLOWED_FILES.includes(cleanBasename)) {
+    symbol: ''
+  lines:
+  - 31
+  - 31
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/safe/invoices/502
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0064.py
+  expected_evidence: 'Acceso denegado: factura no pertenece a este tenant'
+split: test
+provenance:
+  legacy_id: PV-TRAP-004

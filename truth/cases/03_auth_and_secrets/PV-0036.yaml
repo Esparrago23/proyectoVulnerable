@@ -1,0 +1,52 @@
+id: PV-0036
+kind: vuln
+status: verified
+title: Uso de algoritmo criptográfico débil (MD5) para generación de tokens de API
+description: Generación de firmas de autenticación mediante MD5, vulnerable a ataques
+  de colisión y preimagen.
+taxonomy:
+  owasp_2021: A02:2021
+  owasp_2025: A04:2025
+  cwe_primary: CWE-327
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: missing_control
+  file: app_python/token_service.py
+  anchor:
+    pattern: 'def generate_archive_token(user_id: str, salt: str = "archive_salt")
+      -> Dict[str, str]:'
+    symbol: ''
+  lines:
+  - 14
+  - 14
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: GET
+    path: /api/token/archive
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0036.py
+  expected_evidence: MD5
+split: dev
+provenance:
+  legacy_id: PV-N1-007

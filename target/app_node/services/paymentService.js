@@ -10,14 +10,14 @@ class PaymentService {
    * Transfiere la condicion directamente a la capa DAO.
    */
   static searchOrdersByUser(userIdString, callback) {
-    // Validacion basica de parametro para asegurar presencia de contenido
+    // Comprueba el parametro recibido
     if (!userIdString || userIdString.trim().length === 0) {
       return callback(new Error('ID de usuario inválido'), null);
     }
 
     // Envia condicion construida hacia la capa DAO
     const condition = `user_id = ${userIdString}`;
-    dbClient.queryOrderRaw(condition, (err, results) => {
+    dbClient.queryOrder(condition, (err, results) => {
       if (err) return callback(err, null);
       callback(null, results);
     });

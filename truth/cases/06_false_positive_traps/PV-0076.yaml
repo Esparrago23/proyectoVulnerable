@@ -1,0 +1,56 @@
+id: PV-0076
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Registro de Comentarios con Codificación de Entidades
+  HTML'
+description: Almacenamiento y renderizado de retroalimentación de clientes tras sanitizar
+  con escapeHtml.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-79
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_node/controllers/feedbackController.js
+  anchor:
+    pattern: escapeHtml(req.body.author
+    symbol: ''
+  lines:
+  - 30
+  - 30
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/safe/feedback
+    body:
+      author: user
+      message: <script>alert(1)</script>
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0076.py
+  expected_evidence: '&lt;script&gt;alert(1)&lt;/script&gt;'
+split: dev
+provenance:
+  legacy_id: PV-TRAP-016
+twin: PV-0005

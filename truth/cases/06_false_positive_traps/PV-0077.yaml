@@ -1,0 +1,54 @@
+id: PV-0077
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Parseo XML con Rechazo de DOCTYPE y Entidades Externas'
+description: Parseo de facturas XML en Python verificando la ausencia de declaraciones
+  DTD y entidades externas.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-611
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_python/xml_parser.py
+  anchor:
+    pattern: 'def parse_invoice_xml_catalog(xml_content: str) -> Dict[str, Any]:'
+    symbol: ''
+  lines:
+  - 31
+  - 31
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/invoice/parse
+    body:
+      xml: <invoice><invoice_id>999</invoice_id><total>150.0</total><vendor>Acme</vendor></invoice>
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0077.py
+  expected_evidence: '"invoice_id": "999"'
+split: dev
+provenance:
+  legacy_id: PV-TRAP-017
+twin: PV-0006

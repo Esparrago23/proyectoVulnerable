@@ -1,0 +1,55 @@
+id: PV-0023
+kind: vuln
+status: verified
+title: Escalación de Privilegios Multi-Salto por Merge de Propiedades en roleService
+description: Flujo multi-salto (controlador -> servicio -> DAO) con mezcla ciega de
+  propiedades permitiendo inyectar rol de administrador.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-269
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: missing_control
+  file: app_node/services/roleService.js
+  anchor:
+    pattern: '* Aplica las propiedades suministradas sobre el objeto de usuario.'
+    symbol: ''
+  lines:
+  - 11
+  - 11
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/users/profile
+    body:
+      userId: 1
+      role: admin
+      display_name: Alice
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0023.py
+  expected_evidence: admin
+split: dev
+provenance:
+  legacy_id: PV-N3-003

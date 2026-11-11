@@ -1,0 +1,52 @@
+id: PV-0066
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Deserialización Segura con HMAC-SHA256 y JSON Exclusivo'
+description: Restaura sesión verificando previamente firma HMAC-SHA256 con compare_digest
+  y parseando con json.loads en vez de pickle.
+taxonomy:
+  owasp_2021: A08:2021
+  owasp_2025: A08:2025
+  cwe_primary: CWE-502
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_python/auth_routes.py
+  anchor:
+    pattern: '# Restauracion de sesion autenticada mediante firma criptografica HMAC
+      y JSON'
+    symbol: ''
+  lines:
+  - 98
+  - 98
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/session/restore
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0066.py
+  expected_evidence: Firma HMAC inválida
+split: test
+provenance:
+  legacy_id: PV-TRAP-006

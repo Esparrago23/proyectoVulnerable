@@ -1,0 +1,53 @@
+id: PV-0154
+kind: vuln
+status: verified
+title: Business endpoint exposure at /api/orders/claim
+description: Executable benchmark case for an observable weakness in the /api/orders/claim
+  workflow.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-862
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.4
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: sink
+  file: app_node/server.js
+  anchor:
+    pattern: app.post('/api/orders/claim', (req, res) => {
+    symbol: ''
+  lines:
+  - 309
+  - 309
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/orders/claim
+    body:
+      order: order-1
+      actor: guest
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+- business_logic_analysis
+proof:
+  exploit_test: tests/exploits/test_pv_0154.py
+  expected_evidence: claimed
+split: dev

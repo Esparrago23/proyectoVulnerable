@@ -11,7 +11,7 @@ from typing import List
 import zipfile
 
 
-def extract_bundle_direct(zip_filepath: str, output_directory: str) -> List[str]:
+def extract_bundle(zip_filepath: str, output_directory: str) -> List[str]:
     """Extrae todos los elementos del archivo comprimido directamente en el directorio destino.
 
     Desempaqueta las rutas contenidas en el ZIP sin verificar si escapan del arbol de salida.

@@ -1,0 +1,53 @@
+id: PV-0099
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Cliente Inter-Servicio con Allowlist de Acciones
+  y Token HMAC'
+description: Despacho entre microservicios restringido a un conjunto cerrado de acciones
+  auditadas y firmado con HMAC-SHA256.
+taxonomy:
+  owasp_2021: A10:2021
+  owasp_2025: A10:2025
+  cwe_primary: CWE-918
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_node/services/internalServiceClient.js
+  anchor:
+    pattern: ALLOWED_ACTIONS = new Set
+    symbol: ''
+  lines:
+  - 25
+  - 25
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/safe/tasks/forward?action=audit_sync&target=localhost
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0099.py
+  expected_evidence: status
+split: test
+provenance:
+  legacy_id: PV-TRAP-039
+twin: PV-0049

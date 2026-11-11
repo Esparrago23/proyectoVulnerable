@@ -1,0 +1,55 @@
+id: PV-0025
+kind: vuln
+status: verified
+title: Asignación Masiva de Atributos Privilegiados en Perfil de Usuario
+description: Actualización de objetos de usuario aplicando diccionarios completos
+  permitiendo escalar a rol administrativo.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-915
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: missing_control
+  file: app_python/profile_service.py
+  anchor:
+    pattern: profile.update(incoming_fields)
+    symbol: ''
+  lines:
+  - 26
+  - 26
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/profile/update
+    body:
+      username: alice
+      updates:
+        is_admin: true
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0025.py
+  expected_evidence: updated
+split: test
+provenance:
+  legacy_id: PV-N3-009

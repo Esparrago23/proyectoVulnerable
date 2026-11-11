@@ -30,7 +30,7 @@ function calculateCartTotal(req, res) {
   });
 }
 
-function calculateCartTotalSafe(req, res) {
+function calculateCartTotalCatalog(req, res) {
   const items = req.body.items || [];
   if (!Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: 'Lista de articulos requerida' });
@@ -44,7 +44,7 @@ function calculateCartTotalSafe(req, res) {
       return res.status(400).json({ error: 'Articulo inexistente en catalogo' });
     }
 
-    // Validacion estricta de cantidad entera positiva acotada
+    // Convierte la cantidad solicitada
     const qty = parseInt(entry.quantity, 10);
     if (isNaN(qty) || qty <= 0 || qty > 100) {
       return res.status(400).json({ error: 'La cantidad debe ser un entero positivo entre 1 y 100' });
@@ -62,5 +62,5 @@ function calculateCartTotalSafe(req, res) {
 
 module.exports = {
   calculateCartTotal,
-  calculateCartTotalSafe,
+  calculateCartTotalCatalog,
 };

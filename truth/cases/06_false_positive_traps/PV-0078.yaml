@@ -1,0 +1,52 @@
+id: PV-0078
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Redirección Restringida a Rutas Relativas Locales'
+description: Redirección HTTP en Express que valida que el destino comience con '/'
+  y no contenga esquemas de URL externos.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-601
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_node/controllers/searchController.js
+  anchor:
+    pattern: // Redireccion segura restringida a rutas relativas del portal
+    symbol: ''
+  lines:
+  - 73
+  - 73
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/safe/redirect?url=https://attacker.evil.com
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0078.py
+  expected_evidence: Found. Redirecting to /
+split: dev
+provenance:
+  legacy_id: PV-TRAP-018
+twin: PV-0018

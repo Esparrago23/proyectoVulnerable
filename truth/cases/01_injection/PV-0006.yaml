@@ -1,0 +1,52 @@
+id: PV-0006
+kind: vuln
+status: verified
+title: XML External Entity (XXE) Injection en analizador de facturas tributarias
+description: Procesamiento de documentos XML mediante analizador estándar sin desactivar
+  la resolución de DTD ni entidades externas.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-611
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: missing_control
+  file: app_python/xml_parser.py
+  anchor:
+    pattern: ET.fromstring(xml_content)
+    symbol: ''
+  lines:
+  - 19
+  - 19
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/invoices/xml
+    body: <?xml version="1.0"?><invoice><invoice_id>999</invoice_id><total>150.0</total><vendor>AcmeCorp</vendor></invoice>
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0006.py
+  expected_evidence: AcmeCorp
+split: dev
+provenance:
+  legacy_id: PV-N2-007

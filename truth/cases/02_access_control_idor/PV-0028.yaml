@@ -1,0 +1,56 @@
+id: PV-0028
+kind: vuln
+status: verified
+title: Condición de Carrera en Aplicación de Cupones de Descuento (Business Logic
+  Flaw)
+description: Comprobación no atómica de canje previo que permite la reutilización
+  concurrente de cupones de un solo uso.
+taxonomy:
+  owasp_2021: A04:2021
+  owasp_2025: A06:2025
+  cwe_primary: CWE-362
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: missing_control
+  file: app_python/tasks/coupon_service.py
+  anchor:
+    pattern: '# Registro diferido del canje permitiendo carreras de procesamiento'
+    symbol: ''
+  lines:
+  - 40
+  - 40
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/coupon/apply
+    body:
+      user: alice
+      coupon: WELCOME20
+      amount: 100.0
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0028.py
+  expected_evidence: Descuento de 20%
+split: test
+provenance:
+  legacy_id: PV-N4-006

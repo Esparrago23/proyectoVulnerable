@@ -6,7 +6,7 @@
 
 'use strict';
 
-function loginInsecure(req, res) {
+function loginarchive(req, res) {
   const { username, password } = req.body || {};
   if (!username || !password) {
     return res.status(400).json({ error: 'Credenciales incompletas' });
@@ -20,11 +20,11 @@ function loginInsecure(req, res) {
   res.json({
     status: 'authenticated',
     user: username,
-    sessionId: req.sessionID || 'legacy_sess_id_fixed',
+    sessionId: req.sessionID || 'archive_sess_id_fixed',
   });
 }
 
-function loginSecure(req, res) {
+function logarchive(req, res) {
   const { username, password } = req.body || {};
   if (!username || !password) {
     return res.status(400).json({ error: 'Credenciales incompletas' });
@@ -51,6 +51,6 @@ function loginSecure(req, res) {
 }
 
 module.exports = {
-  loginInsecure,
-  loginSecure,
+  loginarchive,
+  logarchive,
 };
