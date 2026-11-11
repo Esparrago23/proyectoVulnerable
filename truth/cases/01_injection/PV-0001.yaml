@@ -1,0 +1,60 @@
+id: PV-0001
+kind: vuln
+status: verified
+title: SQL Injection directa por concatenación string en getUserDirect
+description: El parámetro req.query.id se concatena directamente en la cadena SQL
+  sin usar queries parametrizadas.
+taxonomy:
+  owasp_2021: A03:2021
+  owasp_2025: A05:2025
+  cwe_primary: CWE-89
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_node/controllers/userController.js
+  anchor:
+    pattern: function getUserById(req, res) {
+    symbol: ''
+  lines:
+  - 9
+  - 9
+  primary: true
+- role: source
+  file: app_node/controllers/userController.js
+  anchor:
+    pattern: function getUserById(req, res) {
+    symbol: ''
+  lines:
+  - 9
+  - 9
+  primary: false
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/users/direct?id=1%20OR%201=1
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0001.py
+  expected_evidence: alice
+split: dev
+provenance:
+  legacy_id: PV-N1-001

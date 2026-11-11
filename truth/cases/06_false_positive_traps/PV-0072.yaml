@@ -1,0 +1,54 @@
+id: PV-0072
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Verificación Estricta de TOTP sin Banderas de Bypass'
+description: Función de validación 2FA que rechaza cualquier parámetro u omisión de
+  depuración y exige código criptográfico válido.
+taxonomy:
+  owasp_2021: A07:2021
+  owasp_2025: A07:2025
+  cwe_primary: CWE-287
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: sink
+  file: app_python/auth/mfa_handler.py
+  anchor:
+    pattern: verify_totp_strict
+    symbol: ''
+  lines:
+  - 48
+  - 48
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /mfa
+    body:
+      totp_code: '000000'
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0072.py
+  expected_evidence: inválido
+split: dev
+provenance:
+  legacy_id: PV-TRAP-012
+twin: PV-0045

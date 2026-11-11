@@ -1,0 +1,54 @@
+id: PV-0032
+kind: vuln
+status: verified
+title: 'Falla de Logica de Negocio: Condicion de carrera TOCTOU en aplicacion concurrente
+  de cupon'
+description: Comprobacion de limite de uso separada temporalmente del incremento permitiendo
+  multiples canjes simultaneos.
+taxonomy:
+  owasp_2021: A04:2021
+  owasp_2025: A06:2025
+  cwe_primary: CWE-362
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 4
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: missing_control
+  file: app_node/controllers/orderController.js
+  anchor:
+    pattern: // Comprobacion de cuota previa sin cerrojo atomico
+    symbol: ''
+  lines:
+  - 63
+  - 63
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/orders/coupon/race
+    body:
+      code: SAVE50
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0032.py
+  expected_evidence: discountApplied
+split: dev
+provenance:
+  legacy_id: PV-N4-010

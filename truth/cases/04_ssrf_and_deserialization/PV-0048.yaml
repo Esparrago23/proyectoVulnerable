@@ -1,0 +1,54 @@
+id: PV-0048
+kind: vuln
+status: verified
+title: Falsificación de Peticiones del Servidor (SSRF) en Cliente Webhook Remoto
+description: Envío de solicitudes HTTP a URLs externas sin comprobación de rangos
+  de red privada ni bucle local.
+taxonomy:
+  owasp_2021: A10:2021
+  owasp_2025: A10:2025
+  cwe_primary: CWE-918
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 3
+locations:
+- role: missing_control
+  file: app_python/ssrf_client.py
+  anchor:
+    pattern: Realiza la llamada de red sin verificar la resolucion DNS ni el rango
+      de red de destino.
+    symbol: ''
+  lines:
+  - 18
+  - 18
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/webhook/fetch
+    body:
+      url: http://127.0.0.1:5001/health
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0048.py
+  expected_evidence: app_python
+split: dev
+provenance:
+  legacy_id: PV-N3-005

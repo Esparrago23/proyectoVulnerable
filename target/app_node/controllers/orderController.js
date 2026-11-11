@@ -27,7 +27,7 @@ const couponUsage = {
 };
 let isCouponLocked = false;
 
-function updateOrderStatusDirect(req, res) {
+function updateOrderStatus(req, res) {
   const orderId = req.params.orderId || req.body.orderId;
   const newStatus = req.body.status || 'completed';
   if (!orderStore[orderId]) {
@@ -38,7 +38,7 @@ function updateOrderStatusDirect(req, res) {
   res.json({ success: true, order: orderStore[orderId] });
 }
 
-function updateOrderStatusSafe(req, res) {
+function updateOrderStatusCatalog(req, res) {
   const orderId = req.params.orderId || req.body.orderId;
   const newStatus = req.body.status || 'completed';
   const currentUser = req.session ? req.session.userId : 'alice';
@@ -46,7 +46,7 @@ function updateOrderStatusSafe(req, res) {
   if (!order) {
     return res.status(404).json({ error: 'Orden no encontrada' });
   }
-  // Comprobacion estricta de autorizacion de usuario antes de modificar recurso
+  // Actualiza el estado del pedido
   if (order.ownerId !== currentUser) {
     return res.status(403).json({ error: 'Acceso no autorizado a la orden solicitada' });
   }
@@ -70,7 +70,7 @@ function applyDiscountCouponRace(req, res) {
   }, 10);
 }
 
-function applyDiscountCouponSafe(req, res) {
+function applyDiscountCouponCatalog(req, res) {
   const code = req.body.code || 'SAVE50';
   const coupon = couponUsage[code];
   if (!coupon) {
@@ -94,8 +94,8 @@ function applyDiscountCouponSafe(req, res) {
 
 module.exports = {
   getOrdersByUser,
-  updateOrderStatusDirect,
-  updateOrderStatusSafe,
+  updateOrderStatus,
+  updateOrderStatusCatalog,
   applyDiscountCouponRace,
-  applyDiscountCouponSafe,
+  applyDiscountCouponCatalog,
 };

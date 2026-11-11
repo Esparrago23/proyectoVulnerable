@@ -8,7 +8,7 @@
 
 const crypto = require('crypto');
 
-function generateCsrfTokenInsecure() {
+function generateCsrfTokenarchive() {
   // Generacion de token de seguridad utilizando generador pseudialeatorio matematico
   const randNum = Math.random().toString(36).substring(2);
   const timeHex = Date.now().toString(36);
@@ -22,6 +22,6 @@ function generateCsrfTokenSecure() {
 }
 
 module.exports = {
-  generateCsrfTokenInsecure,
+  generateCsrfTokenarchive,
   generateCsrfTokenSecure,
 };

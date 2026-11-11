@@ -11,7 +11,7 @@ from typing import Any, Dict, Optional
 import jwt
 
 
-def decode_token_legacy(token_str: str) -> Dict[str, Any]:
+def decode_token_archive(token_str: str) -> Dict[str, Any]:
     """Decodifica un token JWT utilizando configuracion permisiva de algoritmos.
 
     Acepta tokens decodificando los reclamos sin forzar validacion criptografica de firma.

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app_node:
+    build:
+      context: ./target/app_node
+      dockerfile: Dockerfile
+    container_name: pv_target_node
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=development
+
+  app_python:
+    build:
+      context: ./target/app_python
+      dockerfile: Dockerfile
+    container_name: pv_target_python
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - FLASK_ENV=development

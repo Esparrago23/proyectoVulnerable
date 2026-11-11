@@ -5,3 +5,5 @@ package-lock.json
 target/app_node/uploads/
 target/node_modules/
 target/package-lock.json
+target/.env.backup
+_blind_export/

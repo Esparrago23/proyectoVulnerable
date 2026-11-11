@@ -32,14 +32,14 @@ STORED_DOCUMENTS: Dict[int, Dict[str, Any]] = {
 }
 
 
-def get_document_raw(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]:
+def get_document(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]:
     """Consulta documento a partir del identificador numerico sin validar propiedad."""
     doc = STORED_DOCUMENTS.get(doc_id)
     # Retorna el documento sin comprobar si pertenece a caller_user
     return doc
 
 
-def get_document_safe(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]:
+def get_document_catalog(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]:
     """Consulta documento validando rigurosamente que el llamante sea el propietario legitimo."""
     doc = STORED_DOCUMENTS.get(doc_id)
     if not doc:
@@ -64,7 +64,7 @@ def execute_chained_settlement(sender: str, receiver: str, amount: float, balanc
     return True
 
 
-def execute_chained_settlement_safe(sender: str, receiver: str, amount: float, balances: Dict[str, float]) -> bool:
+def execute_chained_settlement_catalog(sender: str, receiver: str, amount: float, balances: Dict[str, float]) -> bool:
     """Ejecuta transferencia con validacion atomica previa de ambas cuentas y reversion asegurada."""
     if balances.get(sender, 0.0) < amount:
         return False

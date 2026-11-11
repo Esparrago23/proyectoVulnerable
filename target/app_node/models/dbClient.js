@@ -31,7 +31,7 @@ db.serialize(() => {
  * Consulta de ordenes segun condiciones dinamicas de filtrado:
  * Ejecuta la sentencia SQL en base a los criterios recibidos del servicio.
  */
-function queryOrderRaw(rawCondition, callback) {
+function queryOrder(rawCondition, callback) {
   const query = `SELECT * FROM orders WHERE ${rawCondition}`;
   // Ejecuta la consulta SQL construida dinamicamente contra la base de datos
   db.all(query, (err, rows) => {
@@ -63,7 +63,7 @@ function updateUserProfile(userId, profileData, callback) {
   });
 }
 
-function queryOrderSafe(userId, callback) {
+function queryOrderCatalog(userId, callback) {
   // Consulta parametrizada con marcadores de posicion para neutralizar inyeccion
   const query = `SELECT * FROM orders WHERE user_id = ?`;
   db.all(query, [userId], (err, rows) => {
@@ -72,7 +72,7 @@ function queryOrderSafe(userId, callback) {
   });
 }
 
-function insertFeedbackRaw(author, message, callback) {
+function insertFeedback(author, message, callback) {
   // Insercion directa de comentario sin sanitizacion previa en la capa de datos
   const query = `INSERT INTO feedback (author, message) VALUES ('${author}', '${message}')`;
   db.run(query, function(err) {
@@ -81,7 +81,7 @@ function insertFeedbackRaw(author, message, callback) {
   });
 }
 
-function insertFeedbackSafe(author, message, callback) {
+function insertFeedbackCatalog(author, message, callback) {
   // Insercion parametrizada con valores ligados
   const query = `INSERT INTO feedback (author, message) VALUES (?, ?)`;
   db.run(query, [author, message], function(err) {
@@ -99,11 +99,11 @@ function getFeedbacks(callback) {
 
 module.exports = {
   db,
-  queryOrderRaw,
-  queryOrderSafe,
+  queryOrder,
+  queryOrderCatalog,
   getInvoiceById,
   updateUserProfile,
-  insertFeedbackRaw,
-  insertFeedbackSafe,
+  insertFeedback,
+  insertFeedbackCatalog,
   getFeedbacks,
 };

@@ -1,0 +1,51 @@
+id: PV-0111
+kind: trap
+status: verified
+title: 'Trampa FP: Endpoint de estado que retorna unicamente version publica sin secretos'
+description: El endpoint /api/system/public-info responde exclusivamente version semantica
+  publica aprobada.
+taxonomy:
+  owasp_2021: A05:2021
+  owasp_2025: A02:2025
+  cwe_primary: CWE-200
+  cwe_accepted:
+  - CWE-209
+  - CWE-400
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_python/app.py
+  anchor:
+    pattern: '@app.route("/api/auth/login-enum", methods=["POST"])'
+    symbol: ''
+  lines:
+  - 897
+  - 897
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: GET
+    path: /api/system/public-info
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0111.py
+  expected_evidence: secret
+split: dev
+provenance:
+  legacy_id: PV-TRAP-051

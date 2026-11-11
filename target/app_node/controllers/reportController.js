@@ -8,7 +8,7 @@
 
 const dbClient = require('../models/dbClient');
 
-function queryAuditReportRaw(req, res) {
+function queryAuditReport(req, res) {
   const department = req.query.dept || 'sales';
   const sortOrder = req.query.sort || 'ASC';
 
@@ -23,11 +23,11 @@ function queryAuditReportRaw(req, res) {
   });
 }
 
-function queryAuditReportSafe(req, res) {
+function queryAuditReportCatalog(req, res) {
   const department = req.query.dept || 'sales';
   const sortDirection = req.query.sort === 'DESC' ? 'DESC' : 'ASC';
 
-  // Allowlist estricto de columnas permitidas para la ordenacion
+  // Selecciona la columna de ordenacion
   const ALLOWED_COLUMNS = new Set(['id', 'item', 'total']);
   const cleanDept = ALLOWED_COLUMNS.has(department) ? department : 'id';
 
@@ -42,6 +42,6 @@ function queryAuditReportSafe(req, res) {
 }
 
 module.exports = {
-  queryAuditReportRaw,
-  queryAuditReportSafe,
+  queryAuditReport,
+  queryAuditReportCatalog,
 };

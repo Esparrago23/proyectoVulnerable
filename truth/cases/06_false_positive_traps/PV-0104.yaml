@@ -1,0 +1,52 @@
+id: PV-0104
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Generación Criptográfica de Tokens con crypto.randomBytes'
+description: Emisión de tokens con 256 bits de entropía real provistos por el módulo
+  criptográfico del sistema operativo.
+taxonomy:
+  owasp_2021: A02:2021
+  owasp_2025: A04:2025
+  cwe_primary: CWE-338
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_node/services/tokenUtil.js
+  anchor:
+    pattern: crypto.randomBytes(32).toString('hex')
+    symbol: ''
+  lines:
+  - 20
+  - 20
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: GET
+    path: /api/safe/token/csrf
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0104.py
+  expected_evidence: csrf_sec_
+split: test
+provenance:
+  legacy_id: PV-TRAP-044
+twin: PV-0038

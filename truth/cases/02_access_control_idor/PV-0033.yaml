@@ -1,0 +1,53 @@
+id: PV-0033
+kind: vuln
+status: verified
+title: 'Falla de Logica de Negocio: Sobregiro en transferencias encadenadas por debito
+  previo a validacion'
+description: Debito aplicado antes de verificar la cuenta destino, fallando en revertir
+  el saldo ante excepciones.
+taxonomy:
+  owasp_2021: A04:2021
+  owasp_2025: A06:2025
+  cwe_primary: CWE-840
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 4
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: missing_control
+  file: app_python/doc_service.py
+  anchor:
+    pattern: 'def execute_chained_settlement(sender: str, receiver: str, amount: float,
+      balances: Dict[str, float]) -> bool:'
+    symbol: ''
+  lines:
+  - 55
+  - 55
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/wallet/chain-settle
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0033.py
+  expected_evidence: overdraw
+split: dev
+provenance:
+  legacy_id: PV-N4-011

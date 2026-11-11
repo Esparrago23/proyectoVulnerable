@@ -29,21 +29,21 @@ class RoleService {
    * Actualizacion segura de perfil mediante lista blanca de campos permitidos (DTO).
    * Impide la modificacion de atributos privilegiados como rol o permisos.
    */
-  static processProfileUpdateSafe(userId, profileUpdates, callback) {
+  static processProfileUpdateCatalog(userId, profileUpdates, callback) {
     if (!userId) {
       return callback(new Error('ID de usuario requerido'), null);
     }
 
     const ALLOWED_MUTABLE_KEYS = ['display_name', 'bio', 'theme'];
-    const safeUpdates = {};
+    const catalogUpdates = {};
     for (const key of ALLOWED_MUTABLE_KEYS) {
       if (Object.prototype.hasOwnProperty.call(profileUpdates, key)) {
-        safeUpdates[key] = profileUpdates[key];
+        catalogUpdates[key] = profileUpdates[key];
       }
     }
 
     // El rol permanece inmutable y fijado a su valor legitimo
-    const cleanProfile = Object.assign({ role: 'user', updated_at: new Date().toISOString() }, safeUpdates);
+    const cleanProfile = Object.assign({ role: 'user', updated_at: new Date().toISOString() }, catalogUpdates);
 
     dbClient.updateUserProfile(userId, cleanProfile, (err, updatedUser) => {
       if (err) return callback(err, null);

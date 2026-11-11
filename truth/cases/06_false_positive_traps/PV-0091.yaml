@@ -1,0 +1,53 @@
+id: PV-0091
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Especificación de Librería Criptográfica en Versión
+  Saneada'
+description: Uso de la librería cryptography en versión auditada y exenta de fallos
+  conocidos en manifiesto.
+taxonomy:
+  owasp_2021: A06:2021
+  owasp_2025: A03:2025
+  cwe_primary: CWE-1104
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: requirements.txt
+  anchor:
+    pattern: cryptography==39.0.1
+    symbol: ''
+  lines:
+  - 4
+  - 4
+  primary: true
+attack_surface:
+  service: none
+  entrypoint:
+    method: STATIC
+    path: requirements.txt
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0091.py
+  expected_evidence: cryptography==39.0.1
+split: dev
+provenance:
+  legacy_id: PV-TRAP-031
+twin: PV-0053

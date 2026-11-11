@@ -1,0 +1,55 @@
+id: PV-0096
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Descompresión de Paquetes con Comprobación de commonpath'
+description: Extracción de miembros de archivos comprimidos validando que cada archivo
+  resuelto resida bajo el directorio base.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-22
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 2
+locations:
+- role: sink
+  file: app_python/archive_extractor.py
+  anchor:
+    pattern: os.path.commonpath([resolved_base, target_path])
+    symbol: ''
+  lines:
+  - 36
+  - 36
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/archive/extract
+    body:
+      zip_path: /nonexistent.zip
+      dest_dir: /tmp
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0096.py
+  expected_evidence: Fallo
+split: dev
+provenance:
+  legacy_id: PV-TRAP-036
+twin: PV-0020

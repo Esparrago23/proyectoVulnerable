@@ -1,0 +1,51 @@
+id: PV-0045
+kind: vuln
+status: verified
+title: MFA Authentication Bypass mediante bandera skip_mfa o header X-Bypass-MFA
+description: Lógica defectuosa que autoriza sesiones sin comprobar el código TOTP
+  si se envía la bandera.
+taxonomy:
+  owasp_2021: A07:2021
+  owasp_2025: A07:2025
+  cwe_primary: CWE-287
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 8.0
+  level: high
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 2
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: missing_control
+  file: app_python/auth/mfa_handler.py
+  anchor:
+    pattern: return f"{code:06d}"
+    symbol: ''
+  lines:
+  - 22
+  - 22
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /mfa
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0045.py
+  expected_evidence: Dashboard
+split: test
+provenance:
+  legacy_id: PV-N4-002

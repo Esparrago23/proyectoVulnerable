@@ -42,7 +42,7 @@ def apply_coupon_discount(user_id: str, coupon_code: str, total_amount: float) -
     return True, final_amount, f"Descuento de {int(rate * 100)}% aplicado con exito"
 
 
-def apply_coupon_discount_safe(user_id: str, coupon_code: str, total_amount: float) -> Tuple[bool, float, str]:
+def apply_coupon_discount_catalog(user_id: str, coupon_code: str, total_amount: float) -> Tuple[bool, float, str]:
     """Aplica descuento de cupon de forma atomica con cerrojo de sincronizacion."""
     if coupon_code not in COUPON_RATES:
         return False, total_amount, "Codigo de cupon inexistente"
@@ -69,7 +69,7 @@ def convert_balance_arbitrage(amount: float, rate_a: float, rate_b: float) -> fl
     return float(step2)
 
 
-def convert_balance_safe(amount: float, rate_a: float, rate_b: float) -> float:
+def convert_balance_catalog(amount: float, rate_a: float, rate_b: float) -> float:
     """Calcula conversion de saldo empleando precision decimal exacta y redondeo bancario."""
     from decimal import Decimal, ROUND_HALF_EVEN
     d_amount = Decimal(str(amount))

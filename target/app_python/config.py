@@ -29,8 +29,42 @@ TESTBED_ADMIN_PASSWORDS = ("SuperSecretPassword2026!", "6aPJxnKq4hEcttthUZqj")
 # Semilla TOTP estándar RFC 6238 en base32 para 2FA
 TESTBED_TOTP_SECRET = "JBSWY3DPEHPK3PXP"
 
+# Cuentas de prueba con autenticación por capacidad (Simple, 2FA/TOTP, Documento, Multi-barrera)
+TESTBED_ACCOUNTS = {
+    "operador_simple": {
+        "password": "SimplePass2026!",
+        "role": "operador",
+        "capability": "simple",
+        "description": "Operador N1 - Acceso directo a dashboard sin segundo factor",
+    },
+    "analista_2fa": {
+        "password": "MfaPass2026!",
+        "role": "analista",
+        "capability": "totp",
+        "totp_secret": "JBSWY3DPEHPK3PXP",
+        "description": "Analista SOC - Acceso protegido con 2FA TOTP RFC 6238",
+    },
+    "auditor_doc": {
+        "password": "DocPass2026!",
+        "role": "auditor",
+        "capability": "document",
+        "cert_path": "meta/certs/acreditacion_orca.pem",
+        "required_cert_marker": "ORCA-CERT-2026-VALID",
+        "description": "Auditor de cumplimiento - Requiere acreditación documental con certificado digital",
+    },
+    "admin": {
+        "password": "SuperSecretPassword2026!",
+        "passwords": ("SuperSecretPassword2026!", "6aPJxnKq4hEcttthUZqj"),
+        "role": "admin",
+        "capability": "full",
+        "totp_secret": "JBSWY3DPEHPK3PXP",
+        "cert_path": "meta/certs/acreditacion_orca.pem",
+        "description": "SuperAdministrador - Esquema de seguridad multi-barrera completo",
+    },
+}
+
 # Canarios para verificación empírica de 0 leaks
 CANARY_SESSION_TOKEN = "CANARY_SESSION_DATA_DELTA_882"
 CANARY_API_PAYLOAD = "CANARY_PAYLOAD_OMEGA_773"
 
-FLASK_SECRET_KEY = "insecure_dev_flask_secret_key_change_in_prod"
+FLASK_SECRET_KEY = "archive_dev_flask_secret_key_change_in_prod"

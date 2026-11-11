@@ -1,0 +1,52 @@
+id: PV-0159
+kind: vuln
+status: verified
+title: Business endpoint exposure at /api/webhooks/events
+description: Executable benchmark case for an observable weakness in the /api/webhooks/events
+  workflow.
+taxonomy:
+  owasp_2021: A08:2021
+  owasp_2025: A08:2025
+  cwe_primary: CWE-345
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 9.1
+  level: critical
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N
+difficulty:
+  hops: 4
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_node/server.js
+  anchor:
+    pattern: app.post('/api/webhooks/events', (req, res) => {
+    symbol: ''
+  lines:
+  - 324
+  - 324
+  primary: true
+attack_surface:
+  service: app_node
+  entrypoint:
+    method: POST
+    path: /api/webhooks/events
+    body:
+      event: payment
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+- business_logic_analysis
+proof:
+  exploit_test: tests/exploits/test_pv_0159.py
+  expected_evidence: processed
+split: dev

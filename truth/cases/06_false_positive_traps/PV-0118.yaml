@@ -1,0 +1,51 @@
+id: PV-0118
+kind: trap
+status: verified
+title: 'Trampa FP: Conversion de divisas con precision decimal exacta y redondeo bancario'
+description: Uso del modulo Decimal con ROUND_HALF_EVEN que neutraliza cualquier arbitraje
+  de fracciones monetarias.
+taxonomy:
+  owasp_2021: A04:2021
+  owasp_2025: A06:2025
+  cwe_primary: CWE-840
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 3
+  cross_language: false
+  cross_service: true
+  requires_runtime_state: true
+  requires_business_context: true
+  partial_sanitizer: false
+  framework_indirection: true
+  config_or_dependency: false
+  computed_level: 4
+locations:
+- role: sink
+  file: app_python/tasks/coupon_service.py
+  anchor:
+    pattern: d_amount = Decimal(str(amount))
+    symbol: ''
+  lines:
+  - 75
+  - 75
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/wallet/convert
+  auth_required: none
+detection_capabilities_needed:
+- cross_file_dataflow
+proof:
+  exploit_test: tests/exploits/test_pv_0118.py
+  expected_evidence: exact
+split: dev
+provenance:
+  legacy_id: PV-TRAP-058

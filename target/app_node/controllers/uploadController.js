@@ -12,7 +12,7 @@ const crypto = require('crypto');
 
 const UPLOADS_DIR = path.join(__dirname, '../uploads');
 
-function handleFileUploadRaw(req, res) {
+function handleFileUpload(req, res) {
   const filename = req.body.filename || 'attachment.txt';
   const content = req.body.content || '';
 
@@ -27,7 +27,7 @@ function handleFileUploadRaw(req, res) {
   }
 }
 
-function handleFileUploadSafe(req, res) {
+function handleFileUploadCatalog(req, res) {
   const rawFilename = req.body.filename || 'attachment.txt';
   const content = req.body.content || '';
 
@@ -39,18 +39,18 @@ function handleFileUploadSafe(req, res) {
     return res.status(400).json({ error: 'Tipo de archivo no autorizado por politica de seguridad' });
   }
 
-  const safeFilename = `${crypto.randomUUID()}${ext}`;
-  const destPath = path.join(UPLOADS_DIR, safeFilename);
+  const catalogFilename = `${crypto.randomUUID()}${ext}`;
+  const destPath = path.join(UPLOADS_DIR, catalogFilename);
 
   try {
     fs.writeFileSync(destPath, content, 'utf8');
-    res.json({ status: 'saved', filename: safeFilename });
+    res.json({ status: 'saved', filename: catalogFilename });
   } catch (err) {
     res.status(500).json({ error: `Fallo al guardar archivo: ${err.message}` });
   }
 }
 
 module.exports = {
-  handleFileUploadRaw,
-  handleFileUploadSafe,
+  handleFileUpload,
+  handleFileUploadCatalog,
 };

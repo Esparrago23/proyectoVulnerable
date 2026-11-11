@@ -1,0 +1,5830 @@
+[
+  {
+    "id": "PV-0001",
+    "file": "app_node/controllers/userController.js",
+    "line_start": 9,
+    "line_end": 9,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "SQL Injection directa por concatenación string en getUserDirect",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/userController.js",
+        "anchor": {
+          "pattern": "function getUserById(req, res) {",
+          "symbol": ""
+        },
+        "lines": [
+          9,
+          9
+        ],
+        "primary": true
+      },
+      {
+        "role": "source",
+        "file": "app_node/controllers/userController.js",
+        "anchor": {
+          "pattern": "function getUserById(req, res) {",
+          "symbol": ""
+        },
+        "lines": [
+          9,
+          9
+        ],
+        "primary": false
+      }
+    ]
+  },
+  {
+    "id": "PV-0002",
+    "file": "app_node/controllers/userController.js",
+    "line_start": 19,
+    "line_end": 19,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Command Injection con child_process.exec() directo en pingHostDirect",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/userController.js",
+        "anchor": {
+          "pattern": "// Diagnostico de disponibilidad de red hacia host destino",
+          "symbol": ""
+        },
+        "lines": [
+          19,
+          19
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0003",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 8,
+    "line_end": 8,
+    "cwe": "CWE-79",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Reflected XSS con sanitizador ingenuo que solo elimina script una vez",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "function searchProducts(req, res) {",
+          "symbol": ""
+        },
+        "lines": [
+          8,
+          8
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0004",
+    "file": "app_python/app.py",
+    "line_start": 555,
+    "line_end": 555,
+    "cwe": "CWE-1336",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Server-Side Template Injection (SSTI) con render_template_string en vista previa",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "@app.route(\"/api/auth/token\", methods=[\"POST\"])",
+          "symbol": ""
+        },
+        "lines": [
+          555,
+          555
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0005",
+    "file": "app_node/controllers/feedbackController.js",
+    "line_start": 21,
+    "line_end": 21,
+    "cwe": "CWE-79",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Stored Cross-Site Scripting (XSS) en comentarios de retroalimentación",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/feedbackController.js",
+        "anchor": {
+          "pattern": "dbClient.insertFeedback(author, message",
+          "symbol": ""
+        },
+        "lines": [
+          21,
+          21
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0006",
+    "file": "app_python/xml_parser.py",
+    "line_start": 19,
+    "line_end": 19,
+    "cwe": "CWE-611",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "XML External Entity (XXE) Injection en analizador de facturas tributarias",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/xml_parser.py",
+        "anchor": {
+          "pattern": "ET.fromstring(xml_content)",
+          "symbol": ""
+        },
+        "lines": [
+          19,
+          19
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0007",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 90,
+    "line_end": 90,
+    "cwe": "CWE-1333",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Regular Expression Denial of Service (ReDoS) por cuantificadores anidados",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "/^([a-zA-Z0-9]+)+$/",
+          "symbol": ""
+        },
+        "lines": [
+          90,
+          90
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0008",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 110,
+    "line_end": 110,
+    "cwe": "CWE-113",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "HTTP Response Splitting / CRLF Injection en cabecera personalizada",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "res.setHeader('X-Custom-Tracking', tag)",
+          "symbol": ""
+        },
+        "lines": [
+          110,
+          110
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0009",
+    "file": "app_node/services/mergeUtil.js",
+    "line_start": 7,
+    "line_end": 7,
+    "cwe": "CWE-1321",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Contaminación de Prototipos de Objetos (Prototype Pollution) en Combinación Recursiva",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/services/mergeUtil.js",
+        "anchor": {
+          "pattern": "'use strict';",
+          "symbol": ""
+        },
+        "lines": [
+          7,
+          7
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0010",
+    "file": "app_node/controllers/catalogController.js",
+    "line_start": 21,
+    "line_end": 21,
+    "cwe": "CWE-943",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Inyección de Expresiones de Código en Filtrado de Colecciones (NoSQL Injection)",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/catalogController.js",
+        "anchor": {
+          "pattern": "new Function('item'",
+          "symbol": ""
+        },
+        "lines": [
+          21,
+          21
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0011",
+    "file": "app_python/diagnostic_service.py",
+    "line_start": 19,
+    "line_end": 19,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Inyección de Comandos del Sistema Operativo con shell=True en Diagnóstico de Red",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/diagnostic_service.py",
+        "anchor": {
+          "pattern": "cmd = f\"ping -c 1 {host_target}\"",
+          "symbol": ""
+        },
+        "lines": [
+          19,
+          19
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0012",
+    "file": "app_node/models/dbClient.js",
+    "line_start": 32,
+    "line_end": 32,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "SQLi Multi-Salto: controller -> service -> DAO concatenado en queryOrderRaw",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/models/dbClient.js",
+        "anchor": {
+          "pattern": "* Ejecuta la sentencia SQL en base a los criterios recibidos del servicio.",
+          "symbol": ""
+        },
+        "lines": [
+          32,
+          32
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0013",
+    "file": "app_node/controllers/templateController.js",
+    "line_start": 15,
+    "line_end": 15,
+    "cwe": "CWE-1336",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Inyección de Plantillas del Servidor (SSTI) en Node.js vía new Function",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/templateController.js",
+        "anchor": {
+          "pattern": "new Function('username'",
+          "symbol": ""
+        },
+        "lines": [
+          15,
+          15
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0014",
+    "file": "app_node/controllers/reportController.js",
+    "line_start": 16,
+    "line_end": 16,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Inyección SQL Ciega en Cláusula ORDER BY de Reportes Analíticos",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/reportController.js",
+        "anchor": {
+          "pattern": "ORDER BY ${department} ${sortOrder}",
+          "symbol": ""
+        },
+        "lines": [
+          16,
+          16
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0015",
+    "file": "app_python/app.py",
+    "line_start": 919,
+    "line_end": 919,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Cross-Service Taint: Inyeccion SQL en liquidacion interna despachada desde Node a Python",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "@app.route(\"/api/auth/reset-token\", methods=[\"POST\"])",
+          "symbol": ""
+        },
+        "lines": [
+          919,
+          919
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0016",
+    "file": "app_python/app.py",
+    "line_start": 933,
+    "line_end": 933,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Cross-Service Taint: Command Injection en ejecucion de archivo comprimido inter-servicio",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "token = auth_service.generate_reset_token_secure(user)",
+          "symbol": ""
+        },
+        "lines": [
+          933,
+          933
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0017",
+    "file": "app_node/services/billingService.js",
+    "line_start": 33,
+    "line_end": 33,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "test",
+    "language": "js",
+    "title": "Inyección SQL Multi-Salto Profunda (Nivel 4) en Flujo de Facturación Corporativa",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/services/billingService.js",
+        "anchor": {
+          "pattern": "SELECT * FROM orders WHERE user_id = '${billingAccount}'",
+          "symbol": ""
+        },
+        "lines": [
+          33,
+          33
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0018",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 66,
+    "line_end": 66,
+    "cwe": "CWE-601",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Open URL Redirect sin validación de destino en endpoint de navegación",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "// Redireccion de navegacion hacia recurso externo o interno",
+          "symbol": ""
+        },
+        "lines": [
+          66,
+          66
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0019",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 26,
+    "line_end": 26,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Path Traversal con reemplazo no recursivo de ../ en downloadAsset",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "function downloadAsset(req, res) {",
+          "symbol": ""
+        },
+        "lines": [
+          26,
+          26
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0020",
+    "file": "app_python/archive_extractor.py",
+    "line_start": 22,
+    "line_end": 22,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Extracción Arbitraria de Archivos en Descompresión de Archivos ZIP (Zip Slip)",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/archive_extractor.py",
+        "anchor": {
+          "pattern": "archive.extractall(output_directory)",
+          "symbol": ""
+        },
+        "lines": [
+          22,
+          22
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0021",
+    "file": "app_node/controllers/uploadController.js",
+    "line_start": 20,
+    "line_end": 20,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Salto de Directorio en Carga de Archivos Adjuntos (Path Traversal in Upload)",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/uploadController.js",
+        "anchor": {
+          "pattern": "path.join(UPLOADS_DIR, filename)",
+          "symbol": ""
+        },
+        "lines": [
+          20,
+          20
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0022",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 37,
+    "line_end": 37,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Modificacion de estado de orden sin verificacion de pertenencia de usuario (IDOR)",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/orderController.js",
+        "anchor": {
+          "pattern": "orderStore[orderId].status = newStatus;",
+          "symbol": ""
+        },
+        "lines": [
+          37,
+          37
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0023",
+    "file": "app_node/services/roleService.js",
+    "line_start": 11,
+    "line_end": 11,
+    "cwe": "CWE-269",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Escalación de Privilegios Multi-Salto por Merge de Propiedades en roleService",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/services/roleService.js",
+        "anchor": {
+          "pattern": "* Aplica las propiedades suministradas sobre el objeto de usuario.",
+          "symbol": ""
+        },
+        "lines": [
+          11,
+          11
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0024",
+    "file": "app_python/doc_service.py",
+    "line_start": 35,
+    "line_end": 35,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "IDOR en servicio de consulta y descarga de comprobantes documentales",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/doc_service.py",
+        "anchor": {
+          "pattern": "def get_document(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]:",
+          "symbol": ""
+        },
+        "lines": [
+          35,
+          35
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0025",
+    "file": "app_python/profile_service.py",
+    "line_start": 26,
+    "line_end": 26,
+    "cwe": "CWE-915",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Asignación Masiva de Atributos Privilegiados en Perfil de Usuario",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/profile_service.py",
+        "anchor": {
+          "pattern": "profile.update(incoming_fields)",
+          "symbol": ""
+        },
+        "lines": [
+          26,
+          26
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0026",
+    "file": "app_node/controllers/invoiceController.js",
+    "line_start": 6,
+    "line_end": 6,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Insecure Direct Object Reference (IDOR) sin validación de tenant de factura",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/invoiceController.js",
+        "anchor": {
+          "pattern": "function getInvoiceDetails(req, res) {",
+          "symbol": ""
+        },
+        "lines": [
+          6,
+          6
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0027",
+    "file": "app_python/app.py",
+    "line_start": 182,
+    "line_end": 182,
+    "cwe": "CWE-862",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Manipulación Lógica de Saldo mediante Transferencia de Montos Negativos",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "if not ok or not u_record:",
+          "symbol": ""
+        },
+        "lines": [
+          182,
+          182
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0028",
+    "file": "app_python/tasks/coupon_service.py",
+    "line_start": 40,
+    "line_end": 40,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Condición de Carrera en Aplicación de Cupones de Descuento (Business Logic Flaw)",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/tasks/coupon_service.py",
+        "anchor": {
+          "pattern": "# Registro diferido del canje permitiendo carreras de procesamiento",
+          "symbol": ""
+        },
+        "lines": [
+          40,
+          40
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0029",
+    "file": "app_node/controllers/cartController.js",
+    "line_start": 19,
+    "line_end": 19,
+    "cwe": "CWE-1284",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Manipulación Lógica de Importe de Carrito por Cantidades Negativas",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/cartController.js",
+        "anchor": {
+          "pattern": "// Calculo de total permitiendo cantidades negativas o no numericas",
+          "symbol": ""
+        },
+        "lines": [
+          19,
+          19
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0030",
+    "file": "app_python/tasks/inventory_service.py",
+    "line_start": 33,
+    "line_end": 33,
+    "cwe": "CWE-367",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Condición de Carrera Tiempo-de-Comprobación a Tiempo-de-Uso (TOCTOU) en Inventario",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/tasks/inventory_service.py",
+        "anchor": {
+          "pattern": "time.sleep(0.01)",
+          "symbol": ""
+        },
+        "lines": [
+          33,
+          33
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0031",
+    "file": "app_python/tasks/coupon_service.py",
+    "line_start": 67,
+    "line_end": 67,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Falla de Logica de Negocio: Arbitraje de redondeo en conversion de saldo de billetera",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/tasks/coupon_service.py",
+        "anchor": {
+          "pattern": "step1 = int(amount * rate_a * 100) / 100.0",
+          "symbol": ""
+        },
+        "lines": [
+          67,
+          67
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0032",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 63,
+    "line_end": 63,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Falla de Logica de Negocio: Condicion de carrera TOCTOU en aplicacion concurrente de cupon",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/orderController.js",
+        "anchor": {
+          "pattern": "// Comprobacion de cuota previa sin cerrojo atomico",
+          "symbol": ""
+        },
+        "lines": [
+          63,
+          63
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0033",
+    "file": "app_python/doc_service.py",
+    "line_start": 55,
+    "line_end": 55,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "py",
+    "title": "Falla de Logica de Negocio: Sobregiro en transferencias encadenadas por debito previo a validacion",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/doc_service.py",
+        "anchor": {
+          "pattern": "def execute_chained_settlement(sender: str, receiver: str, amount: float, balances: Dict[str, float]) -> bool:",
+          "symbol": ""
+        },
+        "lines": [
+          55,
+          55
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0034",
+    "file": "app_python/config.py",
+    "line_start": 1,
+    "line_end": 1,
+    "cwe": "CWE-798",
+    "owasp": "A07:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Claves de API de AWS hardcodeadas en texto plano",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/config.py",
+        "anchor": {
+          "pattern": "\"\"\"Modulo de configuracion del servicio y credenciales del entorno.\"\"\"",
+          "symbol": ""
+        },
+        "lines": [
+          1,
+          1
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0035",
+    "file": "app_python/config.py",
+    "line_start": 11,
+    "line_end": 11,
+    "cwe": "CWE-321",
+    "owasp": "A02:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Clave privada RSA PEM sin cifrar embebida en código fuente",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/config.py",
+        "anchor": {
+          "pattern": "JWT_SIGNING_PRIVATE_KEY",
+          "symbol": ""
+        },
+        "lines": [
+          11,
+          11
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0036",
+    "file": "app_python/token_service.py",
+    "line_start": 14,
+    "line_end": 14,
+    "cwe": "CWE-327",
+    "owasp": "A02:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Uso de algoritmo criptográfico débil (MD5) para generación de tokens de API",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/token_service.py",
+        "anchor": {
+          "pattern": "def generate_archive_token(user_id: str, salt: str = \"archive_salt\") -> Dict[str, str]:",
+          "symbol": ""
+        },
+        "lines": [
+          14,
+          14
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0037",
+    "file": "app_python/tasks/export_task.py",
+    "line_start": 20,
+    "line_end": 20,
+    "cwe": "CWE-377",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Creación insegura de archivos temporales con nombre estático y permisos predeterminados",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/tasks/export_task.py",
+        "anchor": {
+          "pattern": "open(tmp_path, \"w\"",
+          "symbol": ""
+        },
+        "lines": [
+          20,
+          20
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0038",
+    "file": "app_node/services/tokenUtil.js",
+    "line_start": 13,
+    "line_end": 13,
+    "cwe": "CWE-338",
+    "owasp": "A02:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Generación de Tokens de Seguridad con Generador Pseudoaleatorio Débil (Math.random)",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/services/tokenUtil.js",
+        "anchor": {
+          "pattern": "Math.random().toString(36)",
+          "symbol": ""
+        },
+        "lines": [
+          13,
+          13
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0039",
+    "file": "app_python/crypto_util.py",
+    "line_start": 49,
+    "line_end": 49,
+    "cwe": "CWE-328",
+    "owasp": "A02:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Uso de algoritmo de hash debil MD5 para verificacion de integridad",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/crypto_util.py",
+        "anchor": {
+          "pattern": "hashlib.md5(data.encode(\"utf-8\")).hexdigest()",
+          "symbol": ""
+        },
+        "lines": [
+          49,
+          49
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0040",
+    "file": "app_python/jwt_service.py",
+    "line_start": 20,
+    "line_end": 20,
+    "cwe": "CWE-347",
+    "owasp": "A07:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Bypass de Firma Criptográfica en Verificación de Tokens JWT",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/jwt_service.py",
+        "anchor": {
+          "pattern": "options={\"verify_signature\": False}",
+          "symbol": ""
+        },
+        "lines": [
+          20,
+          20
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0041",
+    "file": "app_node/controllers/sessionController.js",
+    "line_start": 15,
+    "line_end": 15,
+    "cwe": "CWE-384",
+    "owasp": "A07:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Fijación de Sesión por Omisión de Regeneración de Identificador",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/controllers/sessionController.js",
+        "anchor": {
+          "pattern": "// Asignacion de identidad a la sesion activa existente sin renovar identificador",
+          "symbol": ""
+        },
+        "lines": [
+          15,
+          15
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0042",
+    "file": "app_python/auth_service.py",
+    "line_start": 43,
+    "line_end": 43,
+    "cwe": "CWE-330",
+    "owasp": "A02:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Generación de Token de Restablecimiento de Contraseña Predecible",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/auth_service.py",
+        "anchor": {
+          "pattern": "def _load_registry() -> None:",
+          "symbol": ""
+        },
+        "lines": [
+          43,
+          43
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0043",
+    "file": "app_python/auth_service.py",
+    "line_start": 19,
+    "line_end": 19,
+    "cwe": "CWE-204",
+    "owasp": "A07:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Enumeración de Cuentas por Mensajes de Error Diferenciados en Autenticación",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/auth_service.py",
+        "anchor": {
+          "pattern": "import subprocess",
+          "symbol": ""
+        },
+        "lines": [
+          19,
+          19
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0044",
+    "file": "app_python/crypto_util.py",
+    "line_start": 27,
+    "line_end": 27,
+    "cwe": "CWE-327",
+    "owasp": "A02:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "py",
+    "title": "Uso de Modo Criptográfico Inseguro (AES-ECB) sin Vector de Inicialización",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/crypto_util.py",
+        "anchor": {
+          "pattern": "modes.ECB()",
+          "symbol": ""
+        },
+        "lines": [
+          27,
+          27
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0045",
+    "file": "app_python/auth/mfa_handler.py",
+    "line_start": 22,
+    "line_end": 22,
+    "cwe": "CWE-287",
+    "owasp": "A07:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "MFA Authentication Bypass mediante bandera skip_mfa o header X-Bypass-MFA",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/auth/mfa_handler.py",
+        "anchor": {
+          "pattern": "return f\"{code:06d}\"",
+          "symbol": ""
+        },
+        "lines": [
+          22,
+          22
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0046",
+    "file": "app_python/yaml_parser.py",
+    "line_start": 18,
+    "line_end": 18,
+    "cwe": "CWE-502",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Deserialización Insegura de Documentos YAML con yaml.load",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/yaml_parser.py",
+        "anchor": {
+          "pattern": "yaml.load(yaml_text, Loader=yaml.Loader)",
+          "symbol": ""
+        },
+        "lines": [
+          18,
+          18
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0047",
+    "file": "app_python/tasks/worker.py",
+    "line_start": 10,
+    "line_end": 10,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "SSRF Multi-Salto: Webhook en background sin validación de rangos privados",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/tasks/worker.py",
+        "anchor": {
+          "pattern": "def process_webhook_fetch(target_url: str) -> Dict[str, Any]:",
+          "symbol": ""
+        },
+        "lines": [
+          10,
+          10
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0048",
+    "file": "app_python/ssrf_client.py",
+    "line_start": 18,
+    "line_end": 18,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Falsificación de Peticiones del Servidor (SSRF) en Cliente Webhook Remoto",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/ssrf_client.py",
+        "anchor": {
+          "pattern": "Realiza la llamada de red sin verificar la resolucion DNS ni el rango de red de destino.",
+          "symbol": ""
+        },
+        "lines": [
+          18,
+          18
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0049",
+    "file": "app_node/services/internalServiceClient.js",
+    "line_start": 14,
+    "line_end": 14,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Falsificación de Peticiones del Servidor Inter-Servicio (SSRF Multi-Componente)",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/services/internalServiceClient.js",
+        "anchor": {
+          "pattern": "http://127.0.0.1:5001/api/tasks/webhook?action=",
+          "symbol": ""
+        },
+        "lines": [
+          14,
+          14
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0050",
+    "file": "app_python/app.py",
+    "line_start": 891,
+    "line_end": 891,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Cross-Service Taint: SSRF en descarga de comprobante remoto originado en cliente Node",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "claims = jwt_service.decode_token_verified(token_str, config.JWT_PUBLIC_KEY, \"https://auth.corp.internal\")",
+          "symbol": ""
+        },
+        "lines": [
+          891,
+          891
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0051",
+    "file": "app_python/tasks/worker.py",
+    "line_start": 22,
+    "line_end": 22,
+    "cwe": "CWE-502",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Deserialización insegura con pickle.loads sobre datos de sesión en base64",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/tasks/worker.py",
+        "anchor": {
+          "pattern": "content = resp.read()",
+          "symbol": ""
+        },
+        "lines": [
+          22,
+          22
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0052",
+    "file": "app_node/server.js",
+    "line_start": 21,
+    "line_end": 21,
+    "cwe": "CWE-942",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "CORS permisivo: Wildcard Origin * con Allow-Credentials true",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "const uploadController = require('./controllers/uploadController');",
+          "symbol": ""
+        },
+        "lines": [
+          21,
+          21
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0053",
+    "file": "requirements.txt",
+    "line_start": 3,
+    "line_end": 3,
+    "cwe": "CWE-1104",
+    "owasp": "A06:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "txt",
+    "title": "Dependencia Vulnerable en Ecosistema Python (PyYAML Deserialization RCE)",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "requirements.txt",
+        "anchor": {
+          "pattern": "pyyaml==5.3.1",
+          "symbol": ""
+        },
+        "lines": [
+          3,
+          3
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0054",
+    "file": "package.json",
+    "line_start": 15,
+    "line_end": 15,
+    "cwe": "CWE-1104",
+    "owasp": "A06:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "json",
+    "title": "Dependencia de Terceros Vulnerable en Node.js (Lodash Prototype Pollution)",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "package.json",
+        "anchor": {
+          "pattern": "\"lodash\": \"4.17.15\"",
+          "symbol": ""
+        },
+        "lines": [
+          15,
+          15
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0055",
+    "file": "infra/Dockerfile.archive",
+    "line_start": 10,
+    "line_end": 10,
+    "cwe": "CWE-250",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "archive",
+    "title": "Mala Configuración en Imagen Docker: Ejecución como Superusuario Root",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "infra/Dockerfile.archive",
+        "anchor": {
+          "pattern": "USER root",
+          "symbol": ""
+        },
+        "lines": [
+          10,
+          10
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0056",
+    "file": "infra/docker-compose.archive.yml",
+    "line_start": 6,
+    "line_end": 6,
+    "cwe": "CWE-732",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "yml",
+    "title": "Mala Configuración IaC: Contenedor en Modo Privilegiado y Montaje de Docker Socket",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "infra/docker-compose.archive.yml",
+        "anchor": {
+          "pattern": "privileged: true",
+          "symbol": ""
+        },
+        "lines": [
+          6,
+          6
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0057",
+    "file": "app_python/app.py",
+    "line_start": 908,
+    "line_end": 908,
+    "cwe": "CWE-200",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Exposicion de variables de entorno del sistema en endpoint de depuracion",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "@app.route(\"/api/catalog/auth/login-enum\", methods=[\"POST\"])",
+          "symbol": ""
+        },
+        "lines": [
+          908,
+          908
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0058",
+    "file": "app_node/server.js",
+    "line_start": 29,
+    "line_end": 29,
+    "cwe": "CWE-942",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "CORS con regex permisiva que no ancla fin de cadena en subdominios",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.use(bodyParser.json());",
+          "symbol": ""
+        },
+        "lines": [
+          29,
+          29
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0059",
+    "file": ".env.backup",
+    "line_start": 1,
+    "line_end": 1,
+    "cwe": "CWE-552",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "backup",
+    "title": "Archivo de backup de entorno con contraseñas y canarios expuestos",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": ".env.backup",
+        "anchor": {
+          "pattern": "# Backup de variables de entorno de desarrollo / staging",
+          "symbol": ""
+        },
+        "lines": [
+          1,
+          1
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0060",
+    "file": "app_node/server.js",
+    "line_start": 70,
+    "line_end": 70,
+    "cwe": "CWE-942",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Configuración CORS Permisiva con Aceptación de Origen 'null'",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "origin === 'null'",
+          "symbol": ""
+        },
+        "lines": [
+          70,
+          70
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0061",
+    "file": "app_node/catalog/resourceController.js",
+    "line_start": 6,
+    "line_end": 6,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Concatenación SQL con parseInt estricto previo",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/catalog/resourceController.js",
+        "anchor": {
+          "pattern": "const dbClient = require('../models/dbClient');",
+          "symbol": ""
+        },
+        "lines": [
+          6,
+          6
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0062",
+    "file": "app_node/catalog/resourceController.js",
+    "line_start": 18,
+    "line_end": 18,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Descarga con basename y lista blanca estricta",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/catalog/resourceController.js",
+        "anchor": {
+          "pattern": "const catalogSql = `SELECT * FROM users WHERE id = ${parsedId}`;",
+          "symbol": ""
+        },
+        "lines": [
+          18,
+          18
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0063",
+    "file": "app_python/auth_routes.py",
+    "line_start": 24,
+    "line_end": 24,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: SSRF Mitigado con Allowlist de Dominio e IP Privada Bloqueada",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_routes.py",
+        "anchor": {
+          "pattern": "ALLOWED_PARTNER_DOMAINS = {\"api.github.com\", \"httpbin.org\"}",
+          "symbol": ""
+        },
+        "lines": [
+          24,
+          24
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0064",
+    "file": "app_node/catalog/resourceController.js",
+    "line_start": 31,
+    "line_end": 31,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Facturación con Validación Estricta de Tenant ID",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/catalog/resourceController.js",
+        "anchor": {
+          "pattern": "if (!ALLOWED_FILES.includes(cleanBasename)) {",
+          "symbol": ""
+        },
+        "lines": [
+          31,
+          31
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0065",
+    "file": "app_node/catalog/resourceController.js",
+    "line_start": 53,
+    "line_end": 53,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Ejecución con execFile y Validación Regex IPv4 Estricta",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/catalog/resourceController.js",
+        "anchor": {
+          "pattern": "return res.status(403).json({ error: 'Acceso denegado: factura no pertenece a este tenant' });",
+          "symbol": ""
+        },
+        "lines": [
+          53,
+          53
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0066",
+    "file": "app_python/auth_routes.py",
+    "line_start": 98,
+    "line_end": 98,
+    "cwe": "CWE-502",
+    "owasp": "A08:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Deserialización Segura con HMAC-SHA256 y JSON Exclusivo",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_routes.py",
+        "anchor": {
+          "pattern": "# Restauracion de sesion autenticada mediante firma criptografica HMAC y JSON",
+          "symbol": ""
+        },
+        "lines": [
+          98,
+          98
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0067",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 50,
+    "line_end": 50,
+    "cwe": "CWE-79",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: XSS Neutralizado mediante Codificación Contextual HTML",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "// Busqueda segura de productos con escape contextual de caracteres especiales",
+          "symbol": ""
+        },
+        "lines": [
+          50,
+          50
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0068",
+    "file": "app_node/models/dbClient.js",
+    "line_start": 69,
+    "line_end": 69,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Consulta SQL Multi-Salto Parametrizada en Capa DAO",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/models/dbClient.js",
+        "anchor": {
+          "pattern": "db.all(query, [userId]",
+          "symbol": ""
+        },
+        "lines": [
+          69,
+          69
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0069",
+    "file": "app_node/services/roleService.js",
+    "line_start": 37,
+    "line_end": 37,
+    "cwe": "CWE-915",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Actualización de Perfil con Lista Blanca Estricta de Campos (DTO)",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/services/roleService.js",
+        "anchor": {
+          "pattern": "ALLOWED_MUTABLE_KEYS = ['display_name', 'bio', 'theme']",
+          "symbol": ""
+        },
+        "lines": [
+          37,
+          37
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0070",
+    "file": "app_python/tasks/worker.py",
+    "line_start": 75,
+    "line_end": 75,
+    "cwe": "CWE-862",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Transferencia de Fondos con Precondición de Monto Estrictamente Positivo",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/tasks/worker.py",
+        "anchor": {
+          "pattern": "if amount <= 0:",
+          "symbol": ""
+        },
+        "lines": [
+          75,
+          75
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0071",
+    "file": "app_python/config.py",
+    "line_start": 8,
+    "line_end": 8,
+    "cwe": "CWE-798",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Clave Marcador de Posición Claramente Documentada",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/config.py",
+        "anchor": {
+          "pattern": "DUMMY_INTEGRATION_KEY",
+          "symbol": ""
+        },
+        "lines": [
+          8,
+          8
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0072",
+    "file": "app_python/auth/mfa_handler.py",
+    "line_start": 48,
+    "line_end": 48,
+    "cwe": "CWE-287",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Verificación Estricta de TOTP sin Banderas de Bypass",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth/mfa_handler.py",
+        "anchor": {
+          "pattern": "verify_totp_strict",
+          "symbol": ""
+        },
+        "lines": [
+          48,
+          48
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0073",
+    "file": "app_node/server.js",
+    "line_start": 58,
+    "line_end": 58,
+    "cwe": "CWE-942",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: CORS con Lista Blanca de Orígenes Exacta y Anclada",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "ALLOWED_EXACT_ORIGINS = ['http://partner.corp.internal'",
+          "symbol": ""
+        },
+        "lines": [
+          58,
+          58
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0074",
+    "file": ".env.example",
+    "line_start": 3,
+    "line_end": 3,
+    "cwe": "CWE-552",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "example",
+    "title": "Trampa de Falso Positivo: Archivo de Plantilla de Entorno con Valores Sintéticos",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": ".env.example",
+        "anchor": {
+          "pattern": "sample_pass_placeholder",
+          "symbol": ""
+        },
+        "lines": [
+          3,
+          3
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0075",
+    "file": "app_python/app.py",
+    "line_start": 564,
+    "line_end": 564,
+    "cwe": "CWE-1336",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Renderizado de Plantilla Seguro con Contexto Fijo",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "request_data = {",
+          "symbol": ""
+        },
+        "lines": [
+          564,
+          564
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0076",
+    "file": "app_node/controllers/feedbackController.js",
+    "line_start": 30,
+    "line_end": 30,
+    "cwe": "CWE-79",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Registro de Comentarios con Codificación de Entidades HTML",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/feedbackController.js",
+        "anchor": {
+          "pattern": "escapeHtml(req.body.author",
+          "symbol": ""
+        },
+        "lines": [
+          30,
+          30
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0077",
+    "file": "app_python/xml_parser.py",
+    "line_start": 31,
+    "line_end": 31,
+    "cwe": "CWE-611",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Parseo XML con Rechazo de DOCTYPE y Entidades Externas",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/xml_parser.py",
+        "anchor": {
+          "pattern": "def parse_invoice_xml_catalog(xml_content: str) -> Dict[str, Any]:",
+          "symbol": ""
+        },
+        "lines": [
+          31,
+          31
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0078",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 73,
+    "line_end": 73,
+    "cwe": "CWE-601",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Redirección Restringida a Rutas Relativas Locales",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "// Redireccion segura restringida a rutas relativas del portal",
+          "symbol": ""
+        },
+        "lines": [
+          73,
+          73
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0079",
+    "file": "app_python/doc_service.py",
+    "line_start": 42,
+    "line_end": 42,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Consulta Documental con Verificación Estricta de Propiedad (Tenancy)",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/doc_service.py",
+        "anchor": {
+          "pattern": "def get_document_catalog(doc_id: int, caller_user: str) -> Optional[Dict[str, Any]]:",
+          "symbol": ""
+        },
+        "lines": [
+          42,
+          42
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0080",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 86,
+    "line_end": 86,
+    "cwe": "CWE-1333",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Validación con Expresión Regular Lineal y Límite de Longitud",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "if (name.length > 18 && name.endsWith('!')) {",
+          "symbol": ""
+        },
+        "lines": [
+          86,
+          86
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0081",
+    "file": "app_node/controllers/searchController.js",
+    "line_start": 110,
+    "line_end": 110,
+    "cwe": "CWE-113",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Encabezado HTTP Personalizado con Saneamiento CRLF",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/searchController.js",
+        "anchor": {
+          "pattern": "res.setHeader('X-Custom-Tracking', tag);",
+          "symbol": ""
+        },
+        "lines": [
+          110,
+          110
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0082",
+    "file": "app_python/token_service.py",
+    "line_start": 24,
+    "line_end": 24,
+    "cwe": "CWE-328",
+    "owasp": "A02:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Generación de Tokens de Sesión con HMAC-SHA256",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/token_service.py",
+        "anchor": {
+          "pattern": "def generate_secure_token",
+          "symbol": ""
+        },
+        "lines": [
+          24,
+          24
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0083",
+    "file": "app_python/tasks/export_task.py",
+    "line_start": 25,
+    "line_end": 25,
+    "cwe": "CWE-377",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Creación de Archivos Temporales con Nombre Aleatorio y Permisos 0600",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/tasks/export_task.py",
+        "anchor": {
+          "pattern": "def export_report_secure",
+          "symbol": ""
+        },
+        "lines": [
+          25,
+          25
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0084",
+    "file": "app_python/jwt_service.py",
+    "line_start": 30,
+    "line_end": 30,
+    "cwe": "CWE-347",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Validación Criptográfica Estricta de JWT con RS256",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/jwt_service.py",
+        "anchor": {
+          "pattern": "algorithms=[\"RS256\"]",
+          "symbol": ""
+        },
+        "lines": [
+          30,
+          30
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0085",
+    "file": "app_node/controllers/sessionController.js",
+    "line_start": 33,
+    "line_end": 33,
+    "cwe": "CWE-384",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Regeneración Estricta de Identificador de Sesión",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/sessionController.js",
+        "anchor": {
+          "pattern": "// Regeneracion estricta del identificador de sesion ante cambio de privilegio",
+          "symbol": ""
+        },
+        "lines": [
+          33,
+          33
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0086",
+    "file": "app_python/auth_service.py",
+    "line_start": 57,
+    "line_end": 57,
+    "cwe": "CWE-330",
+    "owasp": "A02:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Generación Criptográfica Segura de Tokens de Recuperación",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_service.py",
+        "anchor": {
+          "pattern": "with open(REGISTRY_FILE, \"w\", encoding=\"utf-8\") as f:",
+          "symbol": ""
+        },
+        "lines": [
+          57,
+          57
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0087",
+    "file": "app_python/auth_service.py",
+    "line_start": 34,
+    "line_end": 34,
+    "cwe": "CWE-204",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Autenticación con Mensaje Genérico y Comparación en Tiempo Constante",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_service.py",
+        "anchor": {
+          "pattern": "USER_DATABASE: Dict[str, str] = {",
+          "symbol": ""
+        },
+        "lines": [
+          34,
+          34
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0088",
+    "file": "app_python/ssrf_client.py",
+    "line_start": 42,
+    "line_end": 42,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Cliente HTTP con Validación DNS y Filtro de IPs Privadas",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/ssrf_client.py",
+        "anchor": {
+          "pattern": "ip_obj.is_private or ip_obj.is_loopback",
+          "symbol": ""
+        },
+        "lines": [
+          42,
+          42
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0089",
+    "file": "app_python/yaml_parser.py",
+    "line_start": 22,
+    "line_end": 22,
+    "cwe": "CWE-502",
+    "owasp": "A08:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Carga Segura de YAML con yaml.safe_load",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/yaml_parser.py",
+        "anchor": {
+          "pattern": "def parse_config_yaml_catalog(yaml_text: str) -> Any:",
+          "symbol": ""
+        },
+        "lines": [
+          22,
+          22
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0090",
+    "file": "app_node/services/mergeUtil.js",
+    "line_start": 29,
+    "line_end": 29,
+    "cwe": "CWE-1321",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Combinación Segura de Objetos con Filtro de Claves Prohibidas",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/services/mergeUtil.js",
+        "anchor": {
+          "pattern": "FORBIDDEN_KEYS.has(key)",
+          "symbol": ""
+        },
+        "lines": [
+          29,
+          29
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0091",
+    "file": "requirements.txt",
+    "line_start": 4,
+    "line_end": 4,
+    "cwe": "CWE-1104",
+    "owasp": "A06:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "txt",
+    "title": "Trampa de Falso Positivo: Especificación de Librería Criptográfica en Versión Saneada",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "requirements.txt",
+        "anchor": {
+          "pattern": "cryptography==39.0.1",
+          "symbol": ""
+        },
+        "lines": [
+          4,
+          4
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0092",
+    "file": "package.json",
+    "line_start": 10,
+    "line_end": 10,
+    "cwe": "CWE-1104",
+    "owasp": "A06:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "json",
+    "title": "Trampa de Falso Positivo: Declaración de Módulo Express con Versión Parcheada",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "package.json",
+        "anchor": {
+          "pattern": "\"express\": \"^4.18.2\"",
+          "symbol": ""
+        },
+        "lines": [
+          10,
+          10
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0093",
+    "file": "infra/Dockerfile.hardened",
+    "line_start": 12,
+    "line_end": 12,
+    "cwe": "CWE-250",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "hardened",
+    "title": "Trampa de Falso Positivo: Dockerfile con Usuario Dedicado sin Privilegios y Healthcheck",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "infra/Dockerfile.hardened",
+        "anchor": {
+          "pattern": "USER appuser",
+          "symbol": ""
+        },
+        "lines": [
+          12,
+          12
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0094",
+    "file": "infra/docker-compose.hardened.yml",
+    "line_start": 8,
+    "line_end": 8,
+    "cwe": "CWE-732",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "yml",
+    "title": "Trampa de Falso Positivo: Docker Compose con Sistema de Archivos de Solo Lectura y Reducción de Capacidades",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "infra/docker-compose.hardened.yml",
+        "anchor": {
+          "pattern": "cap_drop:",
+          "symbol": ""
+        },
+        "lines": [
+          8,
+          8
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0095",
+    "file": "app_node/controllers/catalogController.js",
+    "line_start": 35,
+    "line_end": 35,
+    "cwe": "CWE-943",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Filtrado de Catálogo con Comparaciones Fuertemente Tipadas",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/catalogController.js",
+        "anchor": {
+          "pattern": "item.category === category",
+          "symbol": ""
+        },
+        "lines": [
+          35,
+          35
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0096",
+    "file": "app_python/archive_extractor.py",
+    "line_start": 36,
+    "line_end": 36,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Descompresión de Paquetes con Comprobación de commonpath",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/archive_extractor.py",
+        "anchor": {
+          "pattern": "os.path.commonpath([resolved_base, target_path])",
+          "symbol": ""
+        },
+        "lines": [
+          36,
+          36
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0097",
+    "file": "app_node/controllers/templateController.js",
+    "line_start": 30,
+    "line_end": 30,
+    "cwe": "CWE-1336",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Mensajes de Notificación con Plantilla Precompilada y Escape",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/templateController.js",
+        "anchor": {
+          "pattern": "Su solicitud ha sido procesada con exito",
+          "symbol": ""
+        },
+        "lines": [
+          30,
+          30
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0098",
+    "file": "app_node/services/billingService.js",
+    "line_start": 44,
+    "line_end": 44,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 4,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Flujo de Facturación Multi-Salto con Sentencia Parametrizada",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/services/billingService.js",
+        "anchor": {
+          "pattern": "SELECT * FROM orders WHERE user_id = ? AND item = ?",
+          "symbol": ""
+        },
+        "lines": [
+          44,
+          44
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0099",
+    "file": "app_node/services/internalServiceClient.js",
+    "line_start": 25,
+    "line_end": 25,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Cliente Inter-Servicio con Allowlist de Acciones y Token HMAC",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/services/internalServiceClient.js",
+        "anchor": {
+          "pattern": "ALLOWED_ACTIONS = new Set",
+          "symbol": ""
+        },
+        "lines": [
+          25,
+          25
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0100",
+    "file": "app_python/tasks/coupon_service.py",
+    "line_start": 53,
+    "line_end": 53,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Aplicación de Cupones con Bloqueo Atómico de Sincronización",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/tasks/coupon_service.py",
+        "anchor": {
+          "pattern": "with _LOCK:",
+          "symbol": ""
+        },
+        "lines": [
+          53,
+          53
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0101",
+    "file": "app_node/controllers/cartController.js",
+    "line_start": 49,
+    "line_end": 49,
+    "cwe": "CWE-1284",
+    "owasp": "A04:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Cálculo de Carrito con Validación Estricta de Cantidades Positivas",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/cartController.js",
+        "anchor": {
+          "pattern": "isNaN(qty) || qty <= 0 || qty > 100",
+          "symbol": ""
+        },
+        "lines": [
+          49,
+          49
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0102",
+    "file": "app_python/tasks/inventory_service.py",
+    "line_start": 42,
+    "line_end": 42,
+    "cwe": "CWE-367",
+    "owasp": "A04:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Decremento Atómico de Existencias con Exclusión Mutua",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/tasks/inventory_service.py",
+        "anchor": {
+          "pattern": "with _STOCK_LOCK:",
+          "symbol": ""
+        },
+        "lines": [
+          42,
+          42
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0103",
+    "file": "app_python/crypto_util.py",
+    "line_start": 35,
+    "line_end": 35,
+    "cwe": "CWE-327",
+    "owasp": "A02:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Cifrado Criptográfico Robusto con AES-256-GCM y Nonce Aleatorio",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/crypto_util.py",
+        "anchor": {
+          "pattern": "AESGCM(key_bytes[:32])",
+          "symbol": ""
+        },
+        "lines": [
+          35,
+          35
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0104",
+    "file": "app_node/services/tokenUtil.js",
+    "line_start": 20,
+    "line_end": 20,
+    "cwe": "CWE-338",
+    "owasp": "A02:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Generación Criptográfica de Tokens con crypto.randomBytes",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/services/tokenUtil.js",
+        "anchor": {
+          "pattern": "crypto.randomBytes(32).toString('hex')",
+          "symbol": ""
+        },
+        "lines": [
+          20,
+          20
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0105",
+    "file": "app_python/diagnostic_service.py",
+    "line_start": 35,
+    "line_end": 35,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Diagnóstico Seguro con Lista de Argumentos y shell=False",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/diagnostic_service.py",
+        "anchor": {
+          "pattern": "cmd_list = [\"ping\", \"-c\", \"1\", host_target]",
+          "symbol": ""
+        },
+        "lines": [
+          35,
+          35
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0106",
+    "file": "app_node/controllers/reportController.js",
+    "line_start": 32,
+    "line_end": 32,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Ordenación Dinámica Protegida con Lista Blanca de Columnas",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/reportController.js",
+        "anchor": {
+          "pattern": "ALLOWED_COLUMNS.has(department)",
+          "symbol": ""
+        },
+        "lines": [
+          32,
+          32
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0107",
+    "file": "app_python/profile_service.py",
+    "line_start": 37,
+    "line_end": 37,
+    "cwe": "CWE-915",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "py",
+    "title": "Trampa de Falso Positivo: Actualización de Perfil con Lista Blanca Estricta de Campos DTO",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/profile_service.py",
+        "anchor": {
+          "pattern": "ALLOWED_USER_FIELDS = {\"display_name\", \"bio\", \"phone\"}",
+          "symbol": ""
+        },
+        "lines": [
+          37,
+          37
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0108",
+    "file": "app_node/controllers/uploadController.js",
+    "line_start": 38,
+    "line_end": 38,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Almacenamiento de Archivos con Nombre UUID y Extensión Validada",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/uploadController.js",
+        "anchor": {
+          "pattern": "ALLOWED_EXTS.has(ext)",
+          "symbol": ""
+        },
+        "lines": [
+          38,
+          38
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0109",
+    "file": "app_node/server.js",
+    "line_start": 80,
+    "line_end": 80,
+    "cwe": "CWE-942",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Trampa de Falso Positivo: Configuración CORS con Rechazo Explícito de Origen 'null'",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "origin !== 'null'",
+          "symbol": ""
+        },
+        "lines": [
+          80,
+          80
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0110",
+    "file": "app_python/crypto_util.py",
+    "line_start": 54,
+    "line_end": 54,
+    "cwe": "CWE-328",
+    "owasp": "A02:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Clave de cache no criptografica calculada con funcion segura SHA-256",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/crypto_util.py",
+        "anchor": {
+          "pattern": "hashlib.sha256(data.encode(\"utf-8\")).hexdigest()",
+          "symbol": ""
+        },
+        "lines": [
+          54,
+          54
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0111",
+    "file": "app_python/app.py",
+    "line_start": 897,
+    "line_end": 897,
+    "cwe": "CWE-200",
+    "owasp": "A05:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Endpoint de estado que retorna unicamente version publica sin secretos",
+    "difficulty_level": 1,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/app.py",
+        "anchor": {
+          "pattern": "@app.route(\"/api/auth/login-enum\", methods=[\"POST\"])",
+          "symbol": ""
+        },
+        "lines": [
+          897,
+          897
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0112",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 50,
+    "line_end": 50,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa FP: Modificacion de orden con validacion estricta de sesion y propietario",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/orderController.js",
+        "anchor": {
+          "pattern": "if (order.ownerId !== currentUser) {",
+          "symbol": ""
+        },
+        "lines": [
+          50,
+          50
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0113",
+    "file": "app_python/auth_routes.py",
+    "line_start": 149,
+    "line_end": 149,
+    "cwe": "CWE-89",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Cross-Service evaluacion de liquidacion con casteo estricto a entero en Python",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_routes.py",
+        "anchor": {
+          "pattern": "clean_id = int(order_id)",
+          "symbol": ""
+        },
+        "lines": [
+          149,
+          149
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0114",
+    "file": "app_python/auth_routes.py",
+    "line_start": 156,
+    "line_end": 156,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Cross-Service archivo contable con validacion regex de caracteres alfanumericos",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_routes.py",
+        "anchor": {
+          "pattern": "if not re.match(r\"^[a-zA-Z0-9_\\-\\.]+$\", archive_name):",
+          "symbol": ""
+        },
+        "lines": [
+          156,
+          156
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0115",
+    "file": "app_python/auth_routes.py",
+    "line_start": 161,
+    "line_end": 161,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Cross-Service callback con validacion de allowlist y resolucion de IP privada",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/auth_routes.py",
+        "anchor": {
+          "pattern": "def fetch_settlement_callback_catalog(callback_url: str) -> Dict[str, Any]:",
+          "symbol": ""
+        },
+        "lines": [
+          161,
+          161
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0116",
+    "file": "app_node/services/internalServiceClient.js",
+    "line_start": 32,
+    "line_end": 32,
+    "cwe": "CWE-345",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa FP: Comunicacion inter-servicio protegida con firma HMAC y verificacion de vigencia temporal",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/services/internalServiceClient.js",
+        "anchor": {
+          "pattern": "crypto.createHmac('sha256', internalSecret || 'default_sec')",
+          "symbol": ""
+        },
+        "lines": [
+          32,
+          32
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0117",
+    "file": "app_python/jwt_service.py",
+    "line_start": 30,
+    "line_end": 30,
+    "cwe": "CWE-347",
+    "owasp": "A07:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Verificacion de JWT fijando algoritmo asimetrico RS256 y trust store local",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/jwt_service.py",
+        "anchor": {
+          "pattern": "algorithms=[\"RS256\"]",
+          "symbol": ""
+        },
+        "lines": [
+          30,
+          30
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0118",
+    "file": "app_python/tasks/coupon_service.py",
+    "line_start": 75,
+    "line_end": 75,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Conversion de divisas con precision decimal exacta y redondeo bancario",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/tasks/coupon_service.py",
+        "anchor": {
+          "pattern": "d_amount = Decimal(str(amount))",
+          "symbol": ""
+        },
+        "lines": [
+          75,
+          75
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0119",
+    "file": "app_node/controllers/orderController.js",
+    "line_start": 83,
+    "line_end": 83,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021",
+    "kind": "trap",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Trampa FP: Aplicacion de cupon protegida con bloqueo mutex atomico contra carreras",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/controllers/orderController.js",
+        "anchor": {
+          "pattern": "isCouponLocked = true;",
+          "symbol": ""
+        },
+        "lines": [
+          83,
+          83
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0120",
+    "file": "app_python/doc_service.py",
+    "line_start": 67,
+    "line_end": 67,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021",
+    "kind": "trap",
+    "hops": 4,
+    "split": "dev",
+    "language": "py",
+    "title": "Trampa FP: Transferencia encadenada con verificacion atomica previa de ambas cuentas",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "cross_file_dataflow"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_python/doc_service.py",
+        "anchor": {
+          "pattern": "def execute_chained_settlement_catalog(sender: str, receiver: str, amount: float, balances: Dict[str, float]) -> bool:",
+          "symbol": ""
+        },
+        "lines": [
+          67,
+          67
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0121",
+    "file": "app_node/server.js",
+    "line_start": 209,
+    "line_end": 209,
+    "cwe": "CWE-532",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/export",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/ledger/export', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          209,
+          209
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0122",
+    "file": "app_node/server.js",
+    "line_start": 212,
+    "line_end": 212,
+    "cwe": "CWE-345",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/webhook",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/ledger/webhook', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          212,
+          212
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0123",
+    "file": "app_node/server.js",
+    "line_start": 215,
+    "line_end": 215,
+    "cwe": "CWE-89",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/query",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/ledger/query', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          215,
+          215
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0124",
+    "file": "app_node/server.js",
+    "line_start": 218,
+    "line_end": 218,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/settle",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/ledger/settle', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          218,
+          218
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0125",
+    "file": "app_node/server.js",
+    "line_start": 221,
+    "line_end": 221,
+    "cwe": "CWE-117",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/trace",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/ledger/trace', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          221,
+          221
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0126",
+    "file": "app_node/server.js",
+    "line_start": 224,
+    "line_end": 224,
+    "cwe": "CWE-915",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/role",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/ledger/role', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          224,
+          224
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0127",
+    "file": "app_node/server.js",
+    "line_start": 227,
+    "line_end": 227,
+    "cwe": "CWE-601",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/redirect",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/ledger/redirect', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          227,
+          227
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0128",
+    "file": "app_node/server.js",
+    "line_start": 230,
+    "line_end": 230,
+    "cwe": "CWE-502",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/archive",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/ledger/archive', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          230,
+          230
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0129",
+    "file": "app_node/server.js",
+    "line_start": 233,
+    "line_end": 233,
+    "cwe": "CWE-345",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/signature",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/ledger/signature', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          233,
+          233
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0130",
+    "file": "app_node/server.js",
+    "line_start": 236,
+    "line_end": 236,
+    "cwe": "CWE-209",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/ledger/diagnostics",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/ledger/diagnostics', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          236,
+          236
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0131",
+    "file": "app_node/server.js",
+    "line_start": 239,
+    "line_end": 239,
+    "cwe": "CWE-359",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/statement",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/billing/statement', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          239,
+          239
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0132",
+    "file": "app_node/server.js",
+    "line_start": 242,
+    "line_end": 242,
+    "cwe": "CWE-918",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/callback",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/billing/callback', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          242,
+          242
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0133",
+    "file": "app_node/server.js",
+    "line_start": 245,
+    "line_end": 245,
+    "cwe": "CWE-362",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/refund",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/billing/refund', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          245,
+          245
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0134",
+    "file": "app_node/server.js",
+    "line_start": 248,
+    "line_end": 248,
+    "cwe": "CWE-89",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/filter",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/billing/filter', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          248,
+          248
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0135",
+    "file": "app_node/server.js",
+    "line_start": 251,
+    "line_end": 251,
+    "cwe": "CWE-840",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/discount",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/billing/discount', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          251,
+          251
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0136",
+    "file": "app_node/server.js",
+    "line_start": 254,
+    "line_end": 254,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/forward",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/billing/forward', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          254,
+          254
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0137",
+    "file": "app_node/server.js",
+    "line_start": 257,
+    "line_end": 257,
+    "cwe": "CWE-532",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/billing/notification",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/billing/notification', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          257,
+          257
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0138",
+    "file": "app_node/server.js",
+    "line_start": 260,
+    "line_end": 260,
+    "cwe": "CWE-79",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/preview",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/preview', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          260,
+          260
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0139",
+    "file": "app_node/server.js",
+    "line_start": 263,
+    "line_end": 263,
+    "cwe": "CWE-1321",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/import",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/import', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          263,
+          263
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0140",
+    "file": "app_node/server.js",
+    "line_start": 266,
+    "line_end": 266,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/resource",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/resource', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          266,
+          266
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0141",
+    "file": "app_node/server.js",
+    "line_start": 269,
+    "line_end": 269,
+    "cwe": "CWE-682",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/price",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/price', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          269,
+          269
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0142",
+    "file": "app_node/server.js",
+    "line_start": 272,
+    "line_end": 272,
+    "cwe": "CWE-117",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/search-log",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/search-log', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          272,
+          272
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0143",
+    "file": "app_node/server.js",
+    "line_start": 275,
+    "line_end": 275,
+    "cwe": "CWE-434",
+    "owasp": "A05:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/attachment",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/attachment', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          275,
+          275
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0144",
+    "file": "app_node/server.js",
+    "line_start": 278,
+    "line_end": 278,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/tenant",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/tenant', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          278,
+          278
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0145",
+    "file": "app_node/server.js",
+    "line_start": 281,
+    "line_end": 281,
+    "cwe": "CWE-915",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/merge",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/merge', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          281,
+          281
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0146",
+    "file": "app_node/server.js",
+    "line_start": 284,
+    "line_end": 284,
+    "cwe": "CWE-200",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/health-detail",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/health-detail', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          284,
+          284
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0147",
+    "file": "app_node/server.js",
+    "line_start": 287,
+    "line_end": 287,
+    "cwe": "CWE-78",
+    "owasp": "A03:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/command",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/command', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          287,
+          287
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0148",
+    "file": "app_node/server.js",
+    "line_start": 290,
+    "line_end": 290,
+    "cwe": "CWE-918",
+    "owasp": "A10:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/fetch",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/fetch', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          290,
+          290
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0149",
+    "file": "app_node/server.js",
+    "line_start": 293,
+    "line_end": 293,
+    "cwe": "CWE-20",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/queue",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/queue', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          293,
+          293
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0150",
+    "file": "app_node/server.js",
+    "line_start": 296,
+    "line_end": 296,
+    "cwe": "CWE-1395",
+    "owasp": "A06:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/catalog/version",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/version', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          296,
+          296
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0151",
+    "file": "app_node/server.js",
+    "line_start": 299,
+    "line_end": 299,
+    "cwe": "CWE-862",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/orders/approve",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/orders/approve', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          299,
+          299
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0152",
+    "file": "app_node/server.js",
+    "line_start": 302,
+    "line_end": 302,
+    "cwe": "CWE-639",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/orders/history",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/orders/history', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          302,
+          302
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0153",
+    "file": "app_node/server.js",
+    "line_start": 306,
+    "line_end": 306,
+    "cwe": "CWE-682",
+    "owasp": "A04:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/orders/price",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/orders/price', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          306,
+          306
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0154",
+    "file": "app_node/server.js",
+    "line_start": 309,
+    "line_end": 309,
+    "cwe": "CWE-862",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/orders/claim",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/orders/claim', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          309,
+          309
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0155",
+    "file": "app_node/server.js",
+    "line_start": 312,
+    "line_end": 312,
+    "cwe": "CWE-200",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/orders/export",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/orders/export', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          312,
+          312
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0156",
+    "file": "app_node/server.js",
+    "line_start": 315,
+    "line_end": 315,
+    "cwe": "CWE-294",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/orders/replay",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/orders/replay', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          315,
+          315
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0157",
+    "file": "app_node/server.js",
+    "line_start": 318,
+    "line_end": 318,
+    "cwe": "CWE-209",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 2,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/reports/debug",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/reports/debug', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          318,
+          318
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0158",
+    "file": "app_node/server.js",
+    "line_start": 321,
+    "line_end": 321,
+    "cwe": "CWE-359",
+    "owasp": "A09:2021",
+    "kind": "vuln",
+    "hops": 3,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/reports/subscribe",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/reports/subscribe', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          321,
+          321
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0159",
+    "file": "app_node/server.js",
+    "line_start": 324,
+    "line_end": 324,
+    "cwe": "CWE-345",
+    "owasp": "A08:2021",
+    "kind": "vuln",
+    "hops": 4,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/webhooks/events",
+    "difficulty_level": 4,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/webhooks/events', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          324,
+          324
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0160",
+    "file": "app_node/server.js",
+    "line_start": 327,
+    "line_end": 327,
+    "cwe": "CWE-22",
+    "owasp": "A01:2021",
+    "kind": "vuln",
+    "hops": 1,
+    "split": "dev",
+    "language": "js",
+    "title": "Business endpoint exposure at /api/files/share",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection",
+      "business_logic_analysis"
+    ],
+    "locations": [
+      {
+        "role": "sink",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/files/share', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          327,
+          327
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0161",
+    "file": "app_node/server.js",
+    "line_start": 333,
+    "line_end": 333,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/preview-safe",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/render', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          333,
+          333
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0162",
+    "file": "app_node/server.js",
+    "line_start": 337,
+    "line_end": 337,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/signature-check",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/signature-check', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          337,
+          337
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0163",
+    "file": "app_node/server.js",
+    "line_start": 341,
+    "line_end": 341,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/role-change",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/role-change', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          341,
+          341
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0164",
+    "file": "app_node/server.js",
+    "line_start": 345,
+    "line_end": 345,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/order-approve",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/order-approve', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          345,
+          345
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0165",
+    "file": "app_node/server.js",
+    "line_start": 349,
+    "line_end": 349,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/refund-check",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/refund-check', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          349,
+          349
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0166",
+    "file": "app_node/server.js",
+    "line_start": 353,
+    "line_end": 353,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/tenant-record",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/tenant-record', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          353,
+          353
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0167",
+    "file": "app_node/server.js",
+    "line_start": 357,
+    "line_end": 357,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/event",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/event', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          357,
+          357
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0168",
+    "file": "app_node/server.js",
+    "line_start": 361,
+    "line_end": 361,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/replay-check",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/replay-check', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          361,
+          361
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0169",
+    "file": "app_node/server.js",
+    "line_start": 365,
+    "line_end": 365,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/private-file",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/private-file', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          365,
+          365
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0170",
+    "file": "app_node/server.js",
+    "line_start": 369,
+    "line_end": 369,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/settings",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/settings', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          369,
+          369
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0171",
+    "file": "app_node/server.js",
+    "line_start": 373,
+    "line_end": 373,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/service-info",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/service-info', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          373,
+          373
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0172",
+    "file": "app_node/server.js",
+    "line_start": 376,
+    "line_end": 376,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/queue-task",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/queue-task', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          376,
+          376
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0173",
+    "file": "app_node/server.js",
+    "line_start": 380,
+    "line_end": 380,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 3,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/customer",
+    "difficulty_level": 3,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.get('/api/catalog/customer', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          380,
+          380
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0174",
+    "file": "app_node/server.js",
+    "line_start": 384,
+    "line_end": 384,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 1,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/export",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/export', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          384,
+          384
+        ],
+        "primary": true
+      }
+    ]
+  },
+  {
+    "id": "PV-0175",
+    "file": "app_node/server.js",
+    "line_start": 388,
+    "line_end": 388,
+    "cwe": "CWE-20",
+    "owasp": "A01:2021",
+    "kind": "trap",
+    "hops": 2,
+    "split": "test",
+    "language": "js",
+    "title": "Business endpoint validation at /api/catalog/notification",
+    "difficulty_level": 2,
+    "status": "verified",
+    "detection_capabilities_needed": [
+      "sink_detection"
+    ],
+    "locations": [
+      {
+        "role": "missing_control",
+        "file": "app_node/server.js",
+        "anchor": {
+          "pattern": "app.post('/api/catalog/notification', (req, res) => {",
+          "symbol": ""
+        },
+        "lines": [
+          388,
+          388
+        ],
+        "primary": true
+      }
+    ]
+  }
+]

@@ -10,7 +10,7 @@ from typing import Any, Dict
 import xml.etree.ElementTree as ET
 
 
-def parse_invoice_xml_raw(xml_content: str) -> Dict[str, Any]:
+def parse_invoice_xml(xml_content: str) -> Dict[str, Any]:
     """Parsea el contenido XML de una factura comercial.
 
     Procesa el arbol XML directamente a partir de la cadena provista.
@@ -28,7 +28,7 @@ def parse_invoice_xml_raw(xml_content: str) -> Dict[str, Any]:
     }
 
 
-def parse_invoice_xml_safe(xml_content: str) -> Dict[str, Any]:
+def parse_invoice_xml_catalog(xml_content: str) -> Dict[str, Any]:
     """Parsea el contenido XML de forma segura rechazando DTD y entidades externas."""
     # Rechazo estricto de declaraciones DOCTYPE y entidades externas
     if "<!DOCTYPE" in xml_content.upper() or "<!ENTITY" in xml_content.upper():

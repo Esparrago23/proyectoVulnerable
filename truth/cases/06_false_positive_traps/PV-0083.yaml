@@ -1,0 +1,57 @@
+id: PV-0083
+kind: trap
+status: verified
+title: 'Trampa de Falso Positivo: Creación de Archivos Temporales con Nombre Aleatorio
+  y Permisos 0600'
+description: Generación de archivos temporales mediante NamedTemporaryFile con prefijo
+  aleatorio y chmod 0600 restrictivo.
+taxonomy:
+  owasp_2021: A01:2021
+  owasp_2025: A01:2025
+  cwe_primary: CWE-377
+  cwe_accepted:
+  - CWE-20
+  - CWE-200
+severity:
+  score: 0.0
+  level: info
+  cvss_v4_vector: CVSS:4.0/AV:N/AC:H/AT:N/PR:H/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N
+difficulty:
+  hops: 1
+  cross_language: false
+  cross_service: false
+  requires_runtime_state: false
+  requires_business_context: false
+  partial_sanitizer: false
+  framework_indirection: false
+  config_or_dependency: false
+  computed_level: 1
+locations:
+- role: sink
+  file: app_python/tasks/export_task.py
+  anchor:
+    pattern: def export_report_secure
+    symbol: ''
+  lines:
+  - 25
+  - 25
+  primary: true
+attack_surface:
+  service: app_python
+  entrypoint:
+    method: POST
+    path: /api/safe/reports/export
+    body:
+      report_name: quarterly_audit
+      data:
+        status: ok
+  auth_required: none
+detection_capabilities_needed:
+- sink_detection
+proof:
+  exploit_test: tests/exploits/test_pv_0083.py
+  expected_evidence: sec_report_
+split: dev
+provenance:
+  legacy_id: PV-TRAP-023
+twin: PV-0037

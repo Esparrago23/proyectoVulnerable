@@ -9,7 +9,7 @@ from typing import Any, Dict
 import yaml
 
 
-def parse_config_yaml_direct(yaml_text: str) -> Any:
+def parse_config_yaml(yaml_text: str) -> Any:
     """Carga la estructura YAML empleando el cargador completo por defecto.
 
     Deserializa la cadena YAML permitiendo la construccion de instancias de tipos arbitrarios.
@@ -19,8 +19,8 @@ def parse_config_yaml_direct(yaml_text: str) -> Any:
     return parsed
 
 
-def parse_config_yaml_safe(yaml_text: str) -> Any:
+def parse_config_yaml_catalog(yaml_text: str) -> Any:
     """Carga la estructura YAML de forma segura restringiendo a tipos primitivos estandar."""
     # Deserializacion segura limitada exclusivamente a escalares, listas y diccionarios
-    parsed = yaml.safe_load(yaml_text)
+    parsed = yaml.catalog_load(yaml_text)
     return parsed

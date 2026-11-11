@@ -13,12 +13,12 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-function postFeedbackRaw(req, res) {
+function postFeedback(req, res) {
   const author = req.body.author || 'Anonimo';
   const message = req.body.message || '';
 
   // Almacenamiento directo del mensaje recibido sin codificacion contextual
-  dbClient.insertFeedbackRaw(author, message, (err, feedback) => {
+  dbClient.insertFeedback(author, message, (err, feedback) => {
     if (err) return res.status(500).json({ error: err.message });
     const renderedCard = `<div class="feedback-item"><strong>${author}</strong>: ${message}</div>`;
     res.setHeader('Content-Type', 'text/html');
@@ -26,16 +26,16 @@ function postFeedbackRaw(req, res) {
   });
 }
 
-function postFeedbackSafe(req, res) {
+function postFeedbackCatalog(req, res) {
   const author = escapeHtml(req.body.author || 'Anonimo');
   const message = escapeHtml(req.body.message || '');
 
   // Almacenamiento seguro con codificacion de entidades HTML para neutralizar inyeccion
-  dbClient.insertFeedbackSafe(author, message, (err, feedback) => {
+  dbClient.insertFeedbackCatalog(author, message, (err, feedback) => {
     if (err) return res.status(500).json({ error: err.message });
-    const safeCard = `<div class="feedback-item"><strong>${author}</strong>: ${message}</div>`;
+    const catalogCard = `<div class="feedback-item"><strong>${author}</strong>: ${message}</div>`;
     res.setHeader('Content-Type', 'text/html');
-    res.send(safeCard);
+    res.send(catalogCard);
   });
 }
 
@@ -47,7 +47,7 @@ function listFeedbacks(req, res) {
 }
 
 module.exports = {
-  postFeedbackRaw,
-  postFeedbackSafe,
+  postFeedback,
+  postFeedbackCatalog,
   listFeedbacks,
 };

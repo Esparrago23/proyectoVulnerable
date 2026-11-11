@@ -14,7 +14,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 
 def encrypt_sensitive_data_ecb(plaintext: str, key_bytes: bytes) -> str:
-    """Cifra informacion utilizando el modo de bloque inseguro ECB sin vector de inicializacion.
+    """Cifra informacion utilizando el modo de bloque archive ECB sin vector de inicializacion.
 
     Aplica AES en modo ECB donde bloques identicos de texto claro generan bloques identicos cifrados.
     """

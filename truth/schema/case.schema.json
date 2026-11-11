@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "status",
+    "title",
+    "description",
+    "taxonomy",
+    "severity",
+    "difficulty",
+    "locations",
+    "attack_surface",
+    "detection_capabilities_needed",
+    "proof",
+    "split"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^PV-[0-9]{4}$" },
+    "kind": { "enum": ["vuln", "trap"] },
+    "status": { "enum": ["verified", "unverified"] },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "taxonomy": {
+      "type": "object",
+      "required": ["owasp_2021", "cwe_primary"],
+      "properties": {
+        "owasp_2021": { "type": "string" },
+        "owasp_2025": { "type": "string" },
+        "cwe_primary": { "type": "string", "pattern": "^CWE-[0-9]+$" },
+        "cwe_accepted": { "type": "array", "items": { "type": "string", "pattern": "^CWE-[0-9]+$" } }
+      },
+      "additionalProperties": true
+    },
+    "severity": {
+      "type": "object",
+      "required": ["score", "level"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 10 },
+        "level": { "enum": ["critical", "high", "medium", "low", "info"] }
+      },
+      "additionalProperties": true
+    },
+    "difficulty": {
+      "type": "object",
+      "required": ["hops", "computed_level"],
+      "properties": {
+        "hops": { "type": "integer", "minimum": 1 },
+        "computed_level": { "type": "integer", "minimum": 1, "maximum": 4 }
+      },
+      "additionalProperties": true
+    },
+    "locations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "file", "anchor", "lines", "primary"],
+        "properties": {
+          "role": { "enum": ["source", "propagation", "sink", "missing_control", "config", "dependency"] },
+          "file": { "type": "string" },
+          "anchor": { "type": "object" },
+          "lines": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer", "minimum": 1 } },
+          "primary": { "type": "boolean" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "proof": {
+      "type": "object",
+      "required": ["exploit_test", "expected_evidence"],
+      "properties": {
+        "exploit_test": { "type": "string" },
+        "expected_evidence": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "split": { "enum": ["dev", "test"] },
+    "twin": { "type": ["string", "null"], "pattern": "^PV-[0-9]{4}$" }
+  },
+  "additionalProperties": true
+}
